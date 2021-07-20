@@ -1,0 +1,10 @@
+# dotenv
+.env
+*.env
+# config
+config.json
+# folders
+venv/*
+db/*
+env/*
+config/*
