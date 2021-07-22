@@ -24,21 +24,12 @@ class Utility(commands.Cog):
         """
         await ctx.send(f'My current ping is {round (self.client.latency * 1000)}ms')
 
-    @commands.command(aliases=['inv', 'i'], description='Get the public server invite.', usage=f'Usage: {PREFIX}invite\nExample: {PREFIX}invite')
-    @commands.has_guild_permissions(send_messages=True, embed_links=True)
-    async def invite(self, ctx):
-        """
-        :param ctx:
-        :return:
-        """
-        await ctx.send('https://discord.me/BDG')
-
     @commands.command(aliases=['av', 'pfp'], description='Display a member\'s avatar', usage=f'Usage: {PREFIX}avatar [member]\nExample: {PREFIX}avatar @JohnDoe')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
     async def avatar(self, ctx, member: discord.Member = None):
         if member is None:
             member = ctx.author
-        emb = discord.Embed(color=discord.Color.dark_red())
+        emb = discord.Embed(color=discord.Color.random())
         emb.set_image(url=member.avatar_url)
         await ctx.send(embed=emb)
 
