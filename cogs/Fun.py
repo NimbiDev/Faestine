@@ -123,9 +123,9 @@ class Fun(commands.Cog):
 
         _url = await TENOR.arandom(str(_text))
 
-        embed = discord.Embed(colour=discord.Colour.random())
-        embed.set_image(url=_url)
-        await ctx.send(embed=embed)
+        _emb = discord.Embed(colour=discord.Colour.random())
+        _emb.set_image(url=_url)
+        await ctx.send(embed=_emb)
 
     @_gif.error
     async def _gif_error(self, ctx, error):

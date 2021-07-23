@@ -22,7 +22,7 @@ class Mod(commands.Cog):
                 authors[message.author] = 1
             else:
                 authors[message.author] += 1
-            message.delete()
+            await message.delete()
 
         msg = "\n".join([f'{author}: {amount}' for author, amount in authors.items()])
 
