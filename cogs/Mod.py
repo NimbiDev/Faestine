@@ -16,8 +16,16 @@ class Mod(commands.Cog):
                       usage=f'Usage: {PREFIX}purge [amount]\nExample: {PREFIX}purge 99')
     @commands.has_guild_permissions(manage_messages=True)
     async def purge(self, ctx, amount: int):
-        await ctx.channel.purge(limit=amount + 1)
-        await ctx.send(f'Successfully deleted {amount} messages.', delete_after=20)
+        authors = {}
+        async for message in ctx.channel.history(limit=amount):
+            if message.author not in authors:
+                authors[message.author] = 1
+            else:
+                authors[message.author] += 1
+            message.delete()
+
+        msg = "\n".join([f"{author}:{amount}" for author, amount in authors.items()])
+        await ctx.channel.send(msg)
 
 
 def setup(client):
