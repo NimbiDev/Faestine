@@ -266,7 +266,6 @@ class Events(commands.Cog):
                 traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
                 await ctx.send('You do not have permission to do that!')
 
-
             elif isinstance(error, commands.NotOwner):
                 if ctx.command.qualified_name == 'load':
                     print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
@@ -286,57 +285,68 @@ class Events(commands.Cog):
                     print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
                     traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
                     await ctx.send(
-                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX, ctx.command))
+                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX,
+                                                                                                     ctx.command))
                 if ctx.command.qualified_name == 'unload':
                     print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
                     traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
                     await ctx.send(
-                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX, ctx.command))
+                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX,
+                                                                                                     ctx.command))
                 if ctx.command.qualified_name == 'reload':
                     print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
                     traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
                     await ctx.send(
-                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX, ctx.command))
+                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX,
+                                                                                                     ctx.command))
                 if ctx.command.qualified_name == 'purge':
                     print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
                     traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
                     await ctx.send(
-                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX, ctx.command))
+                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX,
+                                                                                                     ctx.command))
                 if ctx.command.qualified_name == 'kick':
                     print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
                     traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
                     await ctx.send(
-                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX, ctx.command))
+                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX,
+                                                                                                     ctx.command))
                 if ctx.command.qualified_name == 'mute':
                     print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
                     traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
                     await ctx.send(
-                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX, ctx.command))
+                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX,
+                                                                                                     ctx.command))
                 if ctx.command.qualified_name == 'warn':
                     print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
                     traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
                     await ctx.send(
-                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX, ctx.command))
+                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX,
+                                                                                                     ctx.command))
                 if ctx.command.qualified_name == 'move':
                     print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
                     traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
                     await ctx.send(
-                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX, ctx.command))
+                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX,
+                                                                                                     ctx.command))
                 if ctx.command.qualified_name == 'ban':
                     print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
                     traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
                     await ctx.send(
-                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX, ctx.command))
+                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX,
+                                                                                                     ctx.command))
                 if ctx.command.qualified_name == 'tempmute':
                     print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
                     traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
                     await ctx.send(
-                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX, ctx.command))
+                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX,
+                                                                                                     ctx.command))
                 if ctx.command.qualified_name == 'announce':
                     print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
                     traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
                     await ctx.send(
-                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX, ctx.command))
+                        'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX,
+                                                                                                     ctx.command))
 
         else:
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
