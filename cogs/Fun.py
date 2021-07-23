@@ -28,13 +28,13 @@ class Fun(commands.Cog):
     @commands.command(aliases=['t'], description='Return a random gif by tag from tenor.', usage=f'Usage: {PREFIX}tenor [query]\nExample: {PREFIX}tenor dog')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
     async def tenor(self, ctx, *, text):
-        response = await TENOR.random(str(text))
+        response = await TENOR.arandom(str(text))
         await ctx.send(f'{response}')
 
     @commands.command(aliases=['g'], description='Return a random gif by tag from giphy.', usage=f'Usage: {PREFIX}giphy [query]\nExample: {PREFIX}giphy dog')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
     async def giphy(self, ctx, *, text):
-        response = await GIPHY.random(str(text))
+        response = await GIPHY.arandom(str(text))
         await ctx.send(f'{response}')
 
 
