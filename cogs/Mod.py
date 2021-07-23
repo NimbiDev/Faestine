@@ -24,7 +24,7 @@ class Mod(commands.Cog):
                 authors[message.author] += 1
             message.delete()
 
-        msg = "\n".join([f"{author}:{amount}" for author, amount in authors.items()])
+        msg = "\n".join([f'**__Messages Purged__**\n```yaml\n{author}: {amount}\n```' for author, amount in authors.items()])
 
         await ctx.channel.purge(limit=amount + 1)
         await ctx.channel.send(msg, delete_after=20)
