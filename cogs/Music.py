@@ -18,14 +18,14 @@ ytdlopts = {
     'format': 'bestaudio/best',
     'outtmpl': 'downloads/%(extractor)s-%(id)s-%(title)s.%(ext)s',
     'restrictfilenames': True,
-    'noplaylist': True,
+    'noplaylist': False,
     'nocheckcertificate': True,
     'ignoreerrors': False,
     'logtostderr': False,
     'quiet': True,
     'no_warnings': True,
     'default_search': 'auto',
-    'source_address': '0.0.0.0'  # ipv6 addresses cause issues sometimes
+    'source_address': '0.0.0.0'
 }
 
 ffmpegopts = {
@@ -53,13 +53,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
         self.title = data.get('title')
         self.web_url = data.get('webpage_url')
 
-        # YTDL info dicts (data) have other useful information you might want
-        # https://github.com/rg3/youtube-dl/blob/master/README.md
-
     def __getitem__(self, item: str):
-        """Allows us to access attributes similar to a dict.
-        This is only useful when you are NOT downloading.
-        """
         return self.__getattribute__(item)
 
     @classmethod
@@ -84,8 +78,6 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
     @classmethod
     async def regather_stream(cls, data, *, loop):
-        """Used for preparing a stream, instead of downloading.
-        Since Youtube Streaming links expire."""
         loop = loop or asyncio.get_event_loop()
         requester = data['requester']
 
@@ -96,12 +88,6 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
 
 class MusicPlayer:
-    """A class which is assigned to each guild using the bot for Music.
-    This class implements a queue and loop, which allows for different guilds to listen to different playlists
-    simultaneously.
-    When the bot disconnects from the Voice it's instance will be destroyed.
-    """
-
     __slots__ = ('bot', '_guild', '_channel', '_cog', 'queue', 'next', 'current', 'np', 'volume')
 
     def __init__(self, ctx):
@@ -113,21 +99,19 @@ class MusicPlayer:
         self.queue = asyncio.Queue()
         self.next = asyncio.Event()
 
-        self.np = None  # Now playing message
+        self.np = None
         self.volume = .5
         self.current = None
 
         ctx.bot.loop.create_task(self.player_loop())
 
     async def player_loop(self):
-        """Our main player loop."""
         await self.bot.wait_until_ready()
 
         while not self.bot.is_closed():
             self.next.clear()
 
             try:
-                # Wait for the next song. If we timeout cancel the player and disconnect...
                 async with timeout(300):  # 5 minutes...
                     source = await self.queue.get()
             except asyncio.TimeoutError:
@@ -136,8 +120,7 @@ class MusicPlayer:
                 return
 
             if not isinstance(source, YTDLSource):
-                # Source was probably a stream (not downloaded)
-                # So we should regather to prevent stream expiration
+
                 try:
                     source = await YTDLSource.regather_stream(source, loop=self.bot.loop)
                 except Exception as e:
@@ -153,24 +136,21 @@ class MusicPlayer:
                                                f'`{source.requester}`')
             await self.next.wait()
 
-            # Make sure the FFmpeg process is cleaned up.
             source.cleanup()
             self.current = None
 
             try:
-                # We are no longer playing this song...
+
                 await self.np.delete()
             except discord.HTTPException:
                 pass
 
     def destroy(self, guild):
-        """Disconnect and cleanup the player."""
+
         return self.bot.loop.create_task(self._cog.cleanup(guild))
 
 
 class Music(commands.Cog):
-    """Music related commands."""
-
     __slots__ = ('bot', 'players')
 
     def __init__(self, bot):
@@ -197,13 +177,11 @@ class Music(commands.Cog):
             pass
 
     async def __local_check(self, ctx):
-        """A local check which applies to all commands in this cog."""
         if not ctx.guild:
             raise commands.NoPrivateMessage
         return True
 
     async def __error(self, ctx, error):
-        """A local error handler for all errors arising from commands in this cog."""
         if isinstance(error, commands.NoPrivateMessage):
             try:
                 return await ctx.send('This command can not be used in Private Messages.')
@@ -217,7 +195,6 @@ class Music(commands.Cog):
         traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
     def get_player(self, ctx):
-        """Retrieve the guild player, or generate one."""
         try:
             player = self.players[ctx.guild.id]
         except KeyError:
@@ -226,16 +203,8 @@ class Music(commands.Cog):
 
         return player
 
-    @commands.command(name='connect', aliases=['join'])
-    async def connect_(self, ctx, *, channel: discord.VoiceChannel = None):
-        """Connect to voice.
-        Parameters
-        ------------
-        channel: discord.VoiceChannel [Optional]
-            The channel to connect to. If a channel is not specified, an attempt to join the voice channel you are in
-            will be made.
-        This command also handles moving the bot to different channels.
-        """
+    @commands.command(aliases=['join', 'summon'], description='Connect the bot to your voice channel', usage=f'Usage: {PREFIX}connect\nExample: {PREFIX}connect')
+    async def connect(self, ctx, *, channel: discord.VoiceChannel = None):
         if not channel:
             try:
                 channel = ctx.author.voice.channel
@@ -261,17 +230,13 @@ class Music(commands.Cog):
 
     @commands.command(aliases=['p'], description='Request a song and add it to the queue.', usage=f'Usage: {PREFIX}play [song]\nExample: {PREFIX}play Darude - Sandstorm')
     async def play(self, ctx, *, search: str):
-        """
-        :param ctx:
-        :param search:
-        :return:
-        """
+
         await ctx.trigger_typing()
 
         vc = ctx.voice_client
 
         if not vc:
-            await ctx.invoke(self.connect_)
+            await ctx.invoke(self.connect)
 
         player = self.get_player(ctx)
 
@@ -281,10 +246,7 @@ class Music(commands.Cog):
 
     @commands.command(description='Pause the currently playing song.', usage=f'Usage: {PREFIX}pause\nExample" {PREFIX}pause')
     async def pause(self, ctx):
-        """
-        :param ctx:
-        :return:
-        """
+
         vc = ctx.voice_client
 
         if not vc or not vc.is_playing():
@@ -297,10 +259,7 @@ class Music(commands.Cog):
 
     @commands.command(aliases=['continue'], description='Resume the currently paused song.', usage=f'Usage: {PREFIX}resume\nExample: {PREFIX}resume')
     async def resume(self, ctx):
-        """
-        :param ctx:
-        :return:
-        """
+
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
@@ -313,10 +272,7 @@ class Music(commands.Cog):
 
     @commands.command(aliases=['next'], description='Skip the song.', usage=f'Usage: {PREFIX}skip\nExample: {PREFIX}skip')
     async def skip(self, ctx):
-        """
-        :param ctx:
-        :return:
-        """
+
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
@@ -332,10 +288,7 @@ class Music(commands.Cog):
 
     @commands.command(aliases=['q', 'list'], description='Retrieve a basic queue of upcoming songs.', usage=f'Usage: {PREFIX}queue\nExample: {PREFIX}queue')
     async def queue(self, ctx):
-        """
-        :param ctx:
-        :return:
-        """
+
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
@@ -355,10 +308,7 @@ class Music(commands.Cog):
 
     @commands.command(aliases=['np', 'current', 'playing'], description='Display information about the currently playing song.', usage=f'Usage: {PREFIX}nowplaying\nExample: {PREFIX}nowplaying')
     async def nowplaying(self, ctx):
-        """
-        :param ctx:
-        :return:
-        """
+
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
@@ -369,7 +319,7 @@ class Music(commands.Cog):
             return await ctx.send('I am not currently playing anything!')
 
         try:
-            # Remove our previous now_playing message.
+
             await player.np.delete()
         except discord.HTTPException:
             pass
@@ -379,11 +329,7 @@ class Music(commands.Cog):
 
     @commands.command(aliases=['vol', 'v', 'cv'], description='Change the player volume.', usage=f'Usage: {PREFIX}volume [1-100]\nExample: {PREFIX}volume 25')
     async def volume(self, ctx, *, vol: float):
-        """
-        :param ctx:
-        :param vol:
-        :return:
-        """
+
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
@@ -402,10 +348,7 @@ class Music(commands.Cog):
 
     @commands.command(aliases=['s', 'disconnect', 'leave', 'dc'], description='Stop the currently playing song and destroy the player.', usage=f'Usage: {PREFIX}stop\nExample: {PREFIX}stop')
     async def stop(self, ctx):
-        """
-        :param ctx:
-        :return:
-        """
+
         vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
