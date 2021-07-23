@@ -1,54 +1,42 @@
 import discord
-import os
-import TenGiphPy
-from discord.ext import commands
-from dotenv import load_dotenv
+    import os
+    import aiohttp
+    import random
+    import json
+    from discord.ext import commands
+    from dotenv import load_dotenv
 
-load_dotenv()
-
-PREFIX = os.getenv('COMMAND_PREFIX')
-OSU_API_TOKEN = os.getenv('OSU_TOKEN')
-GW2_API_TOKEN = os.getenv('GW2_TOKEN')
-TENOR_API_TOKEN = os.getenv('TENOR_TOKEN')
-GIPHY_API_TOKEN = os.getenv('GIPHY_TOKEN')
-
-tokens = {'tenor': f'{TENOR_API_TOKEN}',
-          'giphy': f'{GIPHY_API_TOKEN}'}
-
-t = TenGiphPy.Tenor(token=tokens['tenor'])
-g = TenGiphPy.Giphy(token=tokens['giphy'])
+    load_dotenv()
+    PREFIX = os.getenv('COMMAND_PREFIX')
+    TENOR_API_TOKEN = os.getenv('TENOR_TOKEN')
 
 
-class Fun(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    class Fun(commands.Cog):
+        def __init__(self, client):
+            self.client = client
 
-    @commands.command(aliases=['t'], description='Return a random gif by tag from tenor.', usage=f'Usage: {PREFIX}tenor [query]\nExample: {PREFIX}tenor dog')
-    @commands.has_guild_permissions(send_messages=True, embed_links=True)
-    async def tenor(self, ctx, *, giftag):
-        getgifurl = await t.arandom(str(giftag))
-        await ctx.send(f'{getgifurl}')
+        @commands.command(aliases=['g'], description='Get a random gif from tenor via tag', usage=f'Usage: {PREFIX}gif [tag]\nExample: {PREFIX}gif dog')
+        @commands.has_guild_permissions(send_messages=True, embed_links=True)
+        async def gif(self, ctx, query):
+            async with aiohttp.ClientSession() as session:
+                embed = discord.Embed(
+                    colour=discord.Colour.dark_red())
+                response = await session.get(
+                    f'https://api.tenor.com/v1/search?q={query}&key={TENOR_API_TOKEN}&limit=30&media_filter=basic')
+                data = json.loads(await response.text())
+                gif_choice = random.randint(0, 29)
 
-    @tenor.error
-    async def tenor_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send(':x: Gif tag cant be None. Please give a valid tag to search.')
-        else:
-            raise error
+                for result in data['results']:
+                    print('- result -')
+                    # print(result)
 
-    @commands.command(aliases=['g'], description='Return a random gif by tag from giphy.', usage=f'Usage: {PREFIX}giphy [query]\nExample: {PREFIX}giphy dog')
-    @commands.has_guild_permissions(send_messages=True, embed_links=True)
-    async def giphy(self, ctx, *, giftag):
-        getgifurl = await g.arandom(str(giftag))
-        await ctx.send(f'{getgifurl}')
+                    for media in result['media']:
+                        print('- media -')
+                        # print(media)
+                        # print(media['gif'])
+                        print('url:', media['gif']['url'])
 
-    @giphy.error
-    async def giphy_error(self, ctx, error):
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send(':x: Gif tag cant be None. Please give a valid tag to search.')
-        else:
-            raise error
+                        embed.set_image(url=data['results'][0][gif_choice]['gif']['url'])
 
-
-def setup(client):
-    client.add_cog(Fun(client))
+            await session.close()
+            await ctx.send(embed=embed)
