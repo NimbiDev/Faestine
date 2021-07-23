@@ -7,6 +7,8 @@ load_dotenv()
 PREFIX = os.getenv('COMMAND_PREFIX')
 GUILD = os.getenv('GUILD_ID')
 TWITCH_URL = os.getenv('TWITCH_CHANNEL')
+WELCOME_CHANNEL = os.getenv('WELCOME_CHANNEL_NAME')
+WELCOME_IMAGE = os.getenv('WELCOME_IMAGE_URL')
 
 
 class Events(commands.Cog):
@@ -18,8 +20,19 @@ class Events(commands.Cog):
         """
         :return:
         """
+
         await self.client.change_presence(status=discord.Status.online, activity=discord.Streaming(name=f'{PREFIX}help', url=TWITCH_URL))
         print(f'{self.client.user.name} is online!')
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        for channel in member.guild.channels:
+            if str(channel) == WELCOME_CHANNEL:
+                embed = discord.Embed(color=discord.colour.Color.random())
+                embed.add_field(name="Welcome", value=f"{member.name} has joined {member.guild.name}", inline=False)
+                embed.set_image(
+                    url=WELCOME_IMAGE)
+                await channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
