@@ -27,7 +27,7 @@ class Fun(commands.Cog):
         _url = await TENOR.arandom(str(_text))
 
         embed = discord.Embed(colour=discord.Colour.random())
-        embed.set_image(url=f'{_url}')
+        embed.set_image(url=_url)
         await ctx.send(embed=embed)
 
     @tenor.error
