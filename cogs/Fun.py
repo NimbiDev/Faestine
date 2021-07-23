@@ -20,9 +20,9 @@ class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=['t'], description='Return a random gif by tag from tenor.', usage=f'Usage: {PREFIX}tenor [query]\nExample: {PREFIX}tenor dog')
+    @commands.command(name='gif', aliases=['tenor'], description='Return a random gif by tag', usage=f'Usage: {PREFIX}gif [query]\nExample: {PREFIX}gif dog')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
-    async def tenor(self, ctx, *, _text):
+    async def gif_(self, ctx, *, _text):
 
         _url = await TENOR.arandom(str(_text))
 
