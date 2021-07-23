@@ -27,7 +27,9 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         for channel in member.guild.channels:
-            if str(channel) == WELCOME_CHANNEL:
+            if not str(channel) != WELCOME_CHANNEL:
+                print('Invalid Welcome Channel Name')
+            else:
                 embed = discord.Embed(color=discord.colour.Color.random())
                 embed.add_field(name="Welcome", value=f"{member.name} has joined {member.guild.name}", inline=False)
                 embed.set_image(
