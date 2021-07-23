@@ -22,7 +22,7 @@ class Fun(commands.Cog):
 
     @commands.command(name='gif', aliases=['tenor'], description='Return a random gif by tag', usage=f'Usage: {PREFIX}gif [query]\nExample: {PREFIX}gif dog')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
-    async def gif_(self, ctx, *, _text):
+    async def _gif(self, ctx, *, _text):
 
         _url = await TENOR.arandom(str(_text))
 
@@ -30,8 +30,8 @@ class Fun(commands.Cog):
         embed.set_image(url=_url)
         await ctx.send(embed=embed)
 
-    @tenor.error
-    async def tenor_error(self, ctx, error):
+    @_gif.error
+    async def _gif_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(':x: Tag cant be None. Please give a valid tag to search.')
         else:
