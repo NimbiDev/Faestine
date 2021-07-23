@@ -11,18 +11,13 @@ class Mod(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=['clear', 'clean', 'c', 'd', 'prune', 'del', 'delete'],
+    @commands.command(aliases=['clear', 'prune', 'delete'],
                       description='Delete a specified number of messages.',
                       usage=f'Usage: {PREFIX}purge [amount]\nExample: {PREFIX}purge 99')
     @commands.has_guild_permissions(manage_messages=True)
     async def purge(self, ctx, amount: int):
-        """
-        :param ctx:
-        :param amount:
-        :return:
-        """
         await ctx.channel.purge(limit=amount + 1)
-        await ctx.send(f'Successfully deleted {amount} messages.')
+        await ctx.send(f'Successfully deleted {amount} messages.', delete_after=20)
 
 
 def setup(client):
