@@ -25,7 +25,9 @@ class Mod(commands.Cog):
             message.delete()
 
         msg = "\n".join([f"{author}:{amount}" for author, amount in authors.items()])
-        await ctx.channel.send(msg)
+
+        await ctx.channel.purge(limit=amount + 1)
+        await ctx.channel.send(msg, delete_after=20)
 
 
 def setup(client):
