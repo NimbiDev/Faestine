@@ -78,7 +78,7 @@ class Admin(commands.Cog):
     @commands.has_guild_permissions(manage_roles=True)
     async def role(self, ctx, member: discord.Member, *, role: discord.Role):
         if role.position > ctx.author.top_role.position:
-            return await ctx.send('\\:x: | That role is above your top role!')
+            return await ctx.send(':x: | That role is above your top role!')
         if role in member.roles:
             await member.remove_roles(role)
             await ctx.send(f"Removed {role.name} from {member.display_name}")

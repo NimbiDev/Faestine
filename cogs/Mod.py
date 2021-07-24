@@ -11,9 +11,7 @@ class Mod(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=['clear', 'prune', 'delete'],
-                      description='Delete a specified number of messages.',
-                      usage=f'Usage: {PREFIX}purge [amount]\nExample: {PREFIX}purge 99')
+    @commands.command(aliases=['clear', 'prune', 'delete'], description='Delete a specified number of messages.', usage=f'Usage: {PREFIX}purge [amount]\nExample: {PREFIX}purge 99')
     @commands.has_guild_permissions(manage_messages=True)
     async def purge(self, ctx, amount: int):
         authors = {}

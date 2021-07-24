@@ -134,7 +134,6 @@ class Fun(commands.Cog):
         else:
             raise error
 
-
     @commands.command(name='tictactoe', aliases=['ttt'], description='Play Tic Tac Toe', usage=f'Usage: {PREFIX}tic\nExample: {PREFIX}tic')
     async def tic_tac_toe(self, ctx: commands.Context):
         await ctx.send('Tic Tac Toe: X goes first', view=TicTacToe())

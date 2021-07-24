@@ -64,7 +64,6 @@ class YTDLSource(discord.PCMVolumeTransformer):
         data = await loop.run_in_executor(None, to_run)
 
         if 'entries' in data:
-            # take first item from a playlist
             data = data['entries'][0]
 
         await ctx.send(f'```ini\n[Added {data["title"]} to the Queue.]\n```', delete_after=15)
@@ -153,8 +152,8 @@ class MusicPlayer:
 class Music(commands.Cog):
     __slots__ = ('bot', 'players')
 
-    def __init__(self, bot):
-        self.bot = bot
+    def __init__(self, client):
+        self.client = client
         self.players = {}
 
     async def cleanup(self, guild):
@@ -184,12 +183,12 @@ class Music(commands.Cog):
     async def __error(self, ctx, error):
         if isinstance(error, commands.NoPrivateMessage):
             try:
-                return await ctx.send('This command can not be used in Private Messages.')
+                return await ctx.send(':x: This command can not be used in Private Messages.')
             except discord.HTTPException:
                 pass
         elif isinstance(error, InvalidVoiceChannel):
-            await ctx.send('Error connecting to Voice Channel. '
-                           'Please make sure you are in a valid channel or provide me with one')
+            await ctx.send(
+                ':x: Error connecting to Voice Channel. Please make sure you are in a valid channel or provide me with one')
 
         print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
         traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
@@ -203,8 +202,10 @@ class Music(commands.Cog):
 
         return player
 
-    @commands.command(aliases=['join', 'summon'], description='Connect the bot to your voice channel', usage=f'Usage: {PREFIX}connect\nExample: {PREFIX}connect')
-    async def connect(self, ctx, *, channel: discord.VoiceChannel = None):
+    @commands.command(name='connect', aliases=['j', 'join', 'summon'],
+                      description='Connect the bot to your voice channel',
+                      usage=f'Usage: {PREFIX}connect\nExample: {PREFIX}connect')
+    async def _connect(self, ctx, *, channel: discord.VoiceChannel = None):
         if not channel:
             try:
                 channel = ctx.author.voice.channel
@@ -228,15 +229,17 @@ class Music(commands.Cog):
 
         await ctx.send(f'Connected to: **{channel}**', delete_after=20)
 
-    @commands.command(aliases=['p'], description='Request a song and add it to the queue.', usage=f'Usage: {PREFIX}play [song]\nExample: {PREFIX}play Darude - Sandstorm')
-    async def play(self, ctx, *, search: str):
+    @commands.command(name='play', aliases=['p', 'start', 'search', 'add'],
+                      description='Request a song and add it to the queue.',
+                      usage=f'Usage: {PREFIX}play [song]\nExample: {PREFIX}play Darude Sandstorm')
+    async def _play(self, ctx, *, search: str):
 
         await ctx.trigger_typing()
 
         vc = ctx.voice_client
 
         if not vc:
-            await ctx.invoke(self.connect)
+            await ctx.invoke(self._connect)
 
         player = self.get_player(ctx)
 
@@ -244,8 +247,9 @@ class Music(commands.Cog):
 
         await player.queue.put(source)
 
-    @commands.command(description='Pause the currently playing song.', usage=f'Usage: {PREFIX}pause\nExample" {PREFIX}pause')
-    async def pause(self, ctx):
+    @commands.command(name='pause', description='Pause the currently playing song.',
+                      usage=f'Usage: {PREFIX}pause\nExample" {PREFIX}pause')
+    async def _pause(self, ctx):
 
         vc = ctx.voice_client
 
@@ -257,8 +261,9 @@ class Music(commands.Cog):
         vc.pause()
         await ctx.send(f'**`{ctx.author}`**: Paused the song!')
 
-    @commands.command(aliases=['continue'], description='Resume the currently paused song.', usage=f'Usage: {PREFIX}resume\nExample: {PREFIX}resume')
-    async def resume(self, ctx):
+    @commands.command(name='resume', aliases=['continue', 'unpause'], description='Resume the currently paused song.',
+                      usage=f'Usage: {PREFIX}resume\nExample: {PREFIX}resume')
+    async def _resume(self, ctx):
 
         vc = ctx.voice_client
 
@@ -270,8 +275,9 @@ class Music(commands.Cog):
         vc.resume()
         await ctx.send(f'**`{ctx.author}`**: Resumed the song!')
 
-    @commands.command(aliases=['next'], description='Skip the song.', usage=f'Usage: {PREFIX}skip\nExample: {PREFIX}skip')
-    async def skip(self, ctx):
+    @commands.command(name='skip', aliases=['next', 's'], description='Skip the song.',
+                      usage=f'Usage: {PREFIX}skip\nExample: {PREFIX}skip')
+    async def _skip(self, ctx):
 
         vc = ctx.voice_client
 
@@ -286,8 +292,9 @@ class Music(commands.Cog):
         vc.stop()
         await ctx.send(f'**`{ctx.author}`**: Skipped the song!')
 
-    @commands.command(aliases=['q', 'list'], description='Retrieve a basic queue of upcoming songs.', usage=f'Usage: {PREFIX}queue\nExample: {PREFIX}queue')
-    async def queue(self, ctx):
+    @commands.command(name='queue', aliases=['q', 'list'], description='Retrieve a basic queue of upcoming songs.',
+                      usage=f'Usage: {PREFIX}queue\nExample: {PREFIX}queue')
+    async def _queue(self, ctx):
 
         vc = ctx.voice_client
 
@@ -298,7 +305,6 @@ class Music(commands.Cog):
         if player.queue.empty():
             return await ctx.send('There are currently no more queued songs.')
 
-        # Grab up to 5 entries from the queue...
         upcoming = list(itertools.islice(player.queue._queue, 0, 5))
 
         fmt = '\n'.join(f'**`{_["title"]}`**' for _ in upcoming)
@@ -306,8 +312,10 @@ class Music(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['np', 'current', 'playing'], description='Display information about the currently playing song.', usage=f'Usage: {PREFIX}nowplaying\nExample: {PREFIX}nowplaying')
-    async def nowplaying(self, ctx):
+    @commands.command(name='nowplaying', aliases=['np', 'current', 'playing'],
+                      description='Display information about the currently playing song.',
+                      usage=f'Usage: {PREFIX}nowplaying\nExample: {PREFIX}nowplaying')
+    async def _now_playing(self, ctx):
 
         vc = ctx.voice_client
 
@@ -327,8 +335,9 @@ class Music(commands.Cog):
         player.np = await ctx.send(f'**Now Playing:** `{vc.source.title}` '
                                    f'requested by `{vc.source.requester}`')
 
-    @commands.command(aliases=['vol', 'v', 'cv'], description='Change the player volume.', usage=f'Usage: {PREFIX}volume [1-100]\nExample: {PREFIX}volume 25')
-    async def volume(self, ctx, *, vol: float):
+    @commands.command(name='volume', aliases=['vol', 'v', 'cv'], description='Change the player volume.',
+                      usage=f'Usage: {PREFIX}volume [1-100]\nExample: {PREFIX}volume 25')
+    async def _volume(self, ctx, *, vol: float):
 
         vc = ctx.voice_client
 
@@ -346,8 +355,10 @@ class Music(commands.Cog):
         player.volume = vol / 100
         await ctx.send(f'**`{ctx.author}`**: Set the volume to **{vol}%**')
 
-    @commands.command(aliases=['s', 'disconnect', 'leave', 'dc'], description='Stop the currently playing song and destroy the player.', usage=f'Usage: {PREFIX}stop\nExample: {PREFIX}stop')
-    async def stop(self, ctx):
+    @commands.command(name='stop', aliases=['disconnect', 'leave', 'dc'],
+                      description='Stop the currently playing song and destroy the player.',
+                      usage=f'Usage: {PREFIX}stop\nExample: {PREFIX}stop')
+    async def _stop(self, ctx):
 
         vc = ctx.voice_client
 
