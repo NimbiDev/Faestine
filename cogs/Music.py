@@ -130,7 +130,7 @@ class MusicPlayer:
             source.volume = self.volume
             self.current = source
 
-            self._guild.voice_bot.play(source, after=lambda _: self.bot.loop.call_soon_threadsafe(self.next.set))
+            self._guild.voice_client.play(source, after=lambda _: self.bot.loop.call_soon_threadsafe(self.next.set))
             self.np = await self._channel.send(f'**Now Playing:** `{source.title}` requested by '
                                                f'`{source.requester}`')
             await self.next.wait()
@@ -158,7 +158,7 @@ class Music(commands.Cog):
 
     async def cleanup(self, guild):
         try:
-            await guild.voice_bot.disconnect()
+            await guild.voice_client.disconnect()
         except AttributeError:
             pass
 
@@ -212,7 +212,7 @@ class Music(commands.Cog):
             except AttributeError:
                 raise InvalidVoiceChannel('No channel to join. Please either specify a valid channel or join one.')
 
-        vc = ctx.voice_bot
+        vc = ctx.voice_client
 
         if vc:
             if vc.channel.id == channel.id:
@@ -236,7 +236,7 @@ class Music(commands.Cog):
 
         await ctx.trigger_typing()
 
-        vc = ctx.voice_bot
+        vc = ctx.voice_client
 
         if not vc:
             await ctx.invoke(self._connect)
@@ -251,7 +251,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}pause\nExample" {PREFIX}pause')
     async def _pause(self, ctx):
 
-        vc = ctx.voice_bot
+        vc = ctx.voice_client
 
         if not vc or not vc.is_playing():
             return await ctx.send('I am not currently playing anything!', delete_after=20)
@@ -265,7 +265,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}resume\nExample: {PREFIX}resume')
     async def _resume(self, ctx):
 
-        vc = ctx.voice_bot
+        vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
             return await ctx.send('I am not currently playing anything!', delete_after=20)
@@ -279,7 +279,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}skip\nExample: {PREFIX}skip')
     async def _skip(self, ctx):
 
-        vc = ctx.voice_bot
+        vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
             return await ctx.send('I am not currently playing anything!', delete_after=20)
@@ -296,7 +296,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}queue\nExample: {PREFIX}queue')
     async def _queue(self, ctx):
 
-        vc = ctx.voice_bot
+        vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
             return await ctx.send('I am not currently connected to voice!', delete_after=20)
@@ -317,7 +317,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}nowplaying\nExample: {PREFIX}nowplaying')
     async def _now_playing(self, ctx):
 
-        vc = ctx.voice_bot
+        vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
             return await ctx.send('I am not currently connected to voice!', delete_after=20)
@@ -339,7 +339,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}volume [1-100]\nExample: {PREFIX}volume 25')
     async def _volume(self, ctx, *, vol: float):
 
-        vc = ctx.voice_bot
+        vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
             return await ctx.send('I am not currently connected to voice!', delete_after=20)
@@ -360,7 +360,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}stop\nExample: {PREFIX}stop')
     async def _stop(self, ctx):
 
-        vc = ctx.voice_bot
+        vc = ctx.voice_client
 
         if not vc or not vc.is_connected():
             return await ctx.send('I am not currently playing anything!', delete_after=20)
