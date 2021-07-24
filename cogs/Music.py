@@ -87,10 +87,10 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
 
 class MusicPlayer:
-    __slots__ = ('bot', '_guild', '_channel', '_cog', 'queue', 'next', 'current', 'np', 'volume')
+    __slots__ = ('client', '_guild', '_channel', '_cog', 'queue', 'next', 'current', 'np', 'volume')
 
     def __init__(self, ctx):
-        self.bot = ctx.bot
+        self.client = ctx.client
         self._guild = ctx.guild
         self._channel = ctx.channel
         self._cog = ctx.cog
@@ -102,12 +102,12 @@ class MusicPlayer:
         self.volume = .5
         self.current = None
 
-        ctx.bot.loop.create_task(self.player_loop())
+        ctx.client.loop.create_task(self.player_loop())
 
     async def player_loop(self):
-        await self.bot.wait_until_ready()
+        await self.client.wait_until_ready()
 
-        while not self.bot.is_closed():
+        while not self.client.is_closed():
             self.next.clear()
 
             try:
@@ -121,7 +121,7 @@ class MusicPlayer:
             if not isinstance(source, YTDLSource):
 
                 try:
-                    source = await YTDLSource.regather_stream(source, loop=self.bot.loop)
+                    source = await YTDLSource.regather_stream(source, loop=self.client.loop)
                 except Exception as e:
                     await self._channel.send(f'There was an error processing your song.\n'
                                              f'```css\n[{e}]\n```')
@@ -130,7 +130,7 @@ class MusicPlayer:
             source.volume = self.volume
             self.current = source
 
-            self._guild.voice_client.play(source, after=lambda _: self.bot.loop.call_soon_threadsafe(self.next.set))
+            self._guild.voice_client.play(source, after=lambda _: self.client.loop.call_soon_threadsafe(self.next.set))
             self.np = await self._channel.send(f'**Now Playing:** `{source.title}` requested by '
                                                f'`{source.requester}`')
             await self.next.wait()
@@ -146,7 +146,7 @@ class MusicPlayer:
 
     def destroy(self, guild):
 
-        return self.bot.loop.create_task(self._cog.cleanup(guild))
+        return self.client.loop.create_task(self._cog.cleanup(guild))
 
 
 class Music(commands.Cog):
@@ -203,7 +203,7 @@ class Music(commands.Cog):
         return player
 
     @commands.command(name='connect', aliases=['j', 'join', 'summon'],
-                      description='Connect the bot to your voice channel',
+                      description='Connect the client to your voice channel',
                       usage=f'Usage: {PREFIX}connect\nExample: {PREFIX}connect')
     async def _connect(self, ctx, *, channel: discord.VoiceChannel = None):
         if not channel:
@@ -243,7 +243,7 @@ class Music(commands.Cog):
 
         player = self.get_player(ctx)
 
-        source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=False)
+        source = await YTDLSource.create_source(ctx, search, loop=self.client.loop, download=False)
 
         await player.queue.put(source)
 
@@ -368,5 +368,5 @@ class Music(commands.Cog):
         await self.cleanup(ctx.guild)
 
 
-def setup(bot):
-    bot.add_cog(Music(bot))
+def setup(client):
+    client.add_cog(Music(client))
