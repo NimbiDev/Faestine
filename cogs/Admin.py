@@ -9,8 +9,8 @@ PREFIX = os.getenv('COMMAND_PREFIX')
 
 
 class Admin(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     class DurationConverter(commands.Converter):
         async def convert(self, ctx, argument):
@@ -87,5 +87,5 @@ class Admin(commands.Cog):
             await ctx.send(f"Added {role.name} to {member.display_name}")
 
 
-def setup(client):
-    client.add_cog(Admin(client))
+def setup(bot):
+    bot.add_cog(Admin(bot))

@@ -7,8 +7,8 @@ load_dotenv()
 PREFIX = os.getenv('COMMAND_PREFIX')
 
 class Owner(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command(aliases=['load'], description='Load a specified cog.', usage=f'Usage: {PREFIX}load [cog]\nExample: b!load_cog Admin')
     @commands.is_owner()
@@ -18,7 +18,7 @@ class Owner(commands.Cog):
         :param extension:
         :return:
         """
-        self.client.load_extension(f'cogs.{extension}')
+        self.bot.load_extension(f'cogs.{extension}')
         print(f'Loaded cogs.{extension}')
         await ctx.send(f'Successfully loaded the {extension} cog.')
 
@@ -30,7 +30,7 @@ class Owner(commands.Cog):
         :param extension:
         :return:
         """
-        self.client.unload_extension(f'cogs.{extension}')
+        self.bot.unload_extension(f'cogs.{extension}')
         print(f'Unloaded cogs.{extension}')
         await ctx.send(f'Successfully unloaded the {extension} cog.')
 
@@ -43,11 +43,11 @@ class Owner(commands.Cog):
         :param extension:
         :return:
         """
-        self.client.unload_extension(f'cogs.{extension}')
-        self.client.load_extension(f'cogs.{extension}')
+        self.bot.unload_extension(f'cogs.{extension}')
+        self.bot.load_extension(f'cogs.{extension}')
         print(f'Reloaded cogs.{extension}')
         await ctx.send(f'Successfully reloaded the {extension} cog.')
 
 
-def setup(client):
-    client.add_cog(Owner(client))
+def setup(bot):
+    bot.add_cog(Owner(bot))

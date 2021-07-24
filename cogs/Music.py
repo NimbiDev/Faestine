@@ -87,10 +87,10 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
 
 class MusicPlayer:
-    __slots__ = ('client', '_guild', '_channel', '_cog', 'queue', 'next', 'current', 'np', 'volume')
+    __slots__ = ('bot', '_guild', '_channel', '_cog', 'queue', 'next', 'current', 'np', 'volume')
 
     def __init__(self, ctx):
-        self.client = ctx.client
+        self.bot = ctx.bot
         self._guild = ctx.guild
         self._channel = ctx.channel
         self._cog = ctx.cog
@@ -102,12 +102,12 @@ class MusicPlayer:
         self.volume = .5
         self.current = None
 
-        ctx.client.loop.create_task(self.player_loop())
+        ctx.bot.loop.create_task(self.player_loop())
 
     async def player_loop(self):
-        await self.client.wait_until_ready()
+        await self.bot.wait_until_ready()
 
-        while not self.client.is_closed():
+        while not self.bot.is_closed():
             self.next.clear()
 
             try:
@@ -121,7 +121,7 @@ class MusicPlayer:
             if not isinstance(source, YTDLSource):
 
                 try:
-                    source = await YTDLSource.regather_stream(source, loop=self.client.loop)
+                    source = await YTDLSource.regather_stream(source, loop=self.bot.loop)
                 except Exception as e:
                     await self._channel.send(f'There was an error processing your song.\n'
                                              f'```css\n[{e}]\n```')
@@ -130,7 +130,7 @@ class MusicPlayer:
             source.volume = self.volume
             self.current = source
 
-            self._guild.voice_client.play(source, after=lambda _: self.client.loop.call_soon_threadsafe(self.next.set))
+            self._guild.voice_bot.play(source, after=lambda _: self.bot.loop.call_soon_threadsafe(self.next.set))
             self.np = await self._channel.send(f'**Now Playing:** `{source.title}` requested by '
                                                f'`{source.requester}`')
             await self.next.wait()
@@ -146,19 +146,19 @@ class MusicPlayer:
 
     def destroy(self, guild):
 
-        return self.client.loop.create_task(self._cog.cleanup(guild))
+        return self.bot.loop.create_task(self._cog.cleanup(guild))
 
 
 class Music(commands.Cog):
-    __slots__ = ('client', 'players')
+    __slots__ = ('bot', 'players')
 
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
         self.players = {}
 
     async def cleanup(self, guild):
         try:
-            await guild.voice_client.disconnect()
+            await guild.voice_bot.disconnect()
         except AttributeError:
             pass
 
@@ -203,7 +203,7 @@ class Music(commands.Cog):
         return player
 
     @commands.command(name='connect', aliases=['j', 'join', 'summon'],
-                      description='Connect the client to your voice channel',
+                      description='Connect the bot to your voice channel',
                       usage=f'Usage: {PREFIX}connect\nExample: {PREFIX}connect')
     async def _connect(self, ctx, *, channel: discord.VoiceChannel = None):
         if not channel:
@@ -212,7 +212,7 @@ class Music(commands.Cog):
             except AttributeError:
                 raise InvalidVoiceChannel('No channel to join. Please either specify a valid channel or join one.')
 
-        vc = ctx.voice_client
+        vc = ctx.voice_bot
 
         if vc:
             if vc.channel.id == channel.id:
@@ -236,14 +236,14 @@ class Music(commands.Cog):
 
         await ctx.trigger_typing()
 
-        vc = ctx.voice_client
+        vc = ctx.voice_bot
 
         if not vc:
             await ctx.invoke(self._connect)
 
         player = self.get_player(ctx)
 
-        source = await YTDLSource.create_source(ctx, search, loop=self.client.loop, download=False)
+        source = await YTDLSource.create_source(ctx, search, loop=self.bot.loop, download=False)
 
         await player.queue.put(source)
 
@@ -251,7 +251,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}pause\nExample" {PREFIX}pause')
     async def _pause(self, ctx):
 
-        vc = ctx.voice_client
+        vc = ctx.voice_bot
 
         if not vc or not vc.is_playing():
             return await ctx.send('I am not currently playing anything!', delete_after=20)
@@ -265,7 +265,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}resume\nExample: {PREFIX}resume')
     async def _resume(self, ctx):
 
-        vc = ctx.voice_client
+        vc = ctx.voice_bot
 
         if not vc or not vc.is_connected():
             return await ctx.send('I am not currently playing anything!', delete_after=20)
@@ -279,7 +279,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}skip\nExample: {PREFIX}skip')
     async def _skip(self, ctx):
 
-        vc = ctx.voice_client
+        vc = ctx.voice_bot
 
         if not vc or not vc.is_connected():
             return await ctx.send('I am not currently playing anything!', delete_after=20)
@@ -296,7 +296,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}queue\nExample: {PREFIX}queue')
     async def _queue(self, ctx):
 
-        vc = ctx.voice_client
+        vc = ctx.voice_bot
 
         if not vc or not vc.is_connected():
             return await ctx.send('I am not currently connected to voice!', delete_after=20)
@@ -317,7 +317,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}nowplaying\nExample: {PREFIX}nowplaying')
     async def _now_playing(self, ctx):
 
-        vc = ctx.voice_client
+        vc = ctx.voice_bot
 
         if not vc or not vc.is_connected():
             return await ctx.send('I am not currently connected to voice!', delete_after=20)
@@ -339,7 +339,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}volume [1-100]\nExample: {PREFIX}volume 25')
     async def _volume(self, ctx, *, vol: float):
 
-        vc = ctx.voice_client
+        vc = ctx.voice_bot
 
         if not vc or not vc.is_connected():
             return await ctx.send('I am not currently connected to voice!', delete_after=20)
@@ -360,7 +360,7 @@ class Music(commands.Cog):
                       usage=f'Usage: {PREFIX}stop\nExample: {PREFIX}stop')
     async def _stop(self, ctx):
 
-        vc = ctx.voice_client
+        vc = ctx.voice_bot
 
         if not vc or not vc.is_connected():
             return await ctx.send('I am not currently playing anything!', delete_after=20)
@@ -368,5 +368,5 @@ class Music(commands.Cog):
         await self.cleanup(ctx.guild)
 
 
-def setup(client):
-    client.add_cog(Music(client))
+def setup(bot):
+    bot.add_cog(Music(bot))

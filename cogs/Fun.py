@@ -114,8 +114,8 @@ class TicTacToe(discord.ui.View):
 
 
 class Fun(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command(name='gif', aliases=['tenor'], description='Return a random gif by tag', usage=f'Usage: {PREFIX}gif [query]\nExample: {PREFIX}gif dog')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
@@ -139,5 +139,5 @@ class Fun(commands.Cog):
         await ctx.send('Tic Tac Toe: X goes first', view=TicTacToe())
 
 
-def setup(client):
-    client.add_cog(Fun(client))
+def setup(bot):
+    bot.add_cog(Fun(bot))

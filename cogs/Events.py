@@ -14,18 +14,18 @@ WELCOME_IMAGE = os.getenv('WELCOME_IMAGE_URL')
 
 
 class Events(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.Cog.listener()
     async def on_ready(self):
-        await self.client.change_presence(status=discord.Status.online,
+        await self.bot.change_presence(status=discord.Status.online,
                                           activity=discord.Streaming(name='{}help'.format(PREFIX), url=TWITCH_URL))
-        print('{} is online!'.format(self.client.user.name))
+        print('{} is online!'.format(self.bot.user.name))
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        channel = self.client.get_channel(int(WELCOME_CHANNEL))
+        channel = self.bot.get_channel(int(WELCOME_CHANNEL))
         _emb = discord.Embed(color=discord.colour.Color.random())
         _emb.add_field(name="Welcome", value='{} has joined {}'.format(member.name, member.guild.name), inline=False)
         _emb.set_image(url=WELCOME_IMAGE)
@@ -104,5 +104,5 @@ class Events(commands.Cog):
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
 
-def setup(client):
-    client.add_cog(Events(client))
+def setup(bot):
+    bot.add_cog(Events(bot))

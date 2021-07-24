@@ -8,8 +8,8 @@ PREFIX = os.getenv('COMMAND_PREFIX')
 
 
 class Mod(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command(aliases=['clear', 'prune', 'delete'], description='Delete a specified number of messages.', usage=f'Usage: {PREFIX}purge [amount]\nExample: {PREFIX}purge 99')
     @commands.has_guild_permissions(manage_messages=True)
@@ -28,5 +28,5 @@ class Mod(commands.Cog):
         await ctx.channel.send(f'**__Messages Purged__**\n```yaml\n{msg}\n```', delete_after=20)
 
 
-def setup(client):
-    client.add_cog(Mod(client))
+def setup(bot):
+    bot.add_cog(Mod(bot))

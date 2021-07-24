@@ -31,7 +31,7 @@ class HELP(commands.HelpCommand):
             f'**{command.name}**: `{command.description}`\n```yaml\nAliases: {command.aliases}\n```\n```yaml\n{command.usage}\n```')
 
 
-client = commands.Bot(command_prefix=PREFIX, help_command=HELP())
+client = commands.Bot(command_prefix=commands.when_mentioned_or(PREFIX), help_command=HELP())
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):

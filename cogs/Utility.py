@@ -12,8 +12,8 @@ WOLFRAM_API_ID = os.getenv('WOLFRAM_ID')
 
 
 class Utility(commands.Cog):
-    def __init__(self, client):
-        self.client = client
+    def __init__(self, bot):
+        self.bot = bot
 
     @commands.command(aliases=['echo', 'beep'], description='Responds with the bot\'s current ping.', usage=f'Usage: {PREFIX}ping\nExample: {PREFIX}ping')
     @commands.has_guild_permissions(send_messages=True)
@@ -22,7 +22,7 @@ class Utility(commands.Cog):
         :param ctx:
         :return:
         """
-        await ctx.send(f'My current ping is {round (self.client.latency * 1000)}ms')
+        await ctx.send(f'My current ping is {round (self.bot.latency * 1000)}ms')
 
     @commands.command(aliases=['av', 'pfp'], description='Display a member\'s avatar', usage=f'Usage: {PREFIX}avatar [member]\nExample: {PREFIX}avatar @JohnDoe')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
@@ -34,5 +34,5 @@ class Utility(commands.Cog):
         await ctx.send(embed=emb)
 
 
-def setup(client):
-    client.add_cog(Utility(client))
+def setup(bot):
+    bot.add_cog(Utility(bot))
