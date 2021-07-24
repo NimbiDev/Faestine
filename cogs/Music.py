@@ -150,7 +150,7 @@ class MusicPlayer:
 
 
 class Music(commands.Cog):
-    __slots__ = ('bot', 'players')
+    __slots__ = ('client', 'players')
 
     def __init__(self, client):
         self.client = client
