@@ -9,7 +9,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 PREFIX = os.getenv('COMMAND_PREFIX')
 
 
-class HelpEmbed(commands.MinimalHelpCommand):
+class HelpEmbed(commands.DefaultHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
         for page in self.paginator.pages:
