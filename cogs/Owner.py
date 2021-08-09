@@ -57,7 +57,7 @@ class Owner(commands.Cog):
         else:
             command.enabled = not command.enabled
             ternary = 'enabled' if command.enabled else 'disabled'
-            await ctx.reply('\\:white_check_mark: Successfully {} the command {}'.format(ternary, command.qualified_name))
+            await ctx.reply('Successfully {} the command {}'.format(ternary, command.qualified_name))
 
 
 def setup(bot):
