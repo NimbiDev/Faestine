@@ -22,7 +22,7 @@ class HelpEmbed(commands.HelpCommand):
 
     async def send_bot_help(self, mapping):
         url = GITHUB
-        embed = discord.Embed(description='Here is a list of available commands.\n\n**__Note__**\nFields marked with `<>` are required.\nFields marked with `[]` are optional.', color=discord.colour.Color.blue())
+        embed = discord.Embed(description='Here is a list of available commands.\n\n**__Note__**\nFields marked with `<>` are required.\nFields marked with `[]` are optional.', color=discord.colour.Color.dark_blue())
         for cog, command in mapping.items():
             filtered = await self.filter_commands(command, sort=True)
             command_signatures = [self.get_command_signature(c) for c in filtered]

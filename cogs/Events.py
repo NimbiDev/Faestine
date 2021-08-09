@@ -26,7 +26,7 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         channel = self.bot.get_channel(int(WELCOME_CHANNEL))
-        emb = discord.Embed(color=discord.colour.Color.blue())
+        emb = discord.Embed(color=discord.colour.Color.dark_blue())
         emb.add_field(name="Welcome", value='{} has joined {}'.format(member.name, member.guild.name), inline=False)
         emb.set_image(url=WELCOME_IMAGE)
         await channel.send(embed=emb)
