@@ -21,13 +21,14 @@ class HelpEmbed(commands.HelpCommand):
 
     async def send_bot_help(self, mapping):
         for cog, command in mapping.items():
+            emb = discord.Embed()
             filtered = await self.filter_commands(command, sort=True)
             command_signatures = [self.get_command_signature(c) for c in filtered]
             if command_signatures:
                 cog_name = getattr(cog, 'qualified_name', 'Other')
                 sig = '\n'.join(command_signatures)
                 channel = self.get_destination()
-                emb = discord.Embed(description='**__{} Commands__**\n```xml\n{}```'.format(cog_name, sig))
+                emb.description('**__{} Commands__**\n```xml\n{}```'.format(cog_name, sig))
                 emb.colour(discord.Colour.blue())
                 emb.timestamp()
                 emb.set_footer(text=self.bot.user.name, icon_url=self.bot.user.avatar)
