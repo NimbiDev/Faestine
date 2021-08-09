@@ -27,7 +27,11 @@ class HelpEmbed(commands.HelpCommand):
                 cog_name = getattr(cog, 'qualified_name', 'Other')
                 sig = '\n'.join(command_signatures)
                 channel = self.get_destination()
-                await channel.send('**__{} Commands__**\n```xml\n{}```'.format(cog_name, sig))
+                emb = discord.Embed(description='**__{} Commands__**\n```xml\n{}```'.format(cog_name, sig))
+                emb.colour(discord.Colour.blue())
+                emb.timestamp()
+                emb.set_footer(text=self.bot.user.name, icon_url=self.bot.user.avatar)
+                await channel.send(embed=emb)
 
 
 bot.help_command = HelpEmbed()
