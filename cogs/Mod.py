@@ -13,8 +13,8 @@ class Mod(commands.Cog):
         if not thread.archived:
             await ctx.reply('{} is already open.'.format(thread.name), delete_after=20)
         else:
-            await thread.send('The thread has been restored.', delete_after=20)
-            await ctx.reply('Restoring thread: {}'.format(thread.name), delete_after=20)
+            await thread.send('{} has been restored by {}.'.format(thread.name, ctx.author.name), delete_after=20)
+            await ctx.reply(':white_check_mark: Successfully restored thread {}'.format(thread.name), delete_after=20)
 
     @commands.command(aliases=['del_thread', 'dt', 'td', 'thread_del'], description='Delete a specified thread')
     @commands.has_guild_permissions(manage_threads=True)
@@ -37,10 +37,10 @@ class Mod(commands.Cog):
                 authors[message.author] += 1
             await message.delete()
 
-        msg = "\n".join([f'{author}: {amount}' for author, amount in authors.items()])
+        msg = '\n'.join(['{}: {}'.format(author, amount) for author, amount in authors.items()])
 
         await ctx.channel.purge(limit=amount + 1)
-        await ctx.channel.send(f'**__Messages Purged__**\n```yaml\n{msg}\n```', delete_after=20)
+        await ctx.channel.send('**__Messages Deleted__**\n```xml\n{}```'.format(msg), delete_after=20)
 
 
 def setup(bot):

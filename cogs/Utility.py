@@ -7,7 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 TWITCH_API_TOKEN = os.getenv('TWITCH_TOKEN')
 TWITCH_API_SECRET = os.getenv('TWITCH_SECRET')
-WOLFRAM_API_ID = os.getenv('WOLFRAM_ID')
+
+
 
 
 class Utility(commands.Cog):
@@ -22,7 +23,7 @@ class Utility(commands.Cog):
         :param ctx:
         :return:
         """
-        await ctx.send(f'My current ping is {round (self.bot.latency * 1000)}ms')
+        await ctx.send('My current ping is {}ms'.format(round(self.bot.latency * 1000)))
 
     @commands.command(aliases=['av', 'pfp'], description='Display a member\'s avatar')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
@@ -32,6 +33,8 @@ class Utility(commands.Cog):
         emb = discord.Embed(color=discord.Color.random())
         emb.set_image(url=member.avatar_url)
         await ctx.send(embed=emb)
+
+
 
 
 def setup(bot):
