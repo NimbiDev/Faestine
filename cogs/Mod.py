@@ -40,7 +40,7 @@ class Mod(commands.Cog):
         msg = '\n'.join(['{}: {}'.format(author, amount) for author, amount in authors.items()])
 
         await ctx.channel.purge(limit=amount + 1)
-        await ctx.channel.send('**__Messages Deleted__**\n```css\n{}```'.format(msg), delete_after=20)
+        await ctx.channel.send('**__Messages Deleted__**\n```yml\n{}```'.format(msg), delete_after=20)
 
 
 def setup(bot):
