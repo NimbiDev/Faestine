@@ -50,15 +50,15 @@ class Owner(commands.Cog):
         command = self.bot.get_command(command)
 
         if command is None:
-            await ctx.reply(':x: I can not find a command with that name!')
+            await ctx.send(':x: I can not find a command with that name!')
 
         elif ctx.command == command:
-            await ctx.reply(':x: You can not disable this command!')
+            await ctx.send(':x: You can not disable this command!')
 
         else:
             command.enabled = not command.enabled
             ternary = 'enabled' if command.enabled else 'disabled'
-            await ctx.reply('Successfully {} the command {}'.format(ternary, command.qualified_name))
+            await ctx.send('Successfully {} the command {}'.format(ternary, command.qualified_name))
 
 
 def setup(bot):
