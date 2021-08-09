@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-GUILD = os.getenv('GUILD_ID')
+GITHUB = os.getenv('GITHUB_URL')
 
 bot = commands.Bot(command_prefix='fae ')
 
@@ -21,6 +21,7 @@ class HelpEmbed(commands.HelpCommand):
         return '%s%s %s' % (self.clean_prefix, command.qualified_name, command.signature)
 
     async def send_bot_help(self, mapping):
+        url = GITHUB
         embed = discord.Embed(description='Here is a list of available commands.\n\n**__Note__**\nFields marked with `<>` are required.\nFields marked with `[]` are optional.')
         for cog, command in mapping.items():
             filtered = await self.filter_commands(command, sort=True)
@@ -28,9 +29,8 @@ class HelpEmbed(commands.HelpCommand):
             if command_signatures:
                 cog_name = getattr(cog, 'qualified_name', 'Other')
                 sig = '\n'.join(command_signatures)
-                guild = self.bot.get_guild(GUILD)
                 embed.add_field(name='{} Commands'.format(cog_name), value='```xml\n{}```'.format(sig), inline=False)
-                embed.set_footer(text='{} | {}'.format(self.bot.user.name, guild.name), icon_url=self.bot.user.avatar)
+                embed.set_footer(text='{} | {}'.format(self.bot.user.name, url), icon_url=self.bot.user.avatar)
         channel = self.get_destination()
         await channel.send(embed=embed)
 
