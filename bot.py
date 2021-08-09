@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+GUILD = os.getenv('GUILD_ID')
 
 bot = commands.Bot(command_prefix='fae ')
 
@@ -27,7 +28,7 @@ class HelpEmbed(commands.HelpCommand):
             if command_signatures:
                 cog_name = getattr(cog, 'qualified_name', 'Other')
                 sig = '\n'.join(command_signatures)
-                guild = self.bot.get_guild()
+                guild = self.bot.get_guild(GUILD)
                 embed.add_field(name='{} Commands'.format(cog_name), value='```xml\n{}```'.format(sig), inline=False)
                 embed.set_footer(text='{} | {}'.format(self.bot.user.name, guild.name), icon_url=self.bot.user.avatar)
         channel = self.get_destination()
