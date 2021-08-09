@@ -22,20 +22,21 @@ class Utility(commands.Cog):
         :param ctx:
         :return:
         """
-        url = GITHUB
+        github_url = GITHUB
         embed = discord.Embed(description='```yml\nLatency: {}ms```'.format(round(self.bot.latency * 1000)), color=discord.colour.Colour.dark_blue())
         embed.set_image(url=self.bot.user.avatar)
-        embed.set_footer(text='{} | {}'.format(self.bot.name, url))
+        embed.set_footer(text='{} | {}'.format(self.bot.name, github_url))
         await ctx.send()
 
     @commands.command(aliases=['av', 'pfp'], description='Display a member\'s avatar')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
     async def avatar(self, ctx, member: discord.Member = None):
+        github_url = GITHUB
         if member is None:
             member = ctx.author
         embed = discord.Embed(color=discord.colour.Color.dark_blue())
         embed.set_image(url=member.avatar_url)
-        embed.set_footer(text='{} | {}'.format(self.bot.name, url))
+        embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url))
         await ctx.send(embed=embed)
 
 
