@@ -26,7 +26,7 @@ class HelpEmbed(commands.HelpCommand):
             if command_signatures:
                 cog_name = getattr(cog, 'qualified_name', 'Other')
                 sig = '\n'.join(command_signatures)
-                emb.add_field(name=cog_name, value='```mm\n{}```'.format(sig), inline=False)
+                emb.add_field(name=cog_name, value='```\n{}```'.format(sig), inline=False)
 
         channel = self.get_destination()
         await channel.send(embed=emb)
