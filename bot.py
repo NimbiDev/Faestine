@@ -22,10 +22,10 @@ class HelpEmbed(commands.HelpCommand):
         emb = discord.Embed(title='Help')
         for cog, command in mapping.items():
             filtered = await self.filter_commands(command, sort=True)
-            command_signatures = ['```yaml\n```'.format(self.get_command_signature(c) for c in filtered)]
+            command_signatures = [self.get_command_signature(c) for c in filtered]
             if command_signatures:
                 cog_name = getattr(cog, 'qualified_name', 'Other')
-                emb.add_field(name=cog_name, value=''.join(command_signatures), inline=False)
+                emb.add_field(name=cog_name, value='```yaml\n{}```'.format(command_signatures), inline=False)
 
         channel = self.get_destination()
         await channel.send(embed=emb)
