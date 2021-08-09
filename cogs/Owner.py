@@ -39,10 +39,10 @@ class Owner(commands.Cog):
         :param extension:
         :return:
         """
-        self.bot.unload_extension(f'cogs.{extension}')
-        self.bot.load_extension(f'cogs.{extension}')
-        print(f'Reloaded cogs.{extension}')
-        await ctx.send(f'Successfully reloaded the {extension} cog.')
+        self.bot.unload_extension('cogs.{}'.format(extension))
+        self.bot.load_extension('cogs.{}'.format(extension))
+        print('Reloaded cogs.{}'.format(extension))
+        await ctx.send('Successfully reloaded the {} cog.'.format(extension))
 
     @commands.command(aliases=[''], description='Enable or Disable a specified command')
     @commands.is_owner()

@@ -34,7 +34,7 @@ class Mod(commands.Cog):
     @commands.command(aliases=['clear', 'prune', 'delete'], description='Delete a specified number of messages.')
     @commands.has_guild_permissions(manage_messages=True)
     async def purge(self, ctx, amount: int):
-        
+
         url = GITHUB
         embed = discord.Embed()
         authors = {}
