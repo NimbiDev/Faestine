@@ -26,7 +26,7 @@ class Utility(commands.Cog):
         embed = discord.Embed(description='```yml\nLatency: {}ms```'.format(round(self.bot.latency * 1000)), color=discord.colour.Colour.dark_blue())
         embed.set_image(url=self.bot.user.avatar)
         embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url))
-        await ctx.send()
+        await ctx.send(embed=embed)
 
     @commands.command(aliases=['av', 'pfp'], description='Display a member\'s avatar')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
