@@ -23,7 +23,7 @@ class Utility(commands.Cog):
         :return:
         """
         github_url = GITHUB
-        embed = discord.Embed(title='Ping', description='```yml\nLatency: {}ms```'.format(round(self.bot.latency * 1000)), color=discord.colour.Colour.dark_blue())
+        embed = discord.Embed(description='**__Ping__**\n```yml\nLatency: {}ms```'.format(round(self.bot.latency * 1000)), color=discord.colour.Colour.dark_blue())
         embed.set_image(url=self.bot.user.avatar)
         embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url))
         await ctx.send(embed=embed)
@@ -34,9 +34,9 @@ class Utility(commands.Cog):
         github_url = GITHUB
         if member is None:
             member = ctx.author
-        embed = discord.Embed(title='{}\'s Avatar'.format(member.display_name), color=discord.colour.Color.dark_blue())
+        embed = discord.Embed(description='**__{}\'s Avatar__**'.format(member.display_name), color=discord.colour.Color.dark_blue())
         embed.set_image(url=member.avatar)
-        embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url))
+        embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url), icon_url=self.bot.user.avatar)
         await ctx.send(embed=embed)
 
 
