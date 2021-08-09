@@ -35,7 +35,7 @@ class Utility(commands.Cog):
         if member is None:
             member = ctx.author
         embed = discord.Embed(title='{}\'s Avatar'.format(member.display_name), color=discord.colour.Color.dark_blue())
-        embed.set_image(url=member.avatar_url)
+        embed.set_image(url=member.avatar)
         embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url))
         await ctx.send(embed=embed)
 
