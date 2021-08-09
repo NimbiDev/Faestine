@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 GUILD = os.getenv('GUILD_ID')
 TWITCH_URL = os.getenv('TWITCH_CHANNEL')
+GITHUB = os.getenv('GITHUB_URL')
 ERROR_CHANNEL = os.getenv('ERROR_CHANNEL_ID')
 WELCOME_CHANNEL = os.getenv('WELCOME_CHANNEL_ID')
 WELCOME_IMAGE = os.getenv('WELCOME_IMAGE_URL')
@@ -25,11 +26,13 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        channel = self.bot.get_channel(int(WELCOME_CHANNEL))
-        emb = discord.Embed(color=discord.colour.Color.dark_blue())
-        emb.add_field(name="Welcome", value='{} has joined {}'.format(member.name, member.guild.name), inline=False)
-        emb.set_image(url=WELCOME_IMAGE)
-        await channel.send(embed=emb)
+        github_url = GITHUB
+        channel = self.bot.get_channel(WELCOME_CHANNEL)
+        embed = discord.Embed(color=discord.colour.Color.dark_blue())
+        embed.add_field(name="Welcome", value='{} has joined {}'.format(member.name, member.guild.name), inline=False)
+        embed.set_image(url=WELCOME_IMAGE)
+        embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url), icon_url=self.bot.user.avatar)
+        await channel.send(embed=embed)
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):

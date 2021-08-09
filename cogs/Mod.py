@@ -35,7 +35,7 @@ class Mod(commands.Cog):
     @commands.has_guild_permissions(manage_messages=True)
     async def purge(self, ctx, amount: int):
 
-        url = GITHUB
+        github_url = GITHUB
         embed = discord.Embed(color=discord.colour.Color.dark_blue())
         authors = {}
 
@@ -50,7 +50,7 @@ class Mod(commands.Cog):
 
         embed.add_field(name='Messages Deleted', value='```yml\n{}```'.format(response))
         embed.set_thumbnail(url=self.bot.user.avatar)
-        embed.set_footer(text='{} | {}'.format(self.bot.user.name, url), icon_url=self.bot.user.avatar)
+        embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url), icon_url=self.bot.user.avatar)
 
         await ctx.channel.purge(limit=amount + 1)
         await ctx.channel.send(embed=embed, delete_after=20)
