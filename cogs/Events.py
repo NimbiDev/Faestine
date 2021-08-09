@@ -121,15 +121,6 @@ class Events(commands.Cog):
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
-    @commands.Cog.listener()
-    async def on_thread_update(self, thread: discord.Thread):
-        thread_list = [THREAD_ONE, THREAD_TWO, THREAD_THREE, THREAD_FOUR, THREAD_FIVE, THREAD_SIX, THREAD_SEVEN]
-        for thread.id in thread_list:
-            if not thread.archived:
-                return
-            else:
-                await thread.send('Thread auto archive triggered. \nRestoring thread...', delete_after=10)
-
 
 def setup(bot):
     bot.add_cog(Events(bot))

@@ -117,7 +117,7 @@ class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name='gif', aliases=['tenor'], description='Return a random gif by tag', usage=f'Usage: {PREFIX}gif [query]\nExample: {PREFIX}gif dog')
+    @commands.command(name='gif', aliases=['tenor'], description='Return a random gif by tag')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
     async def _gif(self, ctx, *, _text):
 
@@ -134,7 +134,7 @@ class Fun(commands.Cog):
         else:
             raise error
 
-    @commands.command(name='tictactoe', aliases=['ttt'], description='Play Tic Tac Toe', usage=f'Usage: {PREFIX}tic\nExample: {PREFIX}tic')
+    @commands.command(name='tictactoe', aliases=['ttt'], description='Play Tic Tac Toe')
     async def tic_tac_toe(self, ctx: commands.Context):
         await ctx.send('Tic Tac Toe: X goes first', view=TicTacToe())
 

@@ -10,7 +10,7 @@ class Owner(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['load'], description='Load a specified cog.', usage=f'Usage: {PREFIX}load [cog]\nExample: b!load_cog Admin')
+    @commands.command(aliases=['load'], description='Load a specified cog.')
     @commands.is_owner()
     async def load_cog(self, ctx, extension):
         """
@@ -22,7 +22,7 @@ class Owner(commands.Cog):
         print(f'Loaded cogs.{extension}')
         await ctx.send(f'Successfully loaded the {extension} cog.')
 
-    @commands.command(aliases=['unload'], description='Unload a specified cog.', usage=f'Usage: {PREFIX}unload [cog]\nExample: b!unload_cog Admin')
+    @commands.command(aliases=['unload'], description='Unload a specified cog.')
     @commands.is_owner()
     async def unload_cog(self, ctx, extension):
         """
@@ -34,8 +34,7 @@ class Owner(commands.Cog):
         print(f'Unloaded cogs.{extension}')
         await ctx.send(f'Successfully unloaded the {extension} cog.')
 
-    @commands.command(aliases=['reload'], description='Unload and then reload a specified cog.',
-                    usage=f'Usage: {PREFIX}reload [cog]\nExample: b!reload_cog Admin')
+    @commands.command(aliases=['reload'], description='Unload and then reload a specified cog.')
     @commands.is_owner()
     async def reload_cog(self, ctx, extension):
         """

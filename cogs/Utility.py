@@ -15,7 +15,7 @@ class Utility(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['echo', 'beep'], description='Responds with the bot\'s current ping.', usage=f'Usage: {PREFIX}ping\nExample: {PREFIX}ping')
+    @commands.command(aliases=['echo', 'beep'], description='Responds with the bot\'s current ping.')
     @commands.has_guild_permissions(send_messages=True)
     async def ping(self, ctx):
         """
@@ -24,7 +24,7 @@ class Utility(commands.Cog):
         """
         await ctx.send(f'My current ping is {round (self.bot.latency * 1000)}ms')
 
-    @commands.command(aliases=['av', 'pfp'], description='Display a member\'s avatar', usage=f'Usage: {PREFIX}avatar [member]\nExample: {PREFIX}avatar @JohnDoe')
+    @commands.command(aliases=['av', 'pfp'], description='Display a member\'s avatar')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
     async def avatar(self, ctx, member: discord.Member = None):
         if member is None:

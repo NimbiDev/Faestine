@@ -22,7 +22,7 @@ class Admin(commands.Cog):
 
             raise commands.BadArgument(message=':x: Invalid duration...')
 
-    @commands.command(aliases=['k'], description='Kick a member from the guild.', usage=f'Usage: {PREFIX}kick [member] [reason]\nExample: {PREFIX}kick JohnDoe#1234 Bot account')
+    @commands.command(aliases=['k'], description='Kick a member from the guild.')
     @commands.has_guild_permissions(kick_members=True)
     async def kick(self, ctx, member: commands.MemberConverter, reason=None):
         """
@@ -34,7 +34,7 @@ class Admin(commands.Cog):
         await ctx.guild.kick(reason=reason)
         await ctx.send(f'Successfully kicked {member} for {reason}.')
 
-    @commands.command(aliases=['b'], description='Ban a member from the guild.', usage=f'Usage: {PREFIX}ban [member] [reason]\nExample: {PREFIX}ban JonhDoe#1234 Repeated offenses')
+    @commands.command(aliases=['b'], description='Ban a member from the guild.')
     @commands.has_guild_permissions(ban_members=True)
     async def ban(self, ctx, member: commands.MemberConverter, reason=None):
         """
@@ -46,7 +46,7 @@ class Admin(commands.Cog):
         await ctx.guild.ban(reason=reason)
         await ctx.send(f'Successfully banned {member} for {reason}.')
 
-    @commands.command(aliases=['tb'], description='Temporarily ban a member from the guild.', usage=f'Usage: {PREFIX}temp_ban [member] [time]\nExample: {PREFIX}temp_ban JohnDoe#1234 4d')
+    @commands.command(aliases=['tb'], description='Temporarily ban a member from the guild.')
     @commands.has_guild_permissions(ban_members=True)
     async def temp_ban(self, ctx, member: commands.MemberConverter, duration=DurationConverter):
         """
@@ -63,7 +63,7 @@ class Admin(commands.Cog):
         await asyncio.sleep(amount * multiplier[unit])
         await ctx.guild.unban(member)
 
-    @commands.command(aliases=['u'], description='Unban a member from the guild.', usage=f'Usage: {PREFIX}unban [member]\nExample: {PREFIX}unban JohnDoe#1234')
+    @commands.command(aliases=['u'], description='Unban a member from the guild.')
     @commands.has_guild_permissions(ban_members=True)
     async def unban(self, ctx, member: commands.MemberConverter):
         """
@@ -74,7 +74,7 @@ class Admin(commands.Cog):
         await ctx.guild.unban(member)
         await ctx.send(f'Successfully unbanned {member}.')
 
-    @commands.command(aliases=['rank', 'r'], description='Add or remove roles from a member.', usage=f'Usage: {PREFIX}role [member] [role]\nExample: {PREFIX}giverole @JohnDoe @Members')
+    @commands.command(aliases=['rank', 'r'], description='Add or remove roles from a member.')
     @commands.has_guild_permissions(manage_roles=True)
     async def role(self, ctx, member: discord.Member, *, role: discord.Role):
         if role.position > ctx.author.top_role.position:
