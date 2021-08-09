@@ -36,7 +36,7 @@ class Mod(commands.Cog):
     async def purge(self, ctx, amount: int):
 
         url = GITHUB
-        embed = discord.Embed()
+        embed = discord.Embed(color=discord.colour.Color.blue())
         authors = {}
 
         async for message in ctx.channel.history(limit=amount):
