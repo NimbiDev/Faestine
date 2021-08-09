@@ -6,22 +6,31 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-PREFIX = os.getenv('COMMAND_PREFIX')
+
+bot = commands.Bot(commands_prefix = commands.when_mentioned_or('bdg!'))
 
 
 class HelpEmbed(commands.HelpCommand):
-    async def send_command_help(self, command):
-        embed = discord.Embed(title=self.get_command_signature(command))
-        embed.add_field(name="Help", value=command.help)
-        alias = command.aliases
-        if alias:
-            embed.add_field(name="Aliases", value=", ".join(alias), inline=False)
+    def __init__(self, **options):
+        super().__init__(options)
+        self.clean_prefix = None
+
+    def get_command_signature(self, command):
+        return '%s%s %s' % (self.clean_prefix, command.qualified_name, command.signature)
+
+    async def send_bot_help(self, mapping):
+        embed = discord.Embed(title="Help")
+        for cog, command in mapping.items():
+            filtered = await self.filter_commands(command, sort=True)
+            command_signatures = [self.get_command_signature(c) for c in filtered]
+            if command_signatures:
+                cog_name = getattr(cog, "qualified_name", "Other")
+                embed.add_field(name=cog_name, value="\n".join(command_signatures), inline=False)
 
         channel = self.get_destination()
         await channel.send(embed=embed)
 
-
-bot = commands.Bot(command_prefix=commands.when_mentioned_or(PREFIX), help_command=HelpEmbed())
+bot.help_command = HelpEmbed()
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
