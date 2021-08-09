@@ -36,7 +36,7 @@ bot.help_command = HelpEmbed()
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
-        bot.load_extension(f'cogs.{filename[:-3]}')
-        print(f'Loaded cogs.{filename[:-3]}')
+        bot.load_extension('cogs.{}'.format(filename[:-3]))
+        print('Loaded cogs.{}'.format(filename[:-3]))
 
 bot.run(TOKEN)
