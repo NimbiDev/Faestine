@@ -18,6 +18,7 @@ THREAD_THREE = os.getenv('THREAD_THREE_ID')
 THREAD_FOUR = os.getenv('THREAD_FOUR_ID')
 THREAD_FIVE = os.getenv('THREAD_FIVE_ID')
 THREAD_SIX = os.getenv('THREAD_SIX_ID')
+THREAD_SEVEN = os.getenv('THREAD_SEVEN_ID')
 
 
 class Events(commands.Cog):
@@ -122,9 +123,11 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_thread_update(self, thread: discord.Thread):
-        thread_list = [THREAD_ONE, THREAD_TWO, THREAD_THREE, THREAD_FOUR, THREAD_FIVE, THREAD_SIX]
+        thread_list = [THREAD_ONE, THREAD_TWO, THREAD_THREE, THREAD_FOUR, THREAD_FIVE, THREAD_SIX, THREAD_SEVEN]
         for thread.id in thread_list:
-            if thread.archived:
+            if not thread.archived:
+                return
+            else:
                 await thread.send('Thread auto archive triggered. \nRestoring thread...', delete_after=10)
 
 
