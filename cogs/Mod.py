@@ -11,7 +11,7 @@ class Mod(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['restore', 'tr'], description='Restore a specified archived thread')
+    @commands.command(aliases=['res_thread', 'rt', 'tr', 'thread_res'], description='Restore a specified archived thread')
     @commands.has_guild_permissions(manage_threads=True)
     async def restore_thread(self, ctx, thread: discord.Thread):
         if not thread.archived:
@@ -19,6 +19,16 @@ class Mod(commands.Cog):
         else:
             await thread.send('The thread has been restored.', delete_after=20)
             await ctx.reply('Restoring thread: {}'.format(thread.name), delete_after=20)
+
+    @commands.command(aliases=['del_thread', 'dt', 'td', 'thread_del'], description='Delete a specified thread')
+    @commands.has_guild_permissions(manage_threads=True)
+    async def delete_thread(self, ctx, thread: discord.Thread):
+        if not thread:
+            await ctx.reply(':x: You must specify a thread for me to delete', delete_after=20)
+        else:
+            name = thread.name
+            await thread.delete()
+            await ctx.reply(':white_check_mark: Successfully deleted thread: {}'.format(name), delete_after=20)
 
     @commands.command(aliases=['clear', 'prune', 'delete'], description='Delete a specified number of messages.')
     @commands.has_guild_permissions(manage_messages=True)
