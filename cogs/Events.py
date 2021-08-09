@@ -41,6 +41,7 @@ class Events(commands.Cog):
         error: commands.CommandError
             The Exception raised.
         """
+
         if hasattr(ctx.command, 'on_error'):
             return
 
@@ -52,67 +53,69 @@ class Events(commands.Cog):
         ignored = (commands.CommandNotFound,)
         error = getattr(error, 'original', error)
 
+        log_error = traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+
         if isinstance(error, ignored):
             return
 
         if isinstance(error, commands.DisabledCommand):
             print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
-            await ctx.send('The command: {} has been disabled.'.format(ctx.command))
+            await ctx.send('The command {} has been disabled.'.format(ctx.command))
 
         elif isinstance(error, commands.NoPrivateMessage):
             try:
                 print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
                 traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
-                await ctx.author.send('The command: {} can not be used in Private Messages.'.format(ctx.command))
+                await ctx.author.send('The command {} can not be used in Private Messages.'.format(ctx.command))
             except discord.HTTPException:
                 pass
 
         elif isinstance(error, commands.CommandError):
             if ctx.command.qualified_name == ctx.command:
                 print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
-                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+                await log_error
                 await ctx.send('There was a problem with that command...')
 
         elif isinstance(error, commands.BotMissingPermissions):
             if ctx.command.qualified_name == ctx.command:
                 print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
-                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+                await log_error
                 await ctx.send('I do not have permission to use the command: {}'.format(ctx.command))
 
         elif isinstance(error, commands.MissingPermissions):
             if ctx.command.qualified_name == ctx.command:
                 print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
-                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
-                await ctx.send('You do not have permission to use the command: {}'.format(ctx.command))
+                await log_error
+                await ctx.send('You do not have permission to use the command {}'.format(ctx.command))
 
         elif isinstance(error, commands.MissingRequiredArgument):
             if ctx.command.qualified_name == ctx.command:
                 print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
-                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
-                await ctx.send('Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX, ctx.command))
+                await log_error
+                await ctx.send('Please pass in all required argument(s)... Type {}help {} for help.'.format(self.clean_prefix, ctx.command))
 
         elif isinstance(error, commands.ThreadNotFound):
             error_channel = self.bot.get_channel(ERROR_CHANNEL)
             print('I can not find the specified thread.', file=sys.stderr)
-            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            await log_error
             await error_channel.send('An Error Has Occurred {}:'.format(error), file=sys.stderr)
 
         elif isinstance(error, commands.ChannelNotFound):
             error_channel = self.bot.get_channel(ERROR_CHANNEL)
             print('I can not find the specified channel.', file=sys.stderr)
-            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            await log_error
             await error_channel.send('An Error Has Occurred {}:'.format(error), file=sys.stderr)
 
         elif isinstance(error, commands.UserNotFound):
             error_channel = self.bot.get_channel(ERROR_CHANNEL)
             print('I can not find the specified user.', file=sys.stderr)
-            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            await log_error
             await error_channel.send('An Error Has Occurred {}:'.format(error), file=sys.stderr)
 
         else:
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
-            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            await log_error
 
 
 def setup(bot):
