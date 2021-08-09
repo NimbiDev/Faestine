@@ -43,7 +43,7 @@ class Admin(commands.Cog):
         await ctx.guild.ban(reason=reason)
         await ctx.send('Successfully banned {} for {}.'.format(member, reason))
 
-    @commands.command(aliases=['tb'], description='Temporarily ban a member from the guild.', usage='fae temp_ban <member> [duration]')
+    @commands.command(aliases=['tb'], description='Temporarily ban a member from the guild.', usage='<member> [duration]')
     @commands.has_guild_permissions(ban_members=True)
     async def temp_ban(self, ctx, member: commands.MemberConverter, duration=DurationConverter):
         """
