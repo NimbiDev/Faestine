@@ -34,9 +34,11 @@ class Mod(commands.Cog):
     @commands.command(aliases=['clear', 'prune', 'delete'], description='Delete a specified number of messages.')
     @commands.has_guild_permissions(manage_messages=True)
     async def purge(self, ctx, amount: int):
+        
         url = GITHUB
         embed = discord.Embed()
         authors = {}
+
         async for message in ctx.channel.history(limit=amount):
             if message.author not in authors:
                 authors[message.author] = 1
@@ -44,8 +46,9 @@ class Mod(commands.Cog):
                 authors[message.author] += 1
             await message.delete()
 
-        deleted = '\n'.join(['{}: {}'.format(author.name, amount) for author, amount in authors.items()])
-        embed.add_field(name='Messages Deleted', value='```yml\n{}```'.format(deleted))
+        response = '\n'.join(['{}: {}'.format(author.name, amount) for author, amount in authors.items()])
+
+        embed.add_field(name='Messages Deleted', value='```yml\n{}```'.format(response))
         embed.set_footer(text='{} | {}'.format(self.bot.user.name, url), icon_url=self.bot.user.avatar)
 
         await ctx.channel.purge(limit=amount + 1)
