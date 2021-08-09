@@ -37,7 +37,7 @@ class Admin(commands.Cog):
         await ctx.guild.kick(reason=reason)
         await ctx.send('Successfully kicked {} for {}.'.format(member, reason))
 
-    @commands.command(aliases=['mass_ban'], description='')
+    @commands.command(aliases=['mb'], description='')
     @commands.has_guild_permissions(ban_members=True)
     async def mass_ban(self, ctx, members: commands.Greedy[discord.Member],
                        delete_days: typing.Optional[int] = 0, *,
