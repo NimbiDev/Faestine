@@ -24,6 +24,7 @@ class Utility(commands.Cog):
         """
         url = GITHUB
         embed = discord.Embed(description='```yml\nLatency: {}ms```'.format(round(self.bot.latency * 1000)), color=discord.colour.Colour.dark_blue())
+        embed.set_image(url=self.bot.user.avatar)
         embed.set_footer(text='{} | {}'.format(self.bot.name, url))
         await ctx.send()
 
@@ -34,6 +35,7 @@ class Utility(commands.Cog):
             member = ctx.author
         embed = discord.Embed(color=discord.colour.Color.dark_blue())
         embed.set_image(url=member.avatar_url)
+        embed.set_footer(text='{} | {}'.format(self.bot.name, url))
         await ctx.send(embed=embed)
 
 
