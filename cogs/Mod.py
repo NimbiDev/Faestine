@@ -31,10 +31,10 @@ class Mod(commands.Cog):
     async def purge(self, ctx, amount: int):
         authors = {}
         async for message in ctx.channel.history(limit=amount):
-            if message.author.name not in authors:
-                authors[message.author] = 1
+            if message.author not in authors:
+                authors[message.author[:-5]] = 1
             else:
-                authors[message.author] += 1
+                authors[message.author[:-5]] += 1
             await message.delete()
 
         msg = '\n'.join([f'{author}: {amount}' for author, amount in authors.items()])
