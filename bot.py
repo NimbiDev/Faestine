@@ -9,12 +9,16 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 PREFIX = os.getenv('COMMAND_PREFIX')
 
 
-class HelpEmbed(commands.DefaultHelpCommand):
-    async def send_pages(self):
-        destination = self.get_destination()
-        for page in self.paginator.pages:
-            help_embed = discord.Embed(description=page)
-            await destination.send(embed=help_embed)
+class HelpEmbed(commands.HelpCommand):
+    async def send_bot_help(self, mapping):
+        embed = discord.Embed(title="Help")
+        for cog, commands in mapping.items():
+            command_signatures = [self.get_command_signature(c) for c in commands]
+            if command_signatures:
+                cog_name = getattr(cog, "qualified_name", "No Category")
+                embed.add_field(name=cog_name, value="\n".join(command_signatures), inline=False)
+        channel = self.get_destination()
+        await channel.send(embed=embed)
 
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or(PREFIX), help_command=HelpEmbed())
