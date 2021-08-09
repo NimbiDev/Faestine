@@ -11,6 +11,10 @@ bot = commands.Bot(command_prefix="fae ")
 
 
 class HelpEmbed(commands.HelpCommand):
+    def __init__(self):
+        super().__init__()
+        self.clean_prefix = None
+
     def get_command_signature(self, command):
         return '%s%s %s' % (self.clean_prefix, command.qualified_name, command.signature)
 
