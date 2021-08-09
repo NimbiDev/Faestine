@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 GUILD = os.getenv('GUILD_ID')
-TWITCH_URL = os.getenv('TWITCH_CHANNEL')
+TWITCH = os.getenv('TWITCH_CHANNEL')
 GITHUB = os.getenv('GITHUB_URL')
 ERROR_CHANNEL = os.getenv('ERROR_CHANNEL_ID')
 WELCOME_CHANNEL = os.getenv('WELCOME_CHANNEL_ID')
@@ -21,7 +21,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        await self.bot.change_presence(status=discord.Status.online, activity=discord.Streaming(name='{}help'.format(self.clean_prefix), url=TWITCH_URL))
+        await self.bot.change_presence(status=discord.Status.online, activity=discord.Streaming(name='{}help'.format(self.clean_prefix), url=TWITCH))
         print('{} is online!'.format(self.bot.user.name))
 
     @commands.Cog.listener()
@@ -55,7 +55,6 @@ class Events(commands.Cog):
 
         ignored = (commands.CommandNotFound,)
         error = getattr(error, 'original', error)
-
 
         if isinstance(error, ignored):
             return
