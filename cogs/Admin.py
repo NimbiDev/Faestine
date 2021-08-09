@@ -3,19 +3,20 @@ import asyncio
 from discord.ext import commands
 
 
+class DurationConverter(commands.Converter):
+    async def convert(self, ctx, argument):
+        amount = argument[:-1]
+        unit = argument[-1]
+
+        if amount.isdigit() and unit in ['m', 's']:
+            return int(amount), unit
+
+        raise commands.BadArgument(message=':x: Invalid duration...')
+
+
 class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
-    class DurationConverter(commands.Converter):
-        async def convert(self, ctx, argument):
-            amount = argument[:-1]
-            unit = argument[-1]
-
-            if amount.isdigit() and unit in ['m', 's']:
-                return int(amount), unit
-
-            raise commands.BadArgument(message=':x: Invalid duration...')
 
     @commands.command(aliases=['k'], description='Kick a member from the guild.')
     @commands.has_guild_permissions(kick_members=True)
@@ -27,7 +28,7 @@ class Admin(commands.Cog):
         :return:
         """
         await ctx.guild.kick(reason=reason)
-        await ctx.send(f'Successfully kicked {member} for {reason}.')
+        await ctx.send('Successfully kicked {} for {}.'.format(member, reason))
 
     @commands.command(aliases=['b'], description='Ban a member from the guild.')
     @commands.has_guild_permissions(ban_members=True)
@@ -39,7 +40,7 @@ class Admin(commands.Cog):
         :return:
         """
         await ctx.guild.ban(reason=reason)
-        await ctx.send(f'Successfully banned {member} for {reason}.')
+        await ctx.send('Successfully banned {} for {}.'.format(member, reason))
 
     @commands.command(aliases=['tb'], description='Temporarily ban a member from the guild.')
     @commands.has_guild_permissions(ban_members=True)
@@ -54,7 +55,7 @@ class Admin(commands.Cog):
         amount, unit = duration
 
         await ctx.guild.ban(member)
-        await ctx.send(f'Temporarily banned {member} for {amount}{unit}.')
+        await ctx.send('Temporarily banned {} for {}{}.'.format(member, amount, unit))
         await asyncio.sleep(amount * multiplier[unit])
         await ctx.guild.unban(member)
 
