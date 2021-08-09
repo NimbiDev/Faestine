@@ -17,6 +17,7 @@ class DurationConverter(commands.Converter):
 class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.clean_prefix = 'fae '
 
     @commands.command(aliases=['k'], description='Kick a member from the guild.')
     @commands.has_guild_permissions(kick_members=True)
@@ -42,7 +43,7 @@ class Admin(commands.Cog):
         await ctx.guild.ban(reason=reason)
         await ctx.send('Successfully banned {} for {}.'.format(member, reason))
 
-    @commands.command(aliases=['tb'], description='Temporarily ban a member from the guild.')
+    @commands.command(aliases=['tb'], description='Temporarily ban a member from the guild.', usage='fae temp_ban <member> [duration]')
     @commands.has_guild_permissions(ban_members=True)
     async def temp_ban(self, ctx, member: commands.MemberConverter, duration=DurationConverter):
         """
@@ -68,19 +69,19 @@ class Admin(commands.Cog):
         :return:
         """
         await ctx.guild.unban(member)
-        await ctx.send(f'Successfully unbanned {member}.')
+        await ctx.send('Successfully unbanned {}.'.format(member))
 
     @commands.command(aliases=['rank', 'r'], description='Add or remove roles from a member.')
     @commands.has_guild_permissions(manage_roles=True)
     async def role(self, ctx, member: discord.Member, *, role: discord.Role):
         if role.position > ctx.author.top_role.position:
-            return await ctx.send(':x: | That role is above your top role!')
+            return await ctx.send(':x: The role {} is above your top role.'.format(role.name))
         if role in member.roles:
             await member.remove_roles(role)
-            await ctx.send(f"Removed {role.name} from {member.display_name}")
+            await ctx.send('Removed {} from {}'.format(role.name, member.display_name))
         else:
             await member.add_roles(role)
-            await ctx.send(f"Added {role.name} to {member.display_name}")
+            await ctx.send('Added {} to {}'.format(role.name, member.display_name))
 
 
 def setup(bot):
