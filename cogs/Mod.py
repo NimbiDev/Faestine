@@ -1,5 +1,10 @@
 import discord
+import os
 from discord.ext import commands
+from dotenv import load_dotenv
+
+load_dotenv()
+GITHUB = os.getenv('GITHUB_URL')
 
 
 class Mod(commands.Cog):
@@ -29,6 +34,8 @@ class Mod(commands.Cog):
     @commands.command(aliases=['clear', 'prune', 'delete'], description='Delete a specified number of messages.')
     @commands.has_guild_permissions(manage_messages=True)
     async def purge(self, ctx, amount: int):
+        url = GITHUB
+        embed = discord.Embed()
         authors = {}
         async for message in ctx.channel.history(limit=amount):
             if message.author not in authors:
@@ -37,10 +44,12 @@ class Mod(commands.Cog):
                 authors[message.author] += 1
             await message.delete()
 
-        msg = '\n'.join(['{}: {}'.format(author.name, amount) for author, amount in authors.items()])
+        deleted = '\n'.join(['{}: {}'.format(author.name, amount) for author, amount in authors.items()])
+        embed.add_field(name='Messages Deleted', value='```yml\n{}```'.format(deleted))
+        embed.set_footer(text='{} | {}'.format(self.bot.user.name, url), icon_url=self.bot.user.avatar)
 
         await ctx.channel.purge(limit=amount + 1)
-        await ctx.channel.send('**__Messages Deleted__**\n```yml\n{}```'.format(msg), delete_after=20)
+        await ctx.channel.send(embed=embed, delete_after=20)
 
 
 def setup(bot):
