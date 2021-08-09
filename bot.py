@@ -27,8 +27,9 @@ class HelpEmbed(commands.HelpCommand):
             if command_signatures:
                 cog_name = getattr(cog, 'qualified_name', 'Other')
                 sig = '\n'.join(command_signatures)
+                guild = self.bot.get_guild()
                 embed.add_field(name='{} Commands'.format(cog_name), value='```xml\n{}```'.format(sig), inline=False)
-                embed.set_footer(text=self.bot.user.name, icon_url=self.bot.user.avatar)
+                embed.set_footer(text='{} | {}'.format(self.bot.user.name, guild.name), icon_url=self.bot.user.avatar)
         channel = self.get_destination()
         await channel.send(embed=embed)
 
