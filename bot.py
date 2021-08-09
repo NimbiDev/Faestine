@@ -27,7 +27,7 @@ class HelpEmbed(commands.HelpCommand):
                 cog_name = getattr(cog, 'qualified_name', 'Other')
                 sig = '\n'.join(command_signatures)
                 channel = self.get_destination()
-                await channel.send('**__Help__**\n\n{}\n```xml\n{}```'.format(cog_name, sig))
+                await channel.send('{}\n```xml\n{}```'.format(cog_name, sig))
 
 
 bot.help_command = HelpEmbed()
