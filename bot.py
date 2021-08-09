@@ -20,17 +20,14 @@ class HelpEmbed(commands.HelpCommand):
         return '%s%s %s' % (self.clean_prefix, command.qualified_name, command.signature)
 
     async def send_bot_help(self, mapping):
-        emb = discord.Embed(title='Help')
         for cog, command in mapping.items():
             filtered = await self.filter_commands(command, sort=True)
             command_signatures = [self.get_command_signature(c) for c in filtered]
             if command_signatures:
                 cog_name = getattr(cog, 'qualified_name', 'Other')
                 sig = '\n'.join(command_signatures)
-                emb.add_field(name=cog_name, value='```xml\n{}```'.format(sig), inline=False)
-
-        channel = self.get_destination()
-        await channel.send(embed=emb)
+                channel = self.get_destination()
+                await channel.send('**__Help__**\n\n{}\n```xml\n{}```'.format(cog_name, sig))
 
 
 bot.help_command = HelpEmbed()
