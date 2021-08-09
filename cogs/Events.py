@@ -11,6 +11,12 @@ GUILD = os.getenv('GUILD_ID')
 TWITCH_URL = os.getenv('TWITCH_CHANNEL')
 WELCOME_CHANNEL = os.getenv('WELCOME_CHANNEL')
 WELCOME_IMAGE = os.getenv('WELCOME_IMAGE_URL')
+THREAD_ONE = os.getenv('THREAD_ONE_ID')
+THREAD_TWO = os.getenv('THREAD_TWO_ID')
+THREAD_THREE = os.getenv('THREAD_THREE_ID')
+THREAD_FOUR = os.getenv('THREAD_FOUR_ID')
+THREAD_FIVE = os.getenv('THREAD_FIVE_ID')
+THREAD_SIX = os.getenv('THREAD_SIX_ID')
 
 
 class Events(commands.Cog):
@@ -19,8 +25,7 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        await self.bot.change_presence(status=discord.Status.online,
-                                          activity=discord.Streaming(name='{}help'.format(PREFIX), url=TWITCH_URL))
+        await self.bot.change_presence(status=discord.Status.online, activity=discord.Streaming(name='{}help'.format(PREFIX), url=TWITCH_URL))
         print('{} is online!'.format(self.bot.user.name))
 
     @commands.Cog.listener()
@@ -99,9 +104,34 @@ class Events(commands.Cog):
                     await ctx.send(
                         'Please pass in all required argument(s)... Type {}help {} for help.'.format(PREFIX, ctx.command))
 
+            elif isinstance(error, commands.ThreadNotFound):
+                error_channel = self.bot.get_channel(847221719777148948)
+                print('I can not find the specified thread.', file=sys.stderr)
+                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+                await error_channel.send('An Error Has Occurred {}:'.format(error), file=sys.stderr)
+
+            elif isinstance(error, commands.ChannelNotFound):
+                error_channel = self.bot.get_channel(847221719777148948)
+                print('I can not find the specified channel.', file=sys.stderr)
+                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+                await error_channel.send('An Error Has Occurred {}:'.format(error), file=sys.stderr)
+
+            elif isinstance(error, commands.UserNotFound):
+                error_channel = self.bot.get_channel(847221719777148948)
+                print('I can not find the specified user.', file=sys.stderr)
+                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+                await error_channel.send('An Error Has Occurred {}:'.format(error), file=sys.stderr)
+
         else:
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+
+    @commands.Cog.listener()
+    async def on_thread_update(self, thread: discord.Thread):
+        thread_list = [THREAD_ONE, THREAD_TWO, THREAD_THREE, THREAD_FOUR, THREAD_FIVE, THREAD_SIX]
+        for thread.id in thread_list:
+            if thread.archived:
+                await thread.send('Thread auto archive triggered. \nRestoring thread...', delete_after=10)
 
 
 def setup(bot):
