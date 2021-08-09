@@ -6,19 +6,11 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
-PREFIX = os.getenv('COMMAND_PREFIX')
 GUILD = os.getenv('GUILD_ID')
 TWITCH_URL = os.getenv('TWITCH_CHANNEL')
 ERROR_CHANNEL = os.getenv('ERROR_CHANNEL_ID')
 WELCOME_CHANNEL = os.getenv('WELCOME_CHANNEL_ID')
 WELCOME_IMAGE = os.getenv('WELCOME_IMAGE_URL')
-THREAD_ONE = os.getenv('THREAD_ONE_ID')
-THREAD_TWO = os.getenv('THREAD_TWO_ID')
-THREAD_THREE = os.getenv('THREAD_THREE_ID')
-THREAD_FOUR = os.getenv('THREAD_FOUR_ID')
-THREAD_FIVE = os.getenv('THREAD_FIVE_ID')
-THREAD_SIX = os.getenv('THREAD_SIX_ID')
-THREAD_SEVEN = os.getenv('THREAD_SEVEN_ID')
 
 
 class Events(commands.Cog):

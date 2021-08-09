@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-bot = commands.Bot(commands_prefix = commands.when_mentioned_or('fae '))
+bot = commands.Bot(commands_prefix=commands.when_mentioned_or('fae '))
 
 
 class HelpEmbed(commands.HelpCommand):
@@ -29,6 +29,7 @@ class HelpEmbed(commands.HelpCommand):
 
         channel = self.get_destination()
         await channel.send(embed=embed)
+
 
 bot.help_command = HelpEmbed()
 

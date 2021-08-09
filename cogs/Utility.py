@@ -5,7 +5,6 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
-PREFIX = os.getenv('COMMAND_PREFIX')
 TWITCH_API_TOKEN = os.getenv('TWITCH_TOKEN')
 TWITCH_API_SECRET = os.getenv('TWITCH_SECRET')
 WOLFRAM_API_ID = os.getenv('WOLFRAM_ID')

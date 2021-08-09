@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-PREFIX = os.getenv('COMMAND_PREFIX')
 OSU_API_TOKEN = os.getenv('OSU_TOKEN')
 GW2_API_TOKEN = os.getenv('GW2_TOKEN')
 TENOR_API_TOKEN = os.getenv('TENOR_TOKEN')

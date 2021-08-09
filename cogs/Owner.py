@@ -1,10 +1,6 @@
 import discord
-import os
 from discord.ext import commands
-from dotenv import load_dotenv
 
-load_dotenv()
-PREFIX = os.getenv('COMMAND_PREFIX')
 
 class Owner(commands.Cog):
     def __init__(self, bot):
@@ -18,9 +14,9 @@ class Owner(commands.Cog):
         :param extension:
         :return:
         """
-        self.bot.load_extension(f'cogs.{extension}')
-        print(f'Loaded cogs.{extension}')
-        await ctx.send(f'Successfully loaded the {extension} cog.')
+        self.bot.load_extension('cogs.{}'.format(extension))
+        print('Loaded cogs.{}'.format(extension))
+        await ctx.send('Successfully loaded the {} cog.'.format(extension))
 
     @commands.command(aliases=['unload'], description='Unload a specified cog.')
     @commands.is_owner()
@@ -30,9 +26,9 @@ class Owner(commands.Cog):
         :param extension:
         :return:
         """
-        self.bot.unload_extension(f'cogs.{extension}')
-        print(f'Unloaded cogs.{extension}')
-        await ctx.send(f'Successfully unloaded the {extension} cog.')
+        self.bot.unload_extension('cogs.{}'.format(extension))
+        print('Unloaded cogs.{}'.format(extension))
+        await ctx.send('Successfully unloaded the {} cog.'.format(extension))
 
     @commands.command(aliases=['reload'], description='Unload and then reload a specified cog.')
     @commands.is_owner()
