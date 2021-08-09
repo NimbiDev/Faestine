@@ -22,7 +22,7 @@ class Mod(commands.Cog):
         if not thread:
             await ctx.reply(':x: You must specify a thread for me to delete', delete_after=20)
         else:
-            name = thread.name
+            name = thread.name()
             await thread.delete()
             await ctx.reply(':white_check_mark: Successfully deleted thread: {}'.format(name), delete_after=20)
 
