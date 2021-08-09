@@ -32,7 +32,7 @@ class Mod(commands.Cog):
         authors = {}
         async for message in ctx.channel.history(limit=amount):
             if message.author not in authors:
-                authors[message.author] = 1
+                authors[message.author.name] = 1
             else:
                 authors[message.author.name] += 1
             await message.delete()
