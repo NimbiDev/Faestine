@@ -32,12 +32,12 @@ class Mod(commands.Cog):
         authors = {}
         async for message in ctx.channel.history(limit=amount):
             if message.author not in authors:
-                authors[message.author[:-5]] = 1
+                authors[message.author] = 1
             else:
-                authors[message.author[:-5]] += 1
+                authors[message.author] += 1
             await message.delete()
 
-        msg = '\n'.join([f'{author}: {amount}' for author, amount in authors.items()])
+        msg = '\n'.join([f'{author.name}: {amount}' for author, amount in authors.items()])
 
         await ctx.channel.purge(limit=amount + 1)
         await ctx.channel.send('**__Messages Deleted__**\n```yml\n{}```'.format(msg), delete_after=20)
