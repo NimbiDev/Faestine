@@ -25,7 +25,7 @@ class HelpEmbed(commands.HelpCommand):
             command_signatures = [self.get_command_signature(c) for c in filtered]
             if command_signatures:
                 cog_name = getattr(cog, 'qualified_name', 'Other')
-                emb.add_field(name=cog_name, value='\n```yaml'.join(command_signatures) + '```', inline=False)
+                emb.add_field(name=cog_name, value='```yaml\n'.join(command_signatures) + '```', inline=False)
 
         channel = self.get_destination()
         await channel.send(embed=emb)
