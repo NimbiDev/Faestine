@@ -116,18 +116,18 @@ class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name='gif', aliases=['tenor'], description='Return a random gif by tag')
+    @commands.command(aliases=['tenor'], description='Return a random gif by tag')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
-    async def _gif(self, ctx, *, _text):
+    async def gif(self, ctx, *, gif_url):
 
-        _url = await TENOR.arandom(str(_text))
+        g = await TENOR.arandom(str(gif_url))
 
-        _emb = discord.Embed(colour=discord.Colour.random())
-        _emb.set_image(url=_url)
-        await ctx.send(embed=_emb)
+        emb = discord.Embed(colour=discord.Colour.random())
+        emb.set_image(url=g)
+        await ctx.send(embed=emb)
 
-    @_gif.error
-    async def _gif_error(self, ctx, error):
+    @gif.error
+    async def gif_error(self, ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send(':x: Tag cant be None. Please give a valid tag to search.')
         else:
