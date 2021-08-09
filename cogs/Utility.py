@@ -13,6 +13,7 @@ WOLFRAM_API_ID = os.getenv('WOLFRAM_ID')
 class Utility(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.clean_prefix = self.bot.command_prefix
 
     @commands.command(aliases=['echo', 'beep'], description='Responds with the bot\'s current ping.')
     @commands.has_guild_permissions(send_messages=True)

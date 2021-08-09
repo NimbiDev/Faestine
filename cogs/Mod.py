@@ -5,6 +5,7 @@ from discord.ext import commands
 class Mod(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.clean_prefix = self.bot.command_prefix
 
     @commands.command(aliases=['res_thread', 'rt', 'tr', 'thread_res'], description='Restore a specified archived thread')
     @commands.has_guild_permissions(manage_threads=True)

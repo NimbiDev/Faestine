@@ -16,7 +16,7 @@ WELCOME_IMAGE = os.getenv('WELCOME_IMAGE_URL')
 class Events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.clean_prefix = "fae "
+        self.clean_prefix = self.bot.command_prefix
 
     @commands.Cog.listener()
     async def on_ready(self):
