@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-bot = commands.Bot(commands_prefix = commands.when_mentioned_or('bdg!'))
+bot = commands.Bot(commands_prefix = commands.when_mentioned_or('fae '))
 
 
 class HelpEmbed(commands.HelpCommand):
