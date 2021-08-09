@@ -16,10 +16,11 @@ WELCOME_IMAGE = os.getenv('WELCOME_IMAGE_URL')
 class Events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.clean_prefix = "fae "
 
     @commands.Cog.listener()
     async def on_ready(self):
-        await self.bot.change_presence(status=discord.Status.online, activity=discord.Streaming(name='help', url=TWITCH_URL))
+        await self.bot.change_presence(status=discord.Status.online, activity=discord.Streaming(name='{}help'.format(self.clean_prefix), url=TWITCH_URL))
         print('{} is online!'.format(self.bot.user.name))
 
     @commands.Cog.listener()
