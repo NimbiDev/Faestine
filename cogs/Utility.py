@@ -7,8 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 TWITCH_API_TOKEN = os.getenv('TWITCH_TOKEN')
 TWITCH_API_SECRET = os.getenv('TWITCH_SECRET')
-
-
+GITHUB = os.getenv('GITHUB_URL')
 
 
 class Utility(commands.Cog):
@@ -23,18 +22,19 @@ class Utility(commands.Cog):
         :param ctx:
         :return:
         """
-        await ctx.send('My current ping is {}ms'.format(round(self.bot.latency * 1000)))
+        url = GITHUB
+        embed = discord.Embed(description='```yml\nLatency: {}ms```'.format(round(self.bot.latency * 1000)), color=discord.colour.Colour.dark_blue())
+        embed.set_footer(text='{} | {}'.format(self.bot.name, url))
+        await ctx.send()
 
     @commands.command(aliases=['av', 'pfp'], description='Display a member\'s avatar')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
     async def avatar(self, ctx, member: discord.Member = None):
         if member is None:
             member = ctx.author
-        emb = discord.Embed(color=discord.Color.random())
-        emb.set_image(url=member.avatar_url)
-        await ctx.send(embed=emb)
-
-
+        embed = discord.Embed(color=discord.colour.Color.dark_blue())
+        embed.set_image(url=member.avatar_url)
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
