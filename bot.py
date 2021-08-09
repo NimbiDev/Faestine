@@ -7,13 +7,14 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-bot = commands.Bot(command_prefix="fae ")
+bot = commands.Bot(command_prefix='fae ')
 
 
 class HelpEmbed(commands.HelpCommand):
     def __init__(self):
         super().__init__()
-        self.clean_prefix = "fae "
+        self.bot = bot
+        self.clean_prefix = self.bot.command_prefix
 
     def get_command_signature(self, command):
         return '%s%s %s' % (self.clean_prefix, command.qualified_name, command.signature)
