@@ -9,3 +9,7 @@ db/*
 env/*
 config/*
 .idea/*
+venv/
+venv/*
+pyenv/
+pyenv*
