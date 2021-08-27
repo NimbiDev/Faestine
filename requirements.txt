@@ -3,5 +3,4 @@ aiohttp
 python-dotenv
 ffmpeg
 TenGiphPy
-youtube_dl
 asyncio
