@@ -1,5 +1,4 @@
 discord
-pycord
 aiohttp
 python-dotenv
 ffmpeg
