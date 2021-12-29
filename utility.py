@@ -7,7 +7,7 @@ class Utility(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(name=='user-info', aliases=['user'], description='Display information about a specified member.')
+    @commands.command(name='user-info', aliases=['user'], description='Display information about a specified member.')
     async def _userinfo(self, ctx, member):
         msg = '{} joined on {} and has {} roles.'.format(
             member, member.joined_at, len(member.roles))
