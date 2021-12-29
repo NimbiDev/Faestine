@@ -9,4 +9,4 @@ class Guild(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog(Guild(client))
+    client.add_cog.util(Guild(client))

@@ -9,4 +9,4 @@ class Thread(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog(Thread(client))
+    client.add_cog.admin(Thread(client))

@@ -9,4 +9,4 @@ class Warn(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog(Warn(client))
+    client.add_cog.mod(Warn(client))

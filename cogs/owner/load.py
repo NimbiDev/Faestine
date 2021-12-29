@@ -9,4 +9,4 @@ class Load(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog(Load(client))
+    client.add_cog.owner(Load(client))

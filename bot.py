@@ -62,7 +62,6 @@ client.load_extension('events.memberleave')
 client.load_extension('events.guildcreate')
 client.load_extension('events.guilddelete')
 client.load_extension('events.error')
-client.load_extension('events.message')
 client.load_extension('events.ready')
 
 # Load all Owner Cogs

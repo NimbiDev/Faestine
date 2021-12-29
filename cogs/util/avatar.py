@@ -9,4 +9,4 @@ class Avatar(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog(Avatar(client))
+    client.add_cog.util(Avatar(client))

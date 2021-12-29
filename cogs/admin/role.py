@@ -9,4 +9,4 @@ class Role(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog(Role(client))
+    client.add_cog.admin(Role(client))

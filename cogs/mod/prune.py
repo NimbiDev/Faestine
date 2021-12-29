@@ -9,4 +9,4 @@ class Prune(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog(Prune(client))
+    client.add_cog.mod(Prune(client))

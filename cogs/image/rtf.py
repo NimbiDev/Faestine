@@ -9,4 +9,4 @@ class RuleThirtyFour(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog(RuleThirtyFour(client))
+    client.add_cog.image(RuleThirtyFour(client))

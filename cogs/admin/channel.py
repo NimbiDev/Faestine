@@ -9,4 +9,4 @@ class Channel(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog(Channel(client))
+    client.add_cog.admin(Channel(client))

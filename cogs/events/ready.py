@@ -2,11 +2,11 @@ import discord
 import asyncio
 from discord.ext import commands
 
-class TempMute(commands.Cog):
+class Ready(commands.Cog):
     def __init__(self, client):
         self.client = client
 
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.mod(TempMute(client))
+    client.add_cog.events(Ready(client))

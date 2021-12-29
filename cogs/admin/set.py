@@ -9,4 +9,4 @@ class Set(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog(Set(client))
+    client.add_cog.admin(Set(client))
