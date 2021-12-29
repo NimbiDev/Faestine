@@ -1,5 +1,4 @@
 discord
 python-dotenv
-ffmpeg
 asyncio
-youtube_dl
+typing
