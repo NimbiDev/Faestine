@@ -20,60 +20,43 @@ client = commands.Bot(
 )
 
 
-# Load all Admin Commands
-client.load_extension('./admin/ban.py')
-client.load_extension('./admin/massban.py')
-client.load_extension('./admin/softban.py')
-client.load_extension('./admin/banlist.py')
-client.load_extension('./admin/role.py')
-client.load_extension('./admin/set.py')
-client.load_extension('./admin/kick.py')
-client.load_extension('./admin/purge.py')
-client.load_extension('./admin/channel.py')
-client.load_extension('./admin/slowmode.py')
-client.load_extension('./admin/thread.py')
-client.load_extension('./admin/role.py')
+for filename in os.listdir('./cogs/admin'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.admin.{filename[:-3]}')
+    else:
+        print(f'Unable to load {filename[:-3]}')
 
-# Load all Mod Cogs
-client.load_extension('./mod/mute.py')
-client.load_extension('./mod/tempmute.py')
-client.load_extension('./mod/warn.py')
-client.load_extension('./mod/prune.py')
+for filename in os.listdir('./cogs/mod'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.mod.{filename[:-3]}')
+    else:
+        print(f'Unable to load {filename[:-3]}')
 
-# Load all Util Cogs
-client.load_extension('./util/help.py')
-client.load_extension('./util/avatar.py')
-client.load_extension('./util/guild.py')
-client.load_extension('./util/user.py')
-client.load_extension('./util/search.py')
-client.load_extension('./util/tag.py')
+for filename in os.listdir('./cogs/util'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.utl.{filename[:-3]}')
+    else:
+        print(f'Unable to load {filename[:-3]}')
 
-# Load all Social Cogs
-client.load_extension('./social/twitter.py')
-client.load_extension('./social/reddit.py')
-client.load_extension('./social/rss.py')
-
-# Load all Image Cogs
-client.load_extension('./image/imgur.py')
-client.load_extension('./image/tenor.py')
-client.load_extension('./image/giphy.py')
-client.load_extension('./image/rule34.py')
-
-# Load all Events Cogs
-# client.load_extension('./events/memberjoin.py')
-# client.load_extension('./events/memberleave.py')
-# client.load_extension('./events/guildcreate.py')
-# client.load_extension('./events/guilddelete.py')
-# client.load_extension('./events/error.py')
-client.load_extension('./events/ready.py')
-client.load_extension('./events/messege.py')
-
-# Load all Owner Cogs
-# client.load_extension('owner.load.py')
-# client.load_extension('owner.unload.py')
-# client.load_extension('owner.reload.py')
-# client.load_extension('owner.toggle.py')
-# client.load_extension('owner.debug.py')
-# client.load_extension('owner.execute.py')
+for filename in os.listdir('./cogs/events'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.events.{filename[:-3]}')
+    else:
+        print(f'Unable to load {filename[:-3]}')
+for filename in os.listdir('./cogs/social'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.social.{filename[:-3]}')
+    else:
+        print(f'Unable to load {filename[:-3]}')
+for filename in os.listdir('./cogs/image'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.image.{filename[:-3]}')
+    else:
+        print(f'Unable to load {filename[:-3]}')
+for filename in os.listdir('./cogs/owner'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.owner.{filename[:-3]}')
+    else:
+        print(f'Unable to load {filename[:-3]}')
 
 client.run(TOKEN)
