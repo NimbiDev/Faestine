@@ -2,15 +2,14 @@ from discord.ext import commands
 from typing import List
 import discord
 
+class BanFlags(commands.FlagConverter):
+        members: List[discord.Member] = commands.flag(name='member')
+        reason: str
+        days: int = 1
 
 class Ban(commands.Cog):
     def __init__(self, client):
         self.client = client
-
-    class BanFlags(commands.FlagConverter):
-        members: List[discord.Member] = commands.flag(name='member')
-        reason: str
-        days: int = 1
 
     @commands.command(name="ban")
     @commands.has_permissions(ban_members=True)
