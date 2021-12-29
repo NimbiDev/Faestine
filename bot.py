@@ -12,23 +12,19 @@ PREFIX = os.getenv('CLIENT_PREFIX')
 
 client = commands.Bot(command_prefix=f'{PREFIX}')
 
+class DurationConverter(commands.Converter):
+    async def convert(self, ctx, argument):
+        amount = argument[:-1]
+        unit = argument[-1]
 
-class HelpEmbed(commands.HelpCommand):
-    def __init__(self):
-        super().__init__()
-        self.client = client
+        if amount.isdigit() and unit in ['m', 's']:
+            return int(amount), unit
 
+        raise commands.BadArgument(message=':x: Invalid duration...')
 
-# for filename in os.listdir('./cogs'):
-#     if filename.endswith('.py'):
-#         client.load_extension('cogs.{}'.format(filename[:-3]))
-#         print('Loaded cogs.{}'.format(filename[:-3]))
-
-for filename in os.listdir(f"./cogs/*"):
+for filename in os.listdir('./cogs/'):
     if filename.endswith('.py'):
-        filename = filename[5:-3]
-        client.load_extension("cogs.{}".format(filename[:-3].replace('\\', '.')))
-        print(f"Loaded cog.{}".format(filename[:-3].replace('\\', '.')))
-
+        client.load_extension('cogs.{}'.format(filename[:-3]))
+        print('Loaded cogs.{}'.format(filename[:-3]))
 
 client.run(TOKEN)

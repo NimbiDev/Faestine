@@ -17,7 +17,6 @@ WELCOME_IMAGE = os.getenv('WELCOME_IMAGE_URL')
 class Error(commands.Cog):
     def __init__(self, client):
         self.client = client
-        
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
@@ -45,63 +44,80 @@ class Error(commands.Cog):
             return
 
         if isinstance(error, commands.DisabledCommand):
-            print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
-            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            print('There was an exception in command {}:'.format(
+                ctx.command), file=sys.stderr)
+            traceback.print_exception(
+                type(error), error, error.__traceback__, file=sys.stderr)
             await ctx.reply('The command {} is disabled.'.format(ctx.command))
 
         elif isinstance(error, commands.NoPrivateMessage):
             try:
-                print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
-                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+                print('There was an exception in command {}:'.format(
+                    ctx.command), file=sys.stderr)
+                traceback.print_exception(
+                    type(error), error, error.__traceback__, file=sys.stderr)
                 await ctx.author.send('The command {} can not be used in Private Messages.'.format(ctx.command))
             except discord.HTTPException:
                 pass
 
         elif isinstance(error, commands.CommandError):
             if ctx.command.qualified_name == ctx.command:
-                print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
-                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+                print('There was an exception in command {}:'.format(
+                    ctx.command), file=sys.stderr)
+                traceback.print_exception(
+                    type(error), error, error.__traceback__, file=sys.stderr)
                 await ctx.reply('There was a problem with that command...')
 
         elif isinstance(error, commands.BotMissingPermissions):
             if ctx.command.qualified_name == ctx.command:
-                print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
-                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+                print('There was an exception in command {}:'.format(
+                    ctx.command), file=sys.stderr)
+                traceback.print_exception(
+                    type(error), error, error.__traceback__, file=sys.stderr)
                 await ctx.reply('I do not have permission to use the command: {}'.format(ctx.command))
 
         elif isinstance(error, commands.MissingPermissions):
             if ctx.command.qualified_name == ctx.command:
-                print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
-                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+                print('There was an exception in command {}:'.format(
+                    ctx.command), file=sys.stderr)
+                traceback.print_exception(
+                    type(error), error, error.__traceback__, file=sys.stderr)
                 await ctx.reply('You do not have permission to use the command {}'.format(ctx.command))
 
         elif isinstance(error, commands.MissingRequiredArgument):
             if ctx.command.qualified_name == ctx.command:
-                print('There was an exception in command {}:'.format(ctx.command), file=sys.stderr)
+                print('There was an exception in command {}:'.format(
+                    ctx.command), file=sys.stderr)
                 await ctx.reply('Please pass in all required argument(s)... Type {}help {} for help.'.format(self.clean_prefix, ctx.command))
-                traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+                traceback.print_exception(
+                    type(error), error, error.__traceback__, file=sys.stderr)
 
         elif isinstance(error, commands.ThreadNotFound):
             error_channel = self.client.get_channel(ERROR_CHANNEL)
             print('I can not find the specified thread.', file=sys.stderr)
-            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            traceback.print_exception(
+                type(error), error, error.__traceback__, file=sys.stderr)
             await error_channel.send('An Error Has Occurred {}:'.format(error), file=sys.stderr)
 
         elif isinstance(error, commands.ChannelNotFound):
             error_channel = self.client.get_channel(ERROR_CHANNEL)
             print('I can not find the specified channel.', file=sys.stderr)
-            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            traceback.print_exception(
+                type(error), error, error.__traceback__, file=sys.stderr)
             await error_channel.send('An Error Has Occurred {}:'.format(error), file=sys.stderr)
 
         elif isinstance(error, commands.UserNotFound):
             error_channel = self.client.get_channel(ERROR_CHANNEL)
             print('I can not find the specified user.', file=sys.stderr)
-            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            traceback.print_exception(
+                type(error), error, error.__traceback__, file=sys.stderr)
             await error_channel.send('An Error Has Occurred {}:'.format(error), file=sys.stderr)
 
         else:
-            print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
-            traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
+            print('Ignoring exception in command {}:'.format(
+                ctx.command), file=sys.stderr)
+            traceback.print_exception(
+                type(error), error, error.__traceback__, file=sys.stderr)
 
 
 def setup(client):
