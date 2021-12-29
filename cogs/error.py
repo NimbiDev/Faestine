@@ -96,13 +96,6 @@ class Error(commands.Cog):
                 traceback.print_exception(
                     type(error), error, error.__traceback__, file=sys.stderr)
 
-        elif isinstance(error, commands.ThreadNotFound):
-            error_channel = self.client.get_channel(ERROR_CHANNEL)
-            print('I can not find the specified thread.', file=sys.stderr)
-            traceback.print_exception(
-                type(error), error, error.__traceback__, file=sys.stderr)
-            await error_channel.send('An Error Has Occurred {}:'.format(error), file=sys.stderr)
-
         elif isinstance(error, commands.ChannelNotFound):
             error_channel = self.client.get_channel(ERROR_CHANNEL)
             print('I can not find the specified channel.', file=sys.stderr)
