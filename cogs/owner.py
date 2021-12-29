@@ -12,8 +12,8 @@ class Owner(commands.Cog):
         try:
             self.client.load_extension(extension)
         except Exception as error:
-            ctx.send('{} can not be loaded.'.format(extension, error))  
-            print('{} can not be loaded.'.format(extension, error))
+            ctx.send('{} can not be loaded. [{}]'.format(extension, error))  
+            print('{} can not be loaded. [{}]'.format(extension, error))
 
     @commands.command(name='unload', aliases=['ul'], description='Unload a specified cog.')
     @commands.is_owner()
@@ -22,8 +22,8 @@ class Owner(commands.Cog):
             await self.client.unload_extension(extension)
             ctx.send('{} has been unloaded.'.format(extension))
         except Exception as error:
-            ctx.send('{} can not be unloaded.'.format(extension, error))  
-            print('{} can not be unloaded.'.format(extension, error))  
+            ctx.send('{} can not be unloaded. [{}]'.format(extension, error))  
+            print('{} can not be unloaded. [{}]'.format(extension, error))  
 
     @commands.command(name='reload', aliases=['rl'], description='Unload and immediately reload a specified cog.')
     @commands.is_owner()
@@ -31,10 +31,10 @@ class Owner(commands.Cog):
         try:
             await self.client.unload_extension(extension)
             self.client.load_extension(extension)
-            ctx.send('{} has been reloaded.'.format(extension))
+            ctx.send('{} has been reloaded. [{}]'.format(extension))
         except Exception as error:
-            ctx.send('{} can not be reloaded.'.format(extension, error))  
-            print('{} can not be reloaded.'.format(extension, error))      
+            ctx.send('{} can not be reloaded. [{}]'.format(extension, error))  
+            print('{} can not be reloaded. [{}]'.format(extension, error))      
 
 def setup(client):
     client.add_cog(Owner(client))

@@ -51,7 +51,7 @@ for extension in extensions:
     try:
         client.load_extension(extension)
     except Exception as error:
-        print('{} can not be loaded.'.format(extension, error))
+        print('{} can not be loaded. [{}]'.format(extension, error))
 
 
 # for filename in os.listdir('./cogs'):
