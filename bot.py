@@ -19,17 +19,16 @@ class HelpEmbed(commands.HelpCommand):
         self.client = client
 
 
-
 # for filename in os.listdir('./cogs'):
 #     if filename.endswith('.py'):
 #         client.load_extension('cogs.{}'.format(filename[:-3]))
 #         print('Loaded cogs.{}'.format(filename[:-3]))
 
-for filename in os.listdir(f"{filename}/*"):
-    for filename in os.listdir(f"{filename}/*"):
-        if filename.endswith('.py'):
-            filename = filename[5:-3]
-            print(f"Loaded " + filename.replace('\\', '.'))
-            client.load_extension("cogs." + filename.replace('\\', '.'))
+for filename in os.listdir(f"./cogs/*"):
+    if filename.endswith('.py'):
+        filename = filename[5:-3]
+        client.load_extension("cogs.{}".format(filename[:-3].replace('\\', '.')))
+        print(f"Loaded cog.{}".format(filename[:-3].replace('\\', '.')))
+
 
 client.run(TOKEN)
