@@ -2,11 +2,11 @@ import discord
 import asyncio
 from discord.ext import commands
 
-class Toggle(commands.Cog):
+class Social(commands.Cog):
     def __init__(self, client):
         self.client = client
 
         # Insert Code Here
 
 def setup(client):
-    client.add_cog(Toggle(client))
+    client.add_cog(Social(client))
