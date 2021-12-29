@@ -51,7 +51,7 @@ async def _load(ctx, extension):
 @commands.is_owner()
 async def _unload(ctx, extension):
     try:
-        self.client.unload_extension(extension)
+        client.unload_extension(extension)
         ctx.send('{} has been unloaded.'.format(extension))
     except Exception as error:
         ctx.send('{} can not be unloaded. [{}]'.format(extension, error))
