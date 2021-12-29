@@ -5,12 +5,13 @@ from discord.ext import commands
 
 from dotenv import load_dotenv
 
-client = commands.Bot(command_prefix='fae ')
-
 
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = os.getenv('CLIENT_TOKEN')
 GITHUB = os.getenv('GITHUB_URL')
+PREFIX = os.getenv('CLIENT_PREFIX')
+
+client = commands.Bot(command_prefix=PREFIX)
 
 
 class HelpEmbed(commands.HelpCommand):
