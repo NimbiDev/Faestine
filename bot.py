@@ -141,7 +141,7 @@ class Music(commands.Cog):
 
 
 bot = commands.Bot(
-    command_prefix=commands.when_mentioned_or("-"),
+    command_prefix=commands.when_mentioned_or("."),
     description="Discord Music Bot!",
 )
 
