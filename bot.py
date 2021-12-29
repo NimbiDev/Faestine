@@ -15,8 +15,8 @@ PREFIX = os.getenv('CLIENT_PREFIX')
 
 
 client = commands.Bot(
-    command_prefix=commands.when_mentioned_or("."),
-    description="Discord Bot",
+    command_prefix=commands.when_mentioned_or('.'),
+    description='Discord Bot',
 )
 
 
@@ -37,11 +37,28 @@ class CustomHelp(commands.MinimalHelpCommand):
 client.help_command = CustomHelp()
 
 
-for filename in os.listdir('./cogs'):
-    if filename.endswith('.py'):
-        client.load_extension(f'cogs.{filename[:-3]}')
-    else:
-        print(f'Unable to load {filename[:-3]}')
+extensions = [
+    'admin',
+    'mod',
+    'image',
+    'events',
+    'owner',
+    'utility',
+    'social'
+]
+
+for extension in extensions:
+    try:
+        client.load_extension(extension)
+    except Exception as error:
+        print('{} can not be loaded.'.format(extension, error))
 
 
-client.run(TOKEN)
+# for filename in os.listdir('./cogs'):
+#     if filename.endswith('.py'):
+#         client.load_extension(f'cogs.{filename[:-3]}')
+#     else:
+#         print(f'Unable to load {filename[:-3]}')
+
+if __name__ == '__main__':
+    client.run(TOKEN)

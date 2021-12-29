@@ -7,15 +7,15 @@ class Utility(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(description="Display information about a specified member.")
-    async def user(self, ctx, member):
-        msg = f'{member} joined on {member.joined_at} and has {len(member.roles)} roles.'
+    @commands.command(name=='user-info', aliases=['user'], description='Display information about a specified member.')
+    async def _userinfo(self, ctx, member):
+        msg = '{} joined on {} and has {} roles.'.format(
+            member, member.joined_at, len(member.roles))
         await ctx.send(msg)
 
-    @user.error
-    async def user_error(self, ctx, error):
-        if isinstance(error, commands.BadArgument):
-            await ctx.send('I could not find that member...')
+    @commands.command(name='ping', aliases=['echo', 'beep'], description='Simple Ping Pong command.')
+    async def _ping(self, ctx):
+        await ctx.send('Pong!')
 
 
 def setup(client):
