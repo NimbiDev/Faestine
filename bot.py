@@ -1,8 +1,6 @@
 import os
-
 import discord
 from discord.ext import commands
-
 from dotenv import load_dotenv
 
 
@@ -11,7 +9,7 @@ TOKEN = os.getenv('CLIENT_TOKEN')
 GITHUB = os.getenv('GITHUB_URL')
 PREFIX = os.getenv('CLIENT_PREFIX')
 
-client = commands.Bot(command_prefix=PREFIX)
+client = commands.Bot(command_prefix='fae ')
 
 
 class HelpEmbed(commands.HelpCommand):
@@ -42,8 +40,9 @@ class HelpEmbed(commands.HelpCommand):
         channel = self.get_destination()
         await channel.send(embed=embed)
 
-
 client.help_command = HelpEmbed()
+
+
 
 # for filename in os.listdir('./cogs'):
 #     if filename.endswith('.py'):
