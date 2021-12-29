@@ -75,7 +75,6 @@ extensions = [
     'mod',
     'image',
     'events',
-    'owner',
     'utility',
     'social'
 ]
