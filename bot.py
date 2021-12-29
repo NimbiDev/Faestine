@@ -15,7 +15,7 @@ PREFIX = os.getenv('CLIENT_PREFIX')
 
 
 client = commands.Bot(
-    command_prefix=commands.when_mentioned_or('.'),
+    command_prefix=commands.when_mentioned_or('{}'.format(PREFIX)),
     description='Discord Bot',
 )
 
@@ -53,12 +53,5 @@ for extension in extensions:
     except Exception as error:
         print('{} can not be loaded. [{}]'.format(extension, error))
 
-
-# for filename in os.listdir('./cogs'):
-#     if filename.endswith('.py'):
-#         client.load_extension(f'cogs.{filename[:-3]}')
-#     else:
-#         print(f'Unable to load {filename[:-3]}')
-
 if __name__ == '__main__':
-    client.run(TOKEN)
+    client.run('{}'.format(TOKEN))
