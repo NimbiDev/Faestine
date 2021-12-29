@@ -9,8 +9,7 @@ class Utility(commands.Cog):
 
     @commands.command(name='user-info', aliases=['user'], description='Display information about a specified member.')
     async def _userinfo(self, ctx, member):
-        msg = '{} joined on {} and has {} roles.'.format(
-            member, member.joined_at, len(member.roles))
+        msg = f'{member} joined on {member.joined_at} and has {len(member.roles)} roles.'
         await ctx.send(msg)
 
     @commands.command(name='ping', aliases=['echo', 'beep'], description='Simple Ping Pong command.')
