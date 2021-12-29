@@ -15,7 +15,7 @@ RED = discord.colour.Colour.dark_red()
 GREEN = discord.colour.Colour.dark_green()
 GOLD = discord.colour.Colour.dark_gold()
 BLUE = discord.colour.Colour.dark_blue()
-YELLOW = discord.colour.Colour.dark_yellow()
+
 
 
 class Ready(commands.Cog):
