@@ -22,4 +22,4 @@ class Ban(commands.Cog):
             await ctx.send(f'Banned {members} for {flags.reason!r} (deleted {plural} worth of messages)')
 
 def setup(client):
-    client.add_cog.admin(Ban(client))
+    client.add_cog(Ban(client))

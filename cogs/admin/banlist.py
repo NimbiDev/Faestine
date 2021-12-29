@@ -9,4 +9,4 @@ class BanList(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.admin(BanList(client))
+    client.add_cog(BanList(client))

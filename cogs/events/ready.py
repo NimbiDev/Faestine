@@ -12,4 +12,4 @@ class Ready(commands.Cog):
 
 
 def setup(client):
-    client.add_cog.events(Ready(client))
+    client.add_cog(Ready(client))

@@ -9,4 +9,4 @@ class Reload(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.owner(Reload(client))
+    client.add_cog(Reload(client))

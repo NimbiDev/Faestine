@@ -9,4 +9,4 @@ class Giphy(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.admin(Giphy(client))
+    client.add_cog(Giphy(client))

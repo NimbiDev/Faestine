@@ -11,4 +11,4 @@ class Messege(commands.Cog):
 
 
 def setup(client):
-    client.add_cog.events(Messege(client))
+    client.add_cog(Messege(client))

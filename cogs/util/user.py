@@ -20,4 +20,4 @@ class User(commands.Cog):
 
 
 def setup(client):
-    client.add_cog.util(User(client))
+    client.add_cog(User(client))

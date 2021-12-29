@@ -9,4 +9,4 @@ class Tenor(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.image(Tenor(client))
+    client.add_cog(Tenor(client))

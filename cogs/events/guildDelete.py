@@ -9,4 +9,4 @@ class GuildDelete(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.events(GuildDelete(client))
+    client.add_cog(GuildDelete(client))

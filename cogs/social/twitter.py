@@ -9,4 +9,4 @@ class Twitter(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.social(Twitter(client))
+    client.add_cog(Twitter(client))

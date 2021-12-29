@@ -9,4 +9,4 @@ class RSS(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.social(RSS(client))
+    client.add_cog(RSS(client))

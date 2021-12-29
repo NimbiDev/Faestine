@@ -9,4 +9,4 @@ class Error(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.events(Error(client))
+    client.add_cog(Error(client))

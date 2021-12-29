@@ -9,4 +9,4 @@ class GuildCreate(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.events(GuildCreate(client))
+    client.add_cog(GuildCreate(client))

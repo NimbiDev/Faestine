@@ -9,4 +9,4 @@ class MemberLeave(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.events(MemberLeave(client))
+    client.add_cog(MemberLeave(client))

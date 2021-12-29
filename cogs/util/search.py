@@ -9,4 +9,4 @@ class Search(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.util(Search(client))
+    client.add_cog(Search(client))

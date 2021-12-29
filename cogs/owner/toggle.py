@@ -9,4 +9,4 @@ class Toggle(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.owner(Toggle(client))
+    client.add_cog(Toggle(client))

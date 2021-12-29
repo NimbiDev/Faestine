@@ -9,4 +9,4 @@ class Tag(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.util(Tag(client))
+    client.add_cog(Tag(client))

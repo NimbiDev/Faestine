@@ -9,4 +9,4 @@ class Mute(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.mod(Mute(client))
+    client.add_cog(Mute(client))

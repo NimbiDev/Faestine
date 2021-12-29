@@ -9,4 +9,4 @@ class Kick(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.admin(Kick(client))
+    client.add_cog(Kick(client))

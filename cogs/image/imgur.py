@@ -9,4 +9,4 @@ class Imgur(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.image(Imgur(client))
+    client.add_cog(Imgur(client))

@@ -9,4 +9,4 @@ class Purge(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.admin(Purge(client))
+    client.add_cog(Purge(client))

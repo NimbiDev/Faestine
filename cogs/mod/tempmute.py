@@ -9,4 +9,4 @@ class TempMute(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.mod(TempMute(client))
+    client.add_cog(TempMute(client))

@@ -9,4 +9,4 @@ class MemberJoin(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.events(MemberJoin(client))
+    client.add_cog(MemberJoin(client))

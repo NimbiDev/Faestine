@@ -9,4 +9,4 @@ class Unload(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.owner(Unload(client))
+    client.add_cog(Unload(client))

@@ -9,4 +9,4 @@ class Reddit(commands.Cog):
         # Insert Code Here
 
 def setup(client):
-    client.add_cog.social(Reddit(client))
+    client.add_cog(Reddit(client))
