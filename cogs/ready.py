@@ -6,7 +6,7 @@ class Ready(commands.Cog):
         self.client = client
 
     @commands.Cog.listener()
-    async def on_ready():
+    async def on_ready(self):
         print(f"Logged in as {self.client.user} (ID: {self.client.user.id})")
         print("------")
 
