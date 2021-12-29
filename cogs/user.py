@@ -8,7 +8,6 @@ class User(commands.Cog):
         self.client = client
 
     @commands.command(description="Display information about a specified member.")
-    @commands.has_guild_permissions(send_messeges=True)
     async def user(self, ctx, member):
         msg = f'{member} joined on {member.joined_at} and has {len(member.roles)} roles.'
         await ctx.send(msg)
