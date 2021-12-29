@@ -19,7 +19,7 @@ class Owner(commands.Cog):
     @commands.is_owner()
     async def _unload(self, ctx, extension):
         try:
-            await self.client.unload_extension(extension)
+            self.client.unload_extension(extension)
             ctx.send('{} has been unloaded.'.format(extension))
         except Exception as error:
             ctx.send('{} can not be unloaded. [{}]'.format(extension, error))  
@@ -29,7 +29,7 @@ class Owner(commands.Cog):
     @commands.is_owner()
     async def _reload(self, ctx, extension):
         try:
-            await self.client.unload_extension(extension)
+            self.client.unload_extension(extension)
             self.client.load_extension(extension)
             ctx.send('{} has been reloaded. [{}]'.format(extension))
         except Exception as error:
