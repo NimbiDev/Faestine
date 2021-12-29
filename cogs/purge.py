@@ -1,10 +1,19 @@
 import discord
 import os
 from discord.ext import commands
-from dotenv import load_dotenv
 
-load_dotenv()
-GITHUB = os.getenv('GITHUB_URL')
+GUILD = '899130986242113586'
+TWITCH = 'Discord'
+GITHUB = 'github.com/DevCorner-Github/Faestine'
+ERROR_CHANNEL = '899741317318455346'
+WELCOME_CHANNEL = '911521226038587412'
+WELCOME_IMAGE = 'https://gifimage.net/wp-content/uploads/2017/09/anime-welcome-gif.gif'
+
+RED = discord.colour.Colour.dark_red()
+GREEN = discord.colour.Colour.dark_green()
+GOLD = discord.colour.Colour.dark_gold()
+BLUE = discord.colour.Colour.dark_blue()
+YELLOW = discord.colour.Colour.dark_yellow()
 
 
 class Purge(commands.Cog):
@@ -16,8 +25,8 @@ class Purge(commands.Cog):
     @commands.has_guild_permissions(manage_messages=True)
     async def purge(self, ctx, amount: int):
 
-        github_url = GITHUB
-        embed = discord.Embed(color=discord.colour.Color.dark_blue())
+        
+        embed = discord.Embed(color=BLUE)
         authors = {}
 
         async for message in ctx.channel.history(limit=amount):
@@ -34,7 +43,7 @@ class Purge(commands.Cog):
                         value='```yml\n{}```'.format(response))
         embed.set_thumbnail(url=self.client.user.avatar)
         embed.set_footer(text='{} | {}'.format(
-            self.client.user.name, github_url), icon_url=self.client.user.avatar)
+            self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
 
         await ctx.channel.purge(limit=amount + 1)
         await ctx.channel.send(embed=embed, delete_after=20)

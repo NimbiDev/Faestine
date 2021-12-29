@@ -3,10 +3,14 @@ import asyncio
 import typing
 import os
 from discord.ext import commands
-from dotenv import load_dotenv
 
-load_dotenv()
-GITHUB = os.getenv('GITHUB_URL')
+GITHUB = 'github.com/DevCorner-Github/Faestine'
+
+RED = discord.colour.Colour.dark_red()
+GREEN = discord.colour.Colour.dark_green()
+GOLD = discord.colour.Colour.dark_gold()
+BLUE = discord.colour.Colour.dark_blue()
+YELLOW = discord.colour.Colour.dark_yellow()
 
 
 class DurationConverter(commands.Converter):
@@ -23,7 +27,6 @@ class DurationConverter(commands.Converter):
 class TempBan(commands.Cog):
     def __init__(self, client):
         self.client = client
-        
 
     @commands.command(aliases=['tb'], description='Temporarily ban a member from the guild.', usage='<member> [duration]')
     @commands.has_guild_permissions(ban_members=True)
@@ -34,16 +37,19 @@ class TempBan(commands.Cog):
         :param duration:
         :return:
         """
-        github_url = GITHUB
+        client = self.client
+
         multiplier = {'s': 1, 'm': 60}
         amount, unit = duration
 
         await ctx.guild.ban(member)
 
-        embed = discord.Embed(description='**__User Temporarily Banned__**', color=discord.colour.Colour.dark_red())
+        embed = discord.Embed(
+            description='**__User Temporarily Banned__**', color=RED)
         embed.add_field(name='User', value='{}'.format(member), inline=False)
         embed.add_field(name='Duration', value='{}{}'.format(amount, unit))
-        embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
+        embed.set_footer(text='{} | {}'.format(
+            client.user.name, GITHUB), icon_url=client.user.avatar)
 
         await ctx.send(embed=embed)
         await asyncio.sleep(amount * multiplier[unit])

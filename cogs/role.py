@@ -3,10 +3,14 @@ import asyncio
 import typing
 import os
 from discord.ext import commands
-from dotenv import load_dotenv
 
-load_dotenv()
-GITHUB = os.getenv('GITHUB_URL')
+GITHUB = 'github.com/DevCorner-Github/Faestine'
+
+RED = discord.colour.Colour.dark_red()
+GREEN = discord.colour.Colour.dark_green()
+GOLD = discord.colour.Colour.dark_gold()
+BLUE = discord.colour.Colour.dark_blue()
+YELLOW = discord.colour.Colour.dark_yellow()
 
 
 class DurationConverter(commands.Converter):
@@ -28,26 +32,26 @@ class Role(commands.Cog):
     @commands.command(aliases=['rank', 'r'], description='Add or remove roles from a member.')
     @commands.has_guild_permissions(manage_roles=True)
     async def role(self, ctx, member: discord.Member, *, role: discord.Role):
-        github_url = GITHUB
+        
         if role.position > ctx.author.top_role.position:
             embed = discord.Embed(description=':x: The role {} is above your top role'.format(role.name),
-                                  color=discord.colour.Colour.dark_red())
+                                  color=RED)
             embed.set_footer(text='{} | {}'.format(
-                self.client.user.name, github_url), icon_url=self.client.user.avatar)
+                self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
             return await ctx.send(embed=embed)
         if role in member.roles:
             await member.remove_roles(role)
             embed = discord.Embed(description='Role {} removed from {}'.format(role.name, member.display_name),
                                   color=discord.colour.Colour.dark_blue())
             embed.set_footer(text='{} | {}'.format(
-                self.client.user.name, github_url), icon_url=self.client.user.avatar)
+                self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
             await ctx.send(embed=embed)
         else:
             await member.add_roles(role)
             embed = discord.Embed(description='Added role {} to {}'.format(role.name, member.display_name),
                                   color=discord.colour.Colour.dark_blue())
             embed.set_footer(text='{} | {}'.format(
-                self.client.user.name, github_url), icon_url=self.client.user.avatar)
+                self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
             await ctx.send(embed=embed)
 
 

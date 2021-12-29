@@ -3,10 +3,19 @@ import asyncio
 import typing
 import os
 from discord.ext import commands
-from dotenv import load_dotenv
 
-load_dotenv()
-GITHUB = os.getenv('GITHUB_URL')
+GUILD = '899130986242113586'
+TWITCH = 'Discord'
+GITHUB = 'github.com/DevCorner-Github/Faestine'
+ERROR_CHANNEL = '899741317318455346'
+WELCOME_CHANNEL = '911521226038587412'
+WELCOME_IMAGE = 'https://gifimage.net/wp-content/uploads/2017/09/anime-welcome-gif.gif'
+
+RED = discord.colour.Colour.dark_red()
+GREEN = discord.colour.Colour.dark_green()
+GOLD = discord.colour.Colour.dark_gold()
+BLUE = discord.colour.Colour.dark_blue()
+YELLOW = discord.colour.Colour.dark_yellow()
 
 
 class DurationConverter(commands.Converter):
@@ -34,12 +43,12 @@ class Ban(commands.Cog):
         :param reason:
         :return:
         """
-        github_url = GITHUB
+        
         embed = discord.Embed(description='**__User Banned__**', color=discord.colour.Colour.dark_red())
         await ctx.guild.ban(reason=reason)
         embed.add_field(name='User', value='{}'.format(member), inline=False)
         embed.add_field(name='Reason', value='{}'.format(reason), inline=False)
-        embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
+        embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
         await ctx.send(embed=embed)
 
 def setup(client):

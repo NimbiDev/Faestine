@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('CLIENT_TOKEN')
-GITHUB = os.getenv('GITHUB_URL')
 
 client = commands.Bot(command_prefix='fae ')
 

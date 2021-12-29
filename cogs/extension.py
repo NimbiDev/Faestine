@@ -1,17 +1,23 @@
 import discord
 from discord.ext import commands
 
+GUILD = '899130986242113586'
+TWITCH = 'Discord'
+GITHUB = 'github.com/DevCorner-Github/Faestine'
+ERROR_CHANNEL = '899741317318455346'
+WELCOME_CHANNEL = '911521226038587412'
+WELCOME_IMAGE = 'https://gifimage.net/wp-content/uploads/2017/09/anime-welcome-gif.gif'
+
+RED = discord.colour.Colour.dark_red()
+GREEN = discord.colour.Colour.dark_green()
+GOLD = discord.colour.Colour.dark_gold()
+BLUE = discord.colour.Colour.dark_blue()
+YELLOW = discord.colour.Colour.dark_yellow()
 
 class Owner(commands.Cog):
     def __init__(self, client):
         self.client = client
         
-
-    @commands.group(name='extension', aliases=['cog', 'ext'], description='Toggle, Load, Unload, or Reload a specified command or cog.')
-    @commands.is_owner()
-    async def _extension(self, ctx, extension):
-        if ctx.invoked_subcommand is None:
-            await ctx.send(':x: Invalid sub command.', delete_after=20)
 
     @commands.command(aliases=['l'], description='Load a specified cog.')
     @commands.is_owner()

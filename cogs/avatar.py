@@ -4,12 +4,19 @@ import traceback
 import sys
 import os
 from discord.ext import commands
-from dotenv import load_dotenv
 
-load_dotenv()
-TWITCH_API_TOKEN = os.getenv('TWITCH_TOKEN')
-TWITCH_API_SECRET = os.getenv('TWITCH_SECRET')
-GITHUB = os.getenv('GITHUB_URL')
+GUILD = '899130986242113586'
+TWITCH = 'Discord'
+GITHUB = 'github.com/DevCorner-Github/Faestine'
+ERROR_CHANNEL = '899741317318455346'
+WELCOME_CHANNEL = '911521226038587412'
+WELCOME_IMAGE = 'https://gifimage.net/wp-content/uploads/2017/09/anime-welcome-gif.gif'
+
+RED = discord.colour.Colour.dark_red()
+GREEN = discord.colour.Colour.dark_green()
+GOLD = discord.colour.Colour.dark_gold()
+BLUE = discord.colour.Colour.dark_blue()
+YELLOW = discord.colour.Colour.dark_yellow()
 
 
 class Avatar(commands.Cog):
@@ -20,12 +27,12 @@ class Avatar(commands.Cog):
     @commands.command(aliases=['ava', 'pfp'], description='Display a member\'s avatar')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
     async def avatar(self, ctx, member: discord.Member = None):
-        github_url = GITHUB
+        
         if member is None:
             member = ctx.author
-        embed = discord.Embed(description='**__{}\'s Avatar__**'.format(member.display_name), color=discord.colour.Color.dark_blue())
+        embed = discord.Embed(description='**__{}\'s Avatar__**'.format(member.display_name), color=BLUE)
         embed.set_image(url=member.avatar)
-        embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
+        embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
         await ctx.send(embed=embed)
 
 

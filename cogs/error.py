@@ -3,15 +3,19 @@ import traceback
 import sys
 import os
 from discord.ext import commands
-from dotenv import load_dotenv
 
-load_dotenv()
-GUILD = os.getenv('GUILD_ID')
-TWITCH = os.getenv('TWITCH_CHANNEL')
-GITHUB = os.getenv('GITHUB_URL')
-ERROR_CHANNEL = os.getenv('ERROR_CHANNEL_ID')
-WELCOME_CHANNEL = os.getenv('WELCOME_CHANNEL_ID')
-WELCOME_IMAGE = os.getenv('WELCOME_IMAGE_URL')
+GUILD = '899130986242113586'
+TWITCH = 'Discord'
+GITHUB = 'github.com/DevCorner-Github/Faestine'
+ERROR_CHANNEL = '899741317318455346'
+WELCOME_CHANNEL = '911521226038587412'
+WELCOME_IMAGE = 'https://gifimage.net/wp-content/uploads/2017/09/anime-welcome-gif.gif'
+
+RED = discord.colour.Colour.dark_red()
+GREEN = discord.colour.Colour.dark_green()
+GOLD = discord.colour.Colour.dark_gold()
+BLUE = discord.colour.Colour.dark_blue()
+YELLOW = discord.colour.Colour.dark_yellow()
 
 
 class Error(commands.Cog):

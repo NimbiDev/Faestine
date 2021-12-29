@@ -3,10 +3,19 @@ import asyncio
 import typing
 import os
 from discord.ext import commands
-from dotenv import load_dotenv
 
-load_dotenv()
-GITHUB = os.getenv('GITHUB_URL')
+GUILD = '899130986242113586'
+TWITCH = 'Discord'
+GITHUB = 'github.com/DevCorner-Github/Faestine'
+ERROR_CHANNEL = '899741317318455346'
+WELCOME_CHANNEL = '911521226038587412'
+WELCOME_IMAGE = 'https://gifimage.net/wp-content/uploads/2017/09/anime-welcome-gif.gif'
+
+RED = discord.colour.Colour.dark_red()
+GREEN = discord.colour.Colour.dark_green()
+GOLD = discord.colour.Colour.dark_gold()
+BLUE = discord.colour.Colour.dark_blue()
+YELLOW = discord.colour.Colour.dark_yellow()
 
 
 class DurationConverter(commands.Converter):
@@ -61,12 +70,12 @@ class Admin(commands.Cog):
         :param reason:
         :return:
         """
-        github_url = GITHUB
+        
         embed = discord.Embed(description='**__User Banned__**', color=discord.colour.Colour.dark_red())
         await ctx.guild.ban(reason=reason)
         embed.add_field(name='User', value='{}'.format(member), inline=False)
         embed.add_field(name='Reason', value='{}'.format(reason), inline=False)
-        embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
+        embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['tb'], description='Temporarily ban a member from the guild.', usage='<member> [duration]')
@@ -78,7 +87,7 @@ class Admin(commands.Cog):
         :param duration:
         :return:
         """
-        github_url = GITHUB
+        
         multiplier = {'s': 1, 'm': 60}
         amount, unit = duration
 
@@ -87,7 +96,7 @@ class Admin(commands.Cog):
         embed = discord.Embed(description='**__User Temporarily Banned__**', color=discord.colour.Colour.dark_red())
         embed.add_field(name='User', value='{}'.format(member), inline=False)
         embed.add_field(name='Duration', value='{}{}'.format(amount, unit))
-        embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
+        embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
 
         await ctx.send(embed=embed)
         await asyncio.sleep(amount * multiplier[unit])
@@ -101,33 +110,33 @@ class Admin(commands.Cog):
         :param member:
         :return:
         """
-        github_url = GITHUB
+        
         await ctx.guild.unban(member)
         embed = discord.Embed(description='**__User Unbanned__**', color=discord.colour.Colour.dark_green())
         embed.add_field(name='User', value='{}'.format(member), inline=False)
-        embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
+        embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['rank', 'r'], description='Add or remove roles from a member.')
     @commands.has_guild_permissions(manage_roles=True)
     async def role(self, ctx, member: discord.Member, *, role: discord.Role):
-        github_url = GITHUB
+        
         if role.position > ctx.author.top_role.position:
             embed = discord.Embed(description=':x: The role {} is above your top role'.format(role.name),
                                   color=discord.colour.Colour.dark_red())
-            embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
+            embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
             return await ctx.send(embed=embed)
         if role in member.roles:
             await member.remove_roles(role)
             embed = discord.Embed(description='Role {} removed from {}'.format(role.name, member.display_name),
                                   color=discord.colour.Colour.dark_blue())
-            embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
+            embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
             await ctx.send(embed=embed)
         else:
             await member.add_roles(role)
             embed = discord.Embed(description='Added role {} to {}'.format(role.name, member.display_name),
                                   color=discord.colour.Colour.dark_blue())
-            embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
+            embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
             await ctx.send(embed=embed)
 
 
