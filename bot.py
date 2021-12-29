@@ -37,39 +37,6 @@ class CustomHelp(commands.MinimalHelpCommand):
 client.help_command = CustomHelp()
 
 
-@client.command(name='load', aliases=['l'], description='Load the specified cog.')
-@commands.is_owner()
-async def _load(ctx, extension):
-    try:
-        client.load_extension(extension)
-    except Exception as error:
-        ctx.send('{} can not be loaded. [{}]'.format(extension, error))
-        print('{} can not be loaded. [{}]'.format(extension, error))
-
-
-@client.command(name='unload', aliases=['ul'], description='Unload a specified cog.')
-@commands.is_owner()
-async def _unload(ctx, extension):
-    try:
-        client.unload_extension(extension)
-        ctx.send('{} has been unloaded.'.format(extension))
-    except Exception as error:
-        ctx.send('{} can not be unloaded. [{}]'.format(extension, error))
-        print('{} can not be unloaded. [{}]'.format(extension, error))
-
-
-@client.command(name='reload', aliases=['rl'], description='Unload and immediately reload a specified cog.')
-@commands.is_owner()
-async def _reload(ctx, extension):
-    try:
-        client.unload_extension(extension)
-        client.load_extension(extension)
-        ctx.send('{} has been reloaded. [{}]'.format(extension))
-    except Exception as error:
-        ctx.send('{} can not be reloaded. [{}]'.format(extension, error))
-        print('{} can not be reloaded. [{}]'.format(extension, error))
-
-
 extensions = [
     'admin',
     'mod',
