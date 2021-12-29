@@ -10,7 +10,7 @@ GITHUB = os.getenv('GITHUB_URL')
 class Purge(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.clean_prefix = self.client.command_prefix
+        
 
     @commands.command(aliases=['clear', 'prune', 'delete'], description='Delete a specified number of messages.')
     @commands.has_guild_permissions(manage_messages=True)

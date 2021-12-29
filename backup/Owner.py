@@ -5,7 +5,7 @@ from discord.ext import commands
 class Owner(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.clean_prefix = self.client.command_prefix
+        
 
     @commands.command(aliases=['load'], description='Load a specified cog.')
     @commands.is_owner()

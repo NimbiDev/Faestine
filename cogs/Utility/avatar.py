@@ -13,7 +13,7 @@ GITHUB = os.getenv('GITHUB_URL')
 class Avatar(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.clean_prefix = self.client.command_prefix
+        
 
     @commands.command(aliases=['ava', 'pfp'], description='Display a member\'s avatar')
     @commands.has_guild_permissions(send_messages=True, embed_links=True)

@@ -23,7 +23,7 @@ class DurationConverter(commands.Converter):
 class MassBan(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.clean_prefix = self.client.command_prefix
+        
 
     @commands.command(aliases=['mb'], description='Ban multiple users for a specified reason')
     @commands.has_guild_permissions(ban_members=True)

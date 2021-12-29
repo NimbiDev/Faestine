@@ -13,7 +13,7 @@ GITHUB = os.getenv('GITHUB_URL')
 class Ping(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.clean_prefix = self.client.command_prefix
+        
 
     @commands.command(aliases=['echo', 'beep'], description='Responds with the bot\'s current ping.')
     @commands.has_guild_permissions(send_messages=True)

@@ -10,7 +10,7 @@ GITHUB = os.getenv('GITHUB_URL')
 class Mod(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.clean_prefix = self.client.command_prefix
+        
 
     @commands.command(aliases=['res_thread', 'rt', 'tr', 'thread_res'], description='Restore a specified archived thread')
     @commands.has_guild_permissions(manage_threads=True)

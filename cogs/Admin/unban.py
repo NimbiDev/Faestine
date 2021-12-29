@@ -23,7 +23,7 @@ class DurationConverter(commands.Converter):
 class UnBan(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.clean_prefix = self.client.command_prefix
+        
 
     @commands.command(aliases=['u'], description='Unban a member from the guild.')
     @commands.has_guild_permissions(ban_members=True)

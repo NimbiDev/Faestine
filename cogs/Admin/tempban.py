@@ -23,7 +23,7 @@ class DurationConverter(commands.Converter):
 class TempBan(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.clean_prefix = self.client.command_prefix
+        
 
     @commands.command(aliases=['tb'], description='Temporarily ban a member from the guild.', usage='<member> [duration]')
     @commands.has_guild_permissions(ban_members=True)

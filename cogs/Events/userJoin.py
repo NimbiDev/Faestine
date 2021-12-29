@@ -17,7 +17,7 @@ WELCOME_IMAGE = os.getenv('WELCOME_IMAGE_URL')
 class UserJoin(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.clean_prefix = self.client.command_prefix
+        
 
     @commands.Cog.listener()
     async def on_member_join(self, member):

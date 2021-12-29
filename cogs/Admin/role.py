@@ -23,7 +23,7 @@ class DurationConverter(commands.Converter):
 class Role(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.clean_prefix = self.client.command_prefix
+        
 
     @commands.command(aliases=['rank', 'r'], description='Add or remove roles from a member.')
     @commands.has_guild_permissions(manage_roles=True)

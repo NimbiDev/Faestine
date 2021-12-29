@@ -10,7 +10,7 @@ GITHUB = os.getenv('GITHUB_URL')
 class Thread(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.clean_prefix = self.client.command_prefix
+        
 
     @commands.group(name='thread', aliases=['t'], description='Close, or restore a thread')
     @commands.has_guild_permissions(manage_threads=True)

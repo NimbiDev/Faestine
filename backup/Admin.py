@@ -23,7 +23,7 @@ class DurationConverter(commands.Converter):
 class Admin(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.clean_prefix = self.client.command_prefix
+        
 
     @commands.command(aliases=['k'], description='Kick a member from the guild.')
     @commands.has_guild_permissions(kick_members=True)
