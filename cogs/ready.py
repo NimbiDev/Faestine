@@ -22,7 +22,9 @@ class Ready(commands.Cog):
         
 
     @commands.Cog.listener()
-    async def on_ready(self, client):
+    async def on_ready(self):
+        client = self.client
+        
         await client.change_presence(status=discord.Status.online, activity=discord.Streaming(name='{} help'.format(client.command_prefix), url=TWITCH))
         print('{} is online!'.format(client.user.name))
 
