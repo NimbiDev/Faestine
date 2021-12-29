@@ -45,7 +45,6 @@ class Utility(commands.Cog):
             member = ctx.author
         embed = discord.Embed(description='**__{}\'s Avatar__**'.format(member.display_name), color=BLUE)
         embed.set_image(url=member.avatar)
-        embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
         await ctx.send(embed=embed)
 
 

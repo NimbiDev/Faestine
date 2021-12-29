@@ -35,7 +35,6 @@ class Events(commands.Cog):
         embed = discord.Embed(color=BLUE)
         embed.add_field(name="Welcome", value='{} has joined {}'.format(member.name, member.guild.name), inline=False)
         embed.set_image(url=WELCOME_IMAGE)
-        embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
         await channel.send(embed=embed)
 
     @commands.Cog.listener()

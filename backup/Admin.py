@@ -75,7 +75,6 @@ class Admin(commands.Cog):
         await ctx.guild.ban(reason=reason)
         embed.add_field(name='User', value='{}'.format(member), inline=False)
         embed.add_field(name='Reason', value='{}'.format(reason), inline=False)
-        embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['tb'], description='Temporarily ban a member from the guild.', usage='<member> [duration]')
@@ -96,7 +95,6 @@ class Admin(commands.Cog):
         embed = discord.Embed(description='**__User Temporarily Banned__**', color=discord.colour.Colour.dark_red())
         embed.add_field(name='User', value='{}'.format(member), inline=False)
         embed.add_field(name='Duration', value='{}{}'.format(amount, unit))
-        embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
 
         await ctx.send(embed=embed)
         await asyncio.sleep(amount * multiplier[unit])
@@ -114,7 +112,6 @@ class Admin(commands.Cog):
         await ctx.guild.unban(member)
         embed = discord.Embed(description='**__User Unbanned__**', color=discord.colour.Colour.dark_green())
         embed.add_field(name='User', value='{}'.format(member), inline=False)
-        embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['rank', 'r'], description='Add or remove roles from a member.')

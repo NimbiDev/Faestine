@@ -48,7 +48,6 @@ class Ban(commands.Cog):
         await ctx.guild.ban(reason=reason)
         embed.add_field(name='User', value='{}'.format(member), inline=False)
         embed.add_field(name='Reason', value='{}'.format(reason), inline=False)
-        embed.set_footer(text='{} | {}'.format(self.client.user.name, GITHUB), icon_url=self.client.user.avatar)
         await ctx.send(embed=embed)
 
 def setup(client):
