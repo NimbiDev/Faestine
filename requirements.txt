@@ -1,6 +1,5 @@
 discord
-aiohttp
 python-dotenv
 ffmpeg
-TenGiphPy
 asyncio
+youtube_dl
