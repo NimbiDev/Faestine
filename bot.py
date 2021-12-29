@@ -19,17 +19,20 @@ client = commands.Bot(
     description="Discord Bot",
 )
 
+
 class Help(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    class CustomHelp(commands.MinimalHelpCommand):
-        async def send_pages(self):
-            destination = self.get_destination()
-            e = discord.Embed(color=discord.Color.blurple(), description='')
-            for page in self.paginator.pages:
-                e.description += page
+
+class CustomHelp(commands.MinimalHelpCommand):
+    async def send_pages(self):
+        destination = self.get_destination()
+        e = discord.Embed(color=discord.Color.blurple(), description='')
+        for page in self.paginator.pages:
+            e.description += page
             await destination.send(embed=e)
+
 
 client.help_command = CustomHelp()
 
