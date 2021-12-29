@@ -6,6 +6,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
+PREFIX = os.getenv('CLIENT_PREFIX')
 GUILD = os.getenv('GUILD_ID')
 TWITCH = os.getenv('TWITCH_CHANNEL')
 GITHUB = os.getenv('GITHUB_URL')
@@ -21,7 +22,7 @@ class Ready(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        await self.client.change_presence(status=discord.Status.online, activity=discord.Streaming(name='{}help'.format(self.clean_prefix), url=TWITCH))
+        await self.client.change_presence(status=discord.Status.online, activity=discord.Streaming(name=f'{PREFIX}help', url=TWITCH))
         print('{} is online!'.format(self.client.user.name))
 
 def setup(client):
