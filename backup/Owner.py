@@ -1,5 +1,8 @@
 import discord
 from discord.ext import commands
+import traceback
+import sys
+import os
 
 
 class Owner(commands.Cog):

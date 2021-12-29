@@ -1,3 +1,6 @@
+import traceback
+import sys
+import time
 import os
 import discord
 from discord.ext import commands
@@ -8,7 +11,6 @@ TOKEN = os.getenv('CLIENT_TOKEN')
 GITHUB = os.getenv('GITHUB_URL')
 
 client = commands.Bot(command_prefix='fae ')
-
 
 class CustomHelp(commands.MinimalHelpCommand):
     async def send_pages(self):

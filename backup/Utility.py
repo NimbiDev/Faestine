@@ -1,5 +1,7 @@
 import discord
 import time
+import traceback
+import sys
 import os
 from discord.ext import commands
 from dotenv import load_dotenv
