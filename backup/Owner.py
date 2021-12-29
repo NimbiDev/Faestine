@@ -3,9 +3,9 @@ from discord.ext import commands
 
 
 class Owner(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-        self.clean_prefix = self.bot.command_prefix
+    def __init__(self, client):
+        self.client = client
+        self.clean_prefix = self.client.command_prefix
 
     @commands.command(aliases=['load'], description='Load a specified cog.')
     @commands.is_owner()
@@ -15,7 +15,7 @@ class Owner(commands.Cog):
         :param extension:
         :return:
         """
-        self.bot.load_extension('cogs.{}'.format(extension))
+        self.client.load_extension('cogs.{}'.format(extension))
         print('Loaded cogs.{}'.format(extension))
         await ctx.send('Successfully loaded the {} cog.'.format(extension))
 
@@ -27,7 +27,7 @@ class Owner(commands.Cog):
         :param extension:
         :return:
         """
-        self.bot.unload_extension('cogs.{}'.format(extension))
+        self.client.unload_extension('cogs.{}'.format(extension))
         print('Unloaded cogs.{}'.format(extension))
         await ctx.send('Successfully unloaded the {} cog.'.format(extension))
 
@@ -39,15 +39,15 @@ class Owner(commands.Cog):
         :param extension:
         :return:
         """
-        self.bot.unload_extension('cogs.{}'.format(extension))
-        self.bot.load_extension('cogs.{}'.format(extension))
+        self.client.unload_extension('cogs.{}'.format(extension))
+        self.client.load_extension('cogs.{}'.format(extension))
         print('Reloaded cogs.{}'.format(extension))
         await ctx.send('Successfully reloaded the {} cog.'.format(extension))
 
     @commands.command(aliases=[''], description='Enable or Disable a specified command')
     @commands.is_owner()
     async def toggle(self, ctx, *, command):
-        command = self.bot.get_command(command)
+        command = self.client.get_command(command)
 
         if command is None:
             await ctx.send(':x: I can not find a command with that name!')
@@ -61,5 +61,5 @@ class Owner(commands.Cog):
             await ctx.send('Successfully {} the command {}'.format(ternary, command.qualified_name))
 
 
-def setup(bot):
-    bot.add_cog(Owner(bot))
+def setup(client):
+    client.add_cog(Owner(client))

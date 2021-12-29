@@ -8,9 +8,9 @@ GITHUB = os.getenv('GITHUB_URL')
 
 
 class Mod(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-        self.clean_prefix = self.bot.command_prefix
+    def __init__(self, client):
+        self.client = client
+        self.clean_prefix = self.client.command_prefix
 
     @commands.command(aliases=['res_thread', 'rt', 'tr', 'thread_res'], description='Restore a specified archived thread')
     @commands.has_guild_permissions(manage_threads=True)
@@ -19,7 +19,7 @@ class Mod(commands.Cog):
             await ctx.send('{} is already open.'.format(thread.name), delete_after=20)
         else:
             await thread.send('{} has been restored by {}.'.format(thread.name, ctx.author.name), delete_after=20)
-            await ctx.send(':white_check_mark: Successfully restored thread {}'.format(thread.name), delete_after=20)
+            await ctx.send(':ballot_box_with_check: Successfully restored thread {}'.format(thread.name), delete_after=20)
 
     @commands.command(aliases=['del_thread', 'dt', 'td', 'thread_del'], description='Delete a specified thread')
     @commands.has_guild_permissions(manage_threads=True)
@@ -29,7 +29,7 @@ class Mod(commands.Cog):
         else:
             name = thread.name
             await thread.delete()
-            await ctx.send(':white_check_mark: Successfully deleted thread: {}'.format(name), delete_after=20)
+            await ctx.send(':ballot_box_with_check: Successfully deleted thread: {}'.format(name), delete_after=20)
 
     @commands.command(aliases=['clear', 'prune', 'delete'], description='Delete a specified number of messages.')
     @commands.has_guild_permissions(manage_messages=True)
@@ -49,12 +49,12 @@ class Mod(commands.Cog):
         response = '\n'.join(['{}: {}'.format(author.name, amount) for author, amount in authors.items()])
 
         embed.add_field(name='Messages Deleted', value='```yml\n{}```'.format(response))
-        embed.set_thumbnail(url=self.bot.user.avatar)
-        embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url), icon_url=self.bot.user.avatar)
+        embed.set_thumbnail(url=self.client.user.avatar)
+        embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
 
         await ctx.channel.purge(limit=amount + 1)
         await ctx.channel.send(embed=embed, delete_after=20)
 
 
-def setup(bot):
-    bot.add_cog(Mod(bot))
+def setup(client):
+    client.add_cog(Mod(client))

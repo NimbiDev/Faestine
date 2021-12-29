@@ -15,23 +15,23 @@ WELCOME_IMAGE = os.getenv('WELCOME_IMAGE_URL')
 
 
 class Events(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-        self.clean_prefix = self.bot.command_prefix
+    def __init__(self, client):
+        self.client = client
+        self.clean_prefix = self.client.command_prefix
 
     @commands.Cog.listener()
     async def on_ready(self):
-        await self.bot.change_presence(status=discord.Status.online, activity=discord.Streaming(name='{}help'.format(self.clean_prefix), url=TWITCH))
-        print('{} is online!'.format(self.bot.user.name))
+        await self.client.change_presence(status=discord.Status.online, activity=discord.Streaming(name='{}help'.format(self.clean_prefix), url=TWITCH))
+        print('{} is online!'.format(self.client.user.name))
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
         github_url = GITHUB
-        channel = self.bot.get_channel(WELCOME_CHANNEL)
+        channel = self.client.get_channel(WELCOME_CHANNEL)
         embed = discord.Embed(color=discord.colour.Color.dark_blue())
         embed.add_field(name="Welcome", value='{} has joined {}'.format(member.name, member.guild.name), inline=False)
         embed.set_image(url=WELCOME_IMAGE)
-        embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url), icon_url=self.bot.user.avatar)
+        embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
         await channel.send(embed=embed)
 
     @commands.Cog.listener()
@@ -97,19 +97,19 @@ class Events(commands.Cog):
                 traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
         elif isinstance(error, commands.ThreadNotFound):
-            error_channel = self.bot.get_channel(ERROR_CHANNEL)
+            error_channel = self.client.get_channel(ERROR_CHANNEL)
             print('I can not find the specified thread.', file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
             await error_channel.send('An Error Has Occurred {}:'.format(error), file=sys.stderr)
 
         elif isinstance(error, commands.ChannelNotFound):
-            error_channel = self.bot.get_channel(ERROR_CHANNEL)
+            error_channel = self.client.get_channel(ERROR_CHANNEL)
             print('I can not find the specified channel.', file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
             await error_channel.send('An Error Has Occurred {}:'.format(error), file=sys.stderr)
 
         elif isinstance(error, commands.UserNotFound):
-            error_channel = self.bot.get_channel(ERROR_CHANNEL)
+            error_channel = self.client.get_channel(ERROR_CHANNEL)
             print('I can not find the specified user.', file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
             await error_channel.send('An Error Has Occurred {}:'.format(error), file=sys.stderr)
@@ -119,5 +119,5 @@ class Events(commands.Cog):
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
 
 
-def setup(bot):
-    bot.add_cog(Events(bot))
+def setup(client):
+    client.add_cog(Events(client))

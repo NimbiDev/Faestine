@@ -21,9 +21,9 @@ class DurationConverter(commands.Converter):
 
 
 class Admin(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-        self.clean_prefix = self.bot.command_prefix
+    def __init__(self, client):
+        self.client = client
+        self.clean_prefix = self.client.command_prefix
 
     @commands.command(aliases=['k'], description='Kick a member from the guild.')
     @commands.has_guild_permissions(kick_members=True)
@@ -66,7 +66,7 @@ class Admin(commands.Cog):
         await ctx.guild.ban(reason=reason)
         embed.add_field(name='User', value='{}'.format(member), inline=False)
         embed.add_field(name='Reason', value='{}'.format(reason), inline=False)
-        embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url), icon_url=self.bot.user.avatar)
+        embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['tb'], description='Temporarily ban a member from the guild.', usage='<member> [duration]')
@@ -87,7 +87,7 @@ class Admin(commands.Cog):
         embed = discord.Embed(description='**__User Temporarily Banned__**', color=discord.colour.Colour.dark_red())
         embed.add_field(name='User', value='{}'.format(member), inline=False)
         embed.add_field(name='Duration', value='{}{}'.format(amount, unit))
-        embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url), icon_url=self.bot.user.avatar)
+        embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
 
         await ctx.send(embed=embed)
         await asyncio.sleep(amount * multiplier[unit])
@@ -105,7 +105,7 @@ class Admin(commands.Cog):
         await ctx.guild.unban(member)
         embed = discord.Embed(description='**__User Unbanned__**', color=discord.colour.Colour.dark_green())
         embed.add_field(name='User', value='{}'.format(member), inline=False)
-        embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url), icon_url=self.bot.user.avatar)
+        embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=['rank', 'r'], description='Add or remove roles from a member.')
@@ -115,21 +115,21 @@ class Admin(commands.Cog):
         if role.position > ctx.author.top_role.position:
             embed = discord.Embed(description=':x: The role {} is above your top role'.format(role.name),
                                   color=discord.colour.Colour.dark_red())
-            embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url), icon_url=self.bot.user.avatar)
+            embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
             return await ctx.send(embed=embed)
         if role in member.roles:
             await member.remove_roles(role)
             embed = discord.Embed(description='Role {} removed from {}'.format(role.name, member.display_name),
                                   color=discord.colour.Colour.dark_blue())
-            embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url), icon_url=self.bot.user.avatar)
+            embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
             await ctx.send(embed=embed)
         else:
             await member.add_roles(role)
             embed = discord.Embed(description='Added role {} to {}'.format(role.name, member.display_name),
                                   color=discord.colour.Colour.dark_blue())
-            embed.set_footer(text='{} | {}'.format(self.bot.user.name, github_url), icon_url=self.bot.user.avatar)
+            embed.set_footer(text='{} | {}'.format(self.client.user.name, github_url), icon_url=self.client.user.avatar)
             await ctx.send(embed=embed)
 
 
-def setup(bot):
-    bot.add_cog(Admin(bot))
+def setup(client):
+    client.add_cog(Admin(client))
