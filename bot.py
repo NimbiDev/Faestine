@@ -6,9 +6,19 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('CLIENT_TOKEN')
 GITHUB = os.getenv('GITHUB_URL')
-PREFIX = os.getenv('CLIENT_PREFIX')
 
-client = commands.Bot(command_prefix=f'{PREFIX}')
+client = commands.Bot(command_prefix='fae ')
+
+
+class CustomHelp(commands.MinimalHelpCommand):
+    async def send_pages(self):
+        destination = self.get_destination()
+        for page in self.paginator.pages:
+            embed = discord.Embed(description=page)
+            await destination.send(embed=embed)
+
+
+client.help_command = CustomHelp()
 
 for filename in os.listdir('./cogs/'):
     if filename.endswith('.py'):

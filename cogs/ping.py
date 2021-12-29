@@ -2,12 +2,6 @@ import discord
 import time
 import os
 from discord.ext import commands
-from dotenv import load_dotenv
-
-load_dotenv()
-TWITCH_API_TOKEN = os.getenv('TWITCH_TOKEN')
-TWITCH_API_SECRET = os.getenv('TWITCH_SECRET')
-GITHUB = os.getenv('GITHUB_URL')
 
 
 class Ping(commands.Cog):
