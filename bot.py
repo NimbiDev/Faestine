@@ -21,7 +21,7 @@ activity = discord.Activity(
 client = commands.Bot(
     command_prefix=commands.when_mentioned_or('{}'.format(PREFIX)),
     description='Discord client',
-    activity='with Cogs | ' + activity,
+    activity='with cogs | {}'.format(activity),
     status=discord.Status.online
 )
 
