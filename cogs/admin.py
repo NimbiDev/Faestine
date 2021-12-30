@@ -8,6 +8,7 @@ class Admin(commands.Cog):
         self.client = client
 
     @commands.command(name="purge", aliases=['fprune', 'fclean', 'fdelete'], description='Delete a specified number of messeges from the channel.')
+    @commands.has_permissions(manage_messeges=True)
     async def purge(self, ctx, amount: int):
         deleted = await ctx.channel.purge(limit=amount)
         e = discord.embed(
