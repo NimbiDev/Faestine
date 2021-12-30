@@ -12,10 +12,10 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('CLIENT_TOKEN')
 PREFIX = os.getenv('CLIENT_PREFIX')
-
+TWITCH=os.getenv('TWITCH_CHANNEL')
 
 activity = discord.Activity(
-    type=discord.ActivityType.playing, name='with cogs | {}help'.format(PREFIX))
+    type=discord.ActivityType.streaming, name='with cogs | {}help'.format(PREFIX), url=TWITCH)
 
 
 client = commands.Bot(
