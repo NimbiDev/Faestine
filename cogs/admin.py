@@ -20,13 +20,14 @@ class Admin(commands.Cog, description='Administration commands to help manage yo
     @commands.command(name='banlist', aliases=['blist'], description='Get a list of banned users in the guild.')
     @commands.has_permissions(administrator=True, ban_members=True)
     async def banlist(self, ctx):
-
+        client = self.client
+        message = ctx.message
         orange = discord.Color.orange()
 
-        bans = await ctx.message.guild.bans()
-        for ban_entry in bans:
-            user = ban_entry.user
-            reason = ban_entry.reason
+        bans = await client.get_bans(message.guild.id)
+        for ban in bans:
+            user = ban['user']
+            reason = ban['reason']
 
         embed = discord.Embed(
             description='**{}**: {}'.format(user, reason), color=orange)
