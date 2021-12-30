@@ -14,7 +14,7 @@ TOKEN = os.getenv('CLIENT_TOKEN')
 PREFIX = os.getenv('CLIENT_PREFIX')
 TWITCH=os.getenv('TWITCH_CHANNEL')
 
-activity = discord.Streaming(name='with cogs | {}help'.format(PREFIX), url=TWITCH)
+activity = discord.Streaming(name='with cogs | {}help'.format(PREFIX), url='https://twitch.tv/{}'.format(TWITCH))
 
 
 client = commands.Bot(
