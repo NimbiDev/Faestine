@@ -26,12 +26,12 @@ class Help(commands.Cog):
 
 
 class CustomHelp(commands.MinimalHelpCommand):
-    async def send_pages(self, ctx):
+    async def send_pages(self):
+        destination = self.get_destination()
         embed = discord.Embed(color=discord.Color.blurple(), description='')
         for page in self.paginator.pages:
             embed.description += page
-            await ctx.message.delete()
-            await ctx.send(embed=embed)
+            await destination.send(embed=embed)
 
 
 client.help_command = CustomHelp()
