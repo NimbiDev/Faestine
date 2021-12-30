@@ -11,13 +11,9 @@ class Admin(commands.Cog):
     @commands.has_permissions(manage_messeges=True)
     async def purge(self, ctx, amount: int):
         deleted = await ctx.channel.purge(limit=amount)
-        e = discord.embed(
-            title='Purge',
-            description='Successfully deleted {} messeges.'.format(
-                len(deleted)),
-            color=discord.Color.green()
-        )
-        await ctx.send(embed=e, mention_auther=False)
+        embed = discord.Embed(title='Purge', description=f'Successfully deleted {len(deleted)} messeges.', color=discord.Color.green())
+        embed.set_image = self.client.avatar_url
+        await ctx.send(embed=embed, mention_auther=False)
 
 
 def setup(client):
