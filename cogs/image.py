@@ -4,6 +4,8 @@ import random
 import discord
 import json
 from discord.ext import commands
+from discord.ext.commands import CommandNotFound
+
 from dotenv import load_dotenv
 
 load_dotenv()

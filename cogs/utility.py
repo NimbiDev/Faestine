@@ -1,6 +1,8 @@
 import discord
 import asyncio
 from discord.ext import commands
+from discord.ext.commands import CommandNotFound
+
 
 
 class Utility(commands.Cog, description='Useful tools and utilities.'):

@@ -4,6 +4,8 @@ import time
 import asyncio
 
 from discord.ext import commands
+from discord.ext.commands import CommandNotFound
+
 from typing import List
 import discord
 
