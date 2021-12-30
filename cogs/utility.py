@@ -34,6 +34,7 @@ class Utility(commands.Cog):
                 description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!",
                 color=0x990000
             )
+        ctx.message.delete()
         await ctx.send(embed=embed, mention_author=False, delete_after=20)
 
     @commands.command(name='avatar', aliases=['ava', 'pfp'], description='Return a user\'s avatar.')
@@ -42,6 +43,7 @@ class Utility(commands.Cog):
             member = ctx.message.author
         e = discord.Embed(title=str(member), color=0xAE0808)
         e.set_image(url=member.avatar_url)
+        ctx.message.delete()
         await ctx.reply(embed=e, mention_author=False)
 
 
