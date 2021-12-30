@@ -38,12 +38,12 @@ client.help_command = CustomHelp()
 
 
 extensions = [
-    'admin',
-    'mod',
-    'image',
-    'events',
-    'utility',
-    'social'
+    'cogs.admin',
+    'cogs.mod',
+    'cogs.image',
+    'cogs.events',
+    'cogs.utility',
+    'cogs.social'
 ]
 
 for extension in extensions:
