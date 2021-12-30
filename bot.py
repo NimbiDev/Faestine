@@ -24,23 +24,6 @@ client = commands.Bot(
     status=discord.Status.online
 )
 
-
-class Help(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-
-
-class CustomHelp(commands.MinimalHelpCommand):
-    async def send_pages(self):
-        destination = self.get_destination()
-        embed = discord.Embed(color=discord.Color.blurple(), description='')
-        for page in self.paginator.pages:
-            embed.description += page
-            await destination.send(embed=embed)
-
-
-client.help_command = CustomHelp()
-
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')

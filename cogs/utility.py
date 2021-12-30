@@ -7,6 +7,17 @@ class Utility(commands.Cog, description='Useful tools and utilities.'):
     def __init__(self, client):
         self.client = client
 
+        class CustomHelp(commands.MinimalHelpCommand):
+            async def send_pages(self):
+                destination = self.get_destination()
+                embed = discord.Embed(
+                    color=discord.Color.blurple(), description='')
+                for page in self.paginator.pages:
+                    embed.description += page
+                    await destination.send(embed=embed)
+
+        self.client.help_command = CustomHelp()
+
     @commands.command(name='ping', aliases=['echo', 'beep'], description='Returns the bot\'s latency.')
     async def _ping(self, ctx):
         client = self.client
