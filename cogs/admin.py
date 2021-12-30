@@ -12,7 +12,6 @@ class Admin(commands.Cog):
     async def purge(self, ctx, amount: int):
         deleted = await ctx.channel.purge(limit=amount)
         embed = discord.Embed(title='Purge', description=f'Successfully deleted {len(deleted)} messeges.', color=discord.Color.green())
-        embed.set_image = self.client.user.avatar_url
         await ctx.send(embed=embed, mention_auther=False)
 
 
