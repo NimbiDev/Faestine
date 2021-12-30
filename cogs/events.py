@@ -28,19 +28,14 @@ class Events(commands.Cog, description='Events and triggeres that run in the bac
     async def on_command_error(self, ctx, error):
 
         invalid_argument_error = ':x: Invalid Argument.'
-        missing_arguments_error = ':x: Please pass in the required arguments'
         missing_permissions_error = ':x: You do not have permission to use that command.'
         red = discord.Color.dark_red()
 
-        from discord.ext.commands import CommandNotFound, MissingPermissions, MissingRequiredArguments, BadArgument
+        from discord.ext.commands import CommandNotFound, MissingPermissions, BadArgument
 
         if isinstance(error, BadArgument):
             embed = discord.Embed(
                 description=invalid_argument_error, color=red)
-            await ctx.send(embed=embed, mention_author=False, delete_after=5)
-        if isinstance(error, MissingRequiredArguments):
-            embed = discord.embed(
-                description=missing_arguments_error, color=red)
             await ctx.send(embed=embed, mention_author=False, delete_after=5)
         if isinstance(error, MissingPermissions):
             embed = discord.embed(
