@@ -12,9 +12,10 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv('CLIENT_TOKEN')
 PREFIX = os.getenv('CLIENT_PREFIX')
-TWITCH=os.getenv('TWITCH_CHANNEL')
+TWITCH = os.getenv('TWITCH_CHANNEL')
 
-activity = discord.Streaming(name='with cogs | {}help'.format(PREFIX), url='https://twitch.tv/{}'.format(TWITCH))
+activity = discord.Streaming(name='with cogs | {}help'.format(
+    PREFIX), url='https://twitch.tv/{}'.format(TWITCH))
 
 
 client = commands.Bot(
@@ -23,6 +24,23 @@ client = commands.Bot(
     activity=activity,
     status=discord.Status.online
 )
+
+
+class Help(commands.Cog):
+    def __init__(self, client):
+        self.client = client
+
+
+class CustomHelp(commands.MinimalHelpCommand):
+    async def send_pages(self):
+        destination = self.get_destination()
+        embed = discord.Embed(color=discord.Color.blurple(), description='')
+        for page in self.paginator.pages:
+            embed.description += page
+            await destination.send(embed=embed)
+
+
+client.help_command = CustomHelp()
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
