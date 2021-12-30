@@ -4,7 +4,6 @@ from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
 
-
 class Admin(commands.Cog, description='Administration commands to help manage your server.'):
     def __init__(self, client):
         self.client = client
@@ -14,8 +13,24 @@ class Admin(commands.Cog, description='Administration commands to help manage yo
     async def purge(self, ctx, amount: int):
         await ctx.message.delete()
         deleted = await ctx.channel.purge(limit=amount)
-        embed = discord.Embed(description=f'Successfully deleted {len(deleted)} messeges.', color=discord.Color.green())
+        embed = discord.Embed(
+            description=f'Successfully deleted {len(deleted)} messeges.', color=discord.Color.green())
         await ctx.send(embed=embed, mention_author=False, delete_after=5)
+
+    @commands.command(name='banlist', aliases=['blist'], description='Get a list of banned users in the guild.')
+    @commands.has_permissions(administrator=True, ban_members=True)
+    async def banlist(self, ctx):
+
+        orange = discord.Color.orange()
+
+        bans = await ctx.message.guild.bans()
+        for ban_entry in bans:
+            user = ban_entry.user
+            reason = ban_entry.reason
+
+        embed = discord.Embed(
+            description='**{}**: {}'.format(user, reason), color=orange)
+        await ctx.send(embed=embed, mention_author=False)
 
 
 def setup(client):
