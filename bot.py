@@ -52,7 +52,7 @@ for filename in os.listdir('./cogs'):
         client.load_extension(f'cogs.{filename[:-3]}')
         print(f'Loaded cogs.{filename[:-3]}')
     else:
-        print(f'Unable to load {filename[:-3]}')
+        print(f'Unable to load cogs.{filename[:-3]}')
 
 # for extension in extensions:
 #     try:
@@ -63,4 +63,5 @@ for filename in os.listdir('./cogs'):
 #
 # if __name__ == '__main__':
 #     client.run('{}'.format(TOKEN))
+
 client.run('{}'.format(TOKEN))
