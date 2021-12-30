@@ -11,7 +11,7 @@ class Owner(commands.Cog, description='Debugging commands for use by the bot own
 
     @commands.command(name="load", aliases=['l'], description='Load a specified cog.')
     @commands.is_owner()
-    async def _load(self, ctx, extension):
+    async def _load(self, ctx, extension):    
 
         client = self.client
         await client.load_extension(f'cogs.{extension}')
