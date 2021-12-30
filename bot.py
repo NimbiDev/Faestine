@@ -49,6 +49,7 @@ extensions = [
 for extension in extensions:
     try:
         client.load_extension(extension)
+        print('{} extension loaded.'.format(extension))
     except Exception as error:
         print('{} can not be loaded. [{}]'.format(extension, error))
 
