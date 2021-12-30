@@ -50,7 +50,7 @@ client.help_command = CustomHelp()
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
-        print(f'Loaded cogs.{filename[:.3]}')
+        print(f'Loaded cogs.{filename[:-3]}')
     else:
         print(f'Unable to load {filename[:-3]}')
 
