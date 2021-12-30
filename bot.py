@@ -15,13 +15,13 @@ PREFIX = os.getenv('CLIENT_PREFIX')
 
 
 activity = discord.Activity(
-    type=discord.ActivityType.playing, name='{}help'.format(PREFIX))
+    type=discord.ActivityType.playing, name='with cogs | {}help'.format(PREFIX))
 
 
 client = commands.Bot(
     command_prefix=commands.when_mentioned_or('{}'.format(PREFIX)),
     description='Discord client',
-    activity='with cogs | {}'.format(activity),
+    activity=activity,
     status=discord.Status.online
 )
 
