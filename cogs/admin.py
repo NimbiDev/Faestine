@@ -3,7 +3,7 @@ import asyncio
 from discord.ext import commands
 
 
-class Admin(commands.Cog):
+class Admin(commands.Cog, description='Administration commands to help manage your server.'):
     def __init__(self, client):
         self.client = client
 

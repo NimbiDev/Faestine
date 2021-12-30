@@ -3,7 +3,7 @@ import asyncio
 from discord.ext import commands
 
 
-class Utility(commands.Cog):
+class Utility(commands.Cog, description='Useful tools and utilities.'):
     def __init__(self, client):
         self.client = client
 

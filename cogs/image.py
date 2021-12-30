@@ -14,7 +14,7 @@ giphy_api = os.getenv("GIPHY_API_KEY")
 command_attrs = {'hidden': False}
 
 
-class Images(commands.Cog):
+class Images(commands.Cog, description='Image and Gif commands.'):
     def __init__(self, client):
         self.client = client
         self.session = aiohttp.ClientSession()

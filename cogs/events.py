@@ -8,7 +8,7 @@ load_dotenv()
 PREFIX = os.getenv('CLIENT_PREFIX')
 
 
-class Events(commands.Cog):
+class Events(commands.Cog, description='Events and triggeres that run in the background.'):
     def __init__(self, client):
         self.client = client
 

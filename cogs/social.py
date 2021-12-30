@@ -2,7 +2,7 @@ import discord
 import asyncio
 from discord.ext import commands
 
-class Social(commands.Cog):
+class Social(commands.Cog, description='Twitter, Reddit, and RSS commands.'):
     def __init__(self, client):
         self.client = client
 
