@@ -38,7 +38,7 @@ class Images(commands.Cog):
             gif_choice = random.randint(0, 9)
             embed.set_image(url=data['data'][gif_choice]
                             ['images']['original']['url'])
-            ctx.message.delete()
+            await ctx.message.delete()
             await ctx.send(embed=embed, mention_author=False)
 
 
