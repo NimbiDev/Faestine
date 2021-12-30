@@ -35,7 +35,7 @@ class Utility(commands.Cog):
                 color=0x990000
             )
         await ctx.message.delete()
-        await ctx.send(embed=embed, mention_author=False, delete_after=20)
+        await ctx.send(embed=embed, mention_author=False, delete_after=5)
 
     @commands.command(name='avatar', aliases=['ava', 'pfp'], description='Return a user\'s avatar.')
     async def avatar(self, ctx, *, member: discord.Member = None):
