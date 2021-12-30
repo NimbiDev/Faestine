@@ -2,3 +2,4 @@ discord
 python-dotenv
 asyncio
 typing
+aiohttp
