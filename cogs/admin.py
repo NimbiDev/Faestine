@@ -12,7 +12,7 @@ class Admin(commands.Cog):
     async def purge(self, ctx, amount: int):
         deleted = await ctx.channel.purge(limit=amount)
         embed = discord.Embed(title='Purge', description=f'Successfully deleted {len(deleted)} messeges.', color=discord.Color.green())
-        await ctx.send(embed=embed, mention_author=False)
+        await ctx.send(embed=embed, mention_author=False, delete_after=20)
 
 
 def setup(client):

@@ -34,7 +34,7 @@ class Utility(commands.Cog):
                 description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!",
                 color=0x990000
             )
-        await ctx.send(embed=embed)
+        await ctx.send(embed=embed, mention_author=False, delete_after=20)
 
     @commands.command(name='avatar', aliases=['ava', 'pfp'], description='Return a user\'s avatar.')
     async def avatar(self, ctx, *, member: discord.Member = None):
