@@ -26,11 +26,12 @@ class Help(commands.Cog):
 
 
 class CustomHelp(commands.MinimalHelpCommand):
-    async def send_pages(self):
+    async def send_pages(self, ctx):
         destination = self.get_destination()
         e = discord.Embed(color=discord.Color.blurple(), description='')
         for page in self.paginator.pages:
             e.description += page
+            await ctx.message.delete()
             await destination.send(embed=e)
 
 
