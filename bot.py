@@ -50,9 +50,9 @@ client.remove_command('help')
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension('cogs.{}'.format(filename[:-3]))
-        print('Loaded cogs.{}'.format(filename[:-3]))
+        print(f'Loaded cogs.{filename[:-3]}')
     else:
-        print('Unable to load cogs.{}'.format(filename[:-3]))
+        print(f'Unable to load cogs.{filename[:-3]}')
         
 # for filename in os.listdir('./cogs/admin'):
 #     if filename.endswith('.py'):
