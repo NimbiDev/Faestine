@@ -22,26 +22,27 @@ client = commands.Bot(
     activity=activity,
     status=discord.Status.online
 )
+     
+client.remove_command('help')
+    
+# class Help(commands.Cog):
+#     def __init__(self, client):
+#         self.client = client
 
-        
-class Help(commands.Cog):
-    def __init__(self, client):
-        self.client = client
-
-class CustomHelp(commands.MinimalHelpCommand):
-    async def send_pages(self):
-        destination = self.get_destination()
-        embed = discord.Embed(color=discord.Color.blue(), description='')
-        for page in self.paginator.pages:
-            embed.description += page
-            await destination.send(embed=embed)
+# class CustomHelp(commands.MinimalHelpCommand):
+#     async def send_pages(self):
+#         destination = self.get_destination()
+#         embed = discord.Embed(color=discord.Color.blue(), description='')
+#         for page in self.paginator.pages:
+#             embed.description += page
+#             await destination.send(embed=embed)
 
 # menu = DefaultMenu(page_left="\U0001F44D", page_right="👎", remove=":discord:743511195197374563", active_time=5)
 # ending_note = 'The ending note from Faestine\nFor command {}{}'.format(help.clean_prefix, help.invoked_with)
 
 # client.help_command = PrettyHelp(menu=menu, ending_note=ending_note, page_right='▶️', page_left='◀️', remove='🛑')
 
-client.help_command = CustomHelp()
+# client.help_command = CustomHelp()
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
