@@ -25,7 +25,7 @@ client = commands.Bot(
 
 
 menu = DefaultMenu(page_left="\U0001F44D", page_right="👎", remove=":discord:743511195197374563", active_time=5)
-ending_note = 'The ending note from {}\nFor command {}{}'.format(client.name, help.clean_prefix, help.invoked_with)
+ending_note = 'The ending note from Faestine\nFor command {}{}'.format(help.clean_prefix, help.invoked_with)
 
 client.help_command = PrettyHelp(menu=menu, ending_note=ending_note, page_right='▶️', page_left='◀️', remove='🛑')
         
