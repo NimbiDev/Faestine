@@ -20,10 +20,10 @@ client = commands.Bot(
     command_prefix=commands.when_mentioned_or('{}'.format(PREFIX)),
     description='Discord client',
     activity=activity,
-    status=discord.Status.online
+    status=discord.Status.online,
+    help_command=None
 )
-     
-client.remove_command('help')
+
     
 # class Help(commands.Cog):
 #     def __init__(self, client):
