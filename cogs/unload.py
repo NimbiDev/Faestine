@@ -1,5 +1,7 @@
 import discord
 import asyncio
+
+from env import PREFIX
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 

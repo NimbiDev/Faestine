@@ -1,22 +1,14 @@
+import discord
 import os
 import sys
 import time
 import asyncio
-import discord
 import logging
 
+from env import PREFIX, TOKEN, TWITCH, ERR_FILE, DBUG_FILE
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 from typing import List
-from dotenv import load_dotenv
-
-load_dotenv()
-TOKEN = os.getenv('CLIENT_TOKEN')
-PREFIX = os.getenv('CLIENT_PREFIX')
-TWITCH = os.getenv('TWITCH_CHANNEL')
-ERR_FILE = os.getenv('ERROR_FILE')
-DBUG_FILE = os.getenv('DEBUG_FILE')
-
 
 activity = discord.Streaming(name='with cogs | {}help'.format(
     PREFIX), url='https://twitch.tv/{}'.format(TWITCH))

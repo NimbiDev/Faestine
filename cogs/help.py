@@ -1,17 +1,9 @@
 import discord
-import os
 
+from env import PREFIX, OID, ONAME, DEV_TEAM, GHUB_REPO, VERSION
 from discord.ext import commands
+from discord.ext.commands import CommandNotFound
 from discord.errors import Forbidden
-from dotenv import load_dotenv
-
-load_dotenv()
-PREFIX = os.getenv('CLIENT_PREFIX')
-OID = os.getenv('OWNER_ID')
-ONAME = os.getenv('OWNER_NAME')
-DEV_TEAM = os.getenv('DEVELOPMENT_TEAM_NAME')
-GHUB_REPO = os.getenv('GITHUB_REPO')
-VERSION = os.getenv('CLIENT_VERSION')
 
 async def send_embed(ctx, embed):
     try:
@@ -29,7 +21,7 @@ class Help(commands.Cog):
         self.client = client
         
 
-    @commands.command(name='help', aliases=['h', 'cmds', 'commands', 'cmdhelp'], description='Display a full list of all of my available commands.')
+    @commands.command(name='help', aliases=['h', 'cmds', 'commands', 'cmdhelp'], description='Display a full list of all of my available commands.', help='help')
     @commands.bot_has_permissions(add_reactions=True,embed_links=True)
     async def _help(self, ctx, *input):
         

@@ -1,13 +1,9 @@
-import os
-from discord.ext import commands
-
-
 import discord
-from dotenv import load_dotenv
+import os
 
-load_dotenv()
-
-PREFIX = os.getenv('CLIENT_PREFIX')
+from env import PREFIX
+from discord.ext import commands
+from discord.ext.commands import CommandNotFound
 
 
 class Events(commands.Cog, description='Events and triggeres that run in the background.'):
@@ -31,7 +27,7 @@ class Events(commands.Cog, description='Events and triggeres that run in the bac
         missing_permissions_error = ':x: You do not have permission to use that command.'
         red = discord.Color.dark_red()
 
-        from discord.ext.commands import CommandNotFound, MissingPermissions, BadArgument
+        from commands import CommandNotFound, MissingPermissions, BadArgument
 
         if isinstance(error, BadArgument):
             embed = discord.Embed(
