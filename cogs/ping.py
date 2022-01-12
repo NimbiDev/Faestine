@@ -11,7 +11,7 @@ class Ping(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(name='ping', aliases=['echo', 'beep'], description='Returns the bot\'s latency.')
+    @commands.command(name='ping', aliases=['echo', 'beep'], description='Returns the bot\'s latency.', help='Usage: {}ping\nExample: {}ping'.format(PREFIX, PREFIX))
     async def _ping(self, ctx):
         client = self.client
         if round(client.latency * 1000) <= 50:
