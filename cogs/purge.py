@@ -10,7 +10,7 @@ class Purge(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(name="purge", aliases=['fprune', 'fclean', 'fdelete'], description='Delete a specified number of messeges from the channel.', help='Usage: {}purge [query]\nExample: {}purge 50'.format(PREFIX, PREFIX))
+    @commands.command(name="purge", aliases=['fprune', 'fclean', 'fdelete'], description='Delete a specified number of messeges from the channel.', usage='Usage: {}purge [query]\nExample: {}purge 50'.format(PREFIX, PREFIX))
     @commands.has_permissions(administrator=True, manage_messages=True)
     async def purge(self, ctx, amount: int):
         await ctx.message.delete()

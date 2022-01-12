@@ -11,7 +11,7 @@ class Unload(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(name="unload", aliases=['ul', 'uload'], description='Unload a specified cog.', help='Usage: {}unload [query]\nExample: {}unload purge'.format(PREFIX, PREFIX))
+    @commands.command(name="unload", aliases=['ul', 'uload'], description='Unload a specified cog.', usage='Usage: {}unload [query]\nExample: {}unload purge'.format(PREFIX, PREFIX))
     @commands.is_owner()
     async def _unload(self, ctx, extension):
 

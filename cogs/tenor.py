@@ -14,7 +14,7 @@ class Tenor(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=['t'], description='Return a random gif by tag from tenor.', help='Usage: {}tenor [query]\nExample: {}tenor dog'.format(PREFIX, PREFIX))
+    @commands.command(aliases=['t'], description='Return a random gif by tag from tenor.', usage='Usage: {}tenor [query]\nExample: {}tenor dog'.format(PREFIX, PREFIX))
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
     async def tenor(self, ctx, *, _text):
 

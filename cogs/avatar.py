@@ -11,7 +11,7 @@ class Avatar(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(name='avatar', aliases=['ava', 'pfp'], description='Return a user\'s avatar.', help='Usage: {}avatar [query]\nExample:avatar {} @Nimbi'.format(PREFIX, PREFIX))
+    @commands.command(name='avatar', aliases=['ava', 'pfp'], description='Return a user\'s avatar.', usage='Usage: {}avatar [query]\nExample:avatar {} @Nimbi'.format(PREFIX, PREFIX))
     async def avatar(self, ctx, *, member: discord.Member = None):
         if not member:
             member = ctx.message.author

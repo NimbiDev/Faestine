@@ -20,7 +20,7 @@ class Giphy(commands.Cog):
     def cog_unload(self):
         self.client.loop.create_task(self.session.close())
 
-    @commands.command(name='giphy', description='Returna  random gif by tag from Giphy.', help='Usage: {}giphy [query]\nExample: {}giphy dog'.format(PREFIX, PREFIX))
+    @commands.command(name='giphy', description='Returna  random gif by tag from Giphy.', usage='Usage: {}giphy [query]\nExample: {}giphy dog'.format(PREFIX, PREFIX))
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
     async def _giphy(self, ctx, *, search):
         session = self.session

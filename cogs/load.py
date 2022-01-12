@@ -11,7 +11,7 @@ class Load(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(name="load", aliases=['l'], description='Load a specified cog.', help='Usage: {}load [query]\nExample: {}load purge'.format(PREFIX, PREFIX))
+    @commands.command(name="load", aliases=['l'], description='Load a specified cog.', usage='Usage: {}load [query]\nExample: {}load purge'.format(PREFIX, PREFIX))
     @commands.is_owner()
     async def _load(self, ctx, extension):    
 

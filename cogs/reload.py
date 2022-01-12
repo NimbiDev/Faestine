@@ -11,7 +11,7 @@ class Reload(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(name="reload", aliases=['rl', 'rload'], description='Unload and then immediately reload a specified cog.', help='Usage: {}reload [query]\nExample: {}reload purge'.format(PREFIX, PREFIX))
+    @commands.command(name="reload", aliases=['rl', 'rload'], description='Unload and then immediately reload a specified cog.', usage='Usage: {}reload [query]\nExample: {}reload purge'.format(PREFIX, PREFIX))
     @commands.is_owner()
     async def _reload(self, ctx, extension):
 
