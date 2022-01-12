@@ -2,19 +2,21 @@ import os
 import sys
 import time
 import asyncio
+import discord
+import logging
 
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
-
 from typing import List
-import discord
-
 from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('CLIENT_TOKEN')
 PREFIX = os.getenv('CLIENT_PREFIX')
 TWITCH = os.getenv('TWITCH_CHANNEL')
+ERR_FILE = os.getenv('ERROR_FILE')
+DBUG_FILE = os.getenv('DEBUG_FILE')
+
 
 activity = discord.Streaming(name='with cogs | {}help'.format(
     PREFIX), url='https://twitch.tv/{}'.format(TWITCH))
@@ -51,5 +53,16 @@ for filename in os.listdir('./cogs'):
     else:
         print(f'Unable to load cogs.{filename[:-3]}')
 
+
+error_logger = logging.getLogger('discord')
+debug_logger = logging.getLogger('discord')
+debug_logger.setLevel(logging.DEBUG)
+error_logger.setLevel(logging.ERROR)
+debug_handler = logging.FileHandler(filename=DBUG_FILE, encoding='utf-8', mode='w')
+error_handler = logging.FileHandler(filename=ERR_FILE, encoding='utf-8', mode='w')
+debug_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+error_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+debug_logger.addHandler(debug_handler)
+error_logger.addHandler(error_handler)
 
 client.run('{}'.format(TOKEN))

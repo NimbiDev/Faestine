@@ -13,3 +13,5 @@ venv/
 venv/*
 pyenv/
 pyenv*
+.vscode/*
+.vscode/
