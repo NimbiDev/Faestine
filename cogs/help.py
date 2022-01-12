@@ -7,70 +7,51 @@ from dotenv import load_dotenv
 
 load_dotenv()
 PREFIX = os.getenv('CLIENT_PREFIX')
-VERSION = os.getenv('CLIENT_VERSIONL')
 OID = os.getenv('OWNER_ID')
 ONAME = os.getenv('OWNER_NAME')
-
-"""This custom help command is a perfect replacement for the default one on any Discord Bot written in Discord.py!
-However, you must put "bot.remove_command('help')" in your bot, and the command must be in a cog for it to work.
-Original concept by Jared Newsom (AKA Jared M.F.)
-[Deleted] https://gist.github.com/StudioMFTechnologies/ad41bfd32b2379ccffe90b0e34128b8b
-Rewritten and optimized by github.com/nonchris
-https://gist.github.com/nonchris/1c7060a14a9d94e7929aa2ef14c41bc2
-You need to set three variables to make that cog run.
-Have a look at line 51 to 57
-"""
-
+DEV_TEAM = os.getenv('DEVELOPMENT_TEAM_NAME')
+GHUB_REPO = os.getenv('GITHUB_REPO')
+VERSION = os.getenv('CLIENT_VERSION')
 
 async def send_embed(ctx, embed):
-    """
-    Function that handles the sending of embeds
-    -> Takes context and embed to send
-    - tries to send embed in channel
-    - tries to send normal message when that fails
-    - tries to send embed private with information abot missing permissions
-    If this all fails: https://youtu.be/dQw4w9WgXcQ
-    """
     try:
         await ctx.send(embed=embed)
     except Forbidden:
         try:
-            await ctx.send("Hey, seems like I can't send embeds. Please check my permissions :)")
+            await ctx.send('Hey, seems like I can\'t send embeds. Please check my permissions :)')
         except Forbidden:
+            repo = GHUB_REPO
             await ctx.author.send(
-                f"Hey, seems like I can't send any message in {ctx.channel.name} on {ctx.guild.name}\n"
-                f"May you inform the server team about this issue? :slight_smile: ", embed=embed)
+                'Hey, seems like I can\'t send any message in {} on {}\nMay you inform the development team about this issue? :slight_smile: \n{}'.format(ctx.channel.name, ctx.guild.name, repo) , embed=embed)
 
 class Help(commands.Cog):
-    """
-    Sends this help message
-    """
-
     def __init__(self, client):
         self.client = client
         
 
-    @commands.command()
-    # @commands.bot_has_permissions(add_reactions=True,embed_links=True)
-    async def help(self, ctx, *input):
-        
-        """Shows all modules of that bot"""
-        
-        prefix = PREFIX
-        version = VERSION
-        owner = OID
+    @commands.command(name='help', aliases=['h', 'cmds', 'commands', 'cmdhelp'], description='Display a full list of all of my available commands.')
+    @commands.bot_has_permissions(add_reactions=True,embed_links=True)
+    async def _help(self, ctx, *input):
+        client_prefix = PREFIX
+        version_number = VERSION
+        owner_id = OID
+        team_name = DEV_TEAM
+        github_repo = GHUB_REPO
         owner_name = ONAME
         	     
         if not input:
             try:
-                owner = ctx.guild.get_member(owner).mention
+                owner = ctx.guild.get_member(owner_id).mention
 
             except AttributeError as e:
-                owner = owner
+                owner = owner_name
+                team = team_name
+                repo = github_repo
+                prefix = client_prefix
+                version = version_number
 
             emb = discord.Embed(title='Commands and modules', color=discord.Color.blue(),
-                                description=f'Use `{prefix}help <module>` to gain more information about that module '
-                                            f':smiley:\n')
+                                description='Use `{}help <module>` to gain more information about that module :smiley:\n'.format(prefix))
 
             cogs_desc = ''
             for cog in self.client.cogs:
@@ -87,10 +68,10 @@ class Help(commands.Cog):
             if commands_desc:
                 emb.add_field(name='Not belonging to a module', value=commands_desc, inline=False)
 
-            emb.add_field(name="About", value=f"The Bots is developed by Chriѕ#0001, based on discord.py.\n\
-                                    This version of it is maintained by {owner}\n\
-                                    Please visit https://github.com/nonchris/discord-fury to submit ideas or bugs.")
-            emb.set_footer(text=f"Bot is running {version}")
+            emb.add_field(name='About', value='This bot is developed by {}, based on discord.py.\n\
+                                    This version of it is maintained by {}\n\
+                                    Please visit {} to submit ideas or bugs.'.format(owner, team, repo))
+            emb.set_footer(text=f'Bot is running {version}')
 
         elif len(input) == 1:
 
@@ -101,26 +82,30 @@ class Help(commands.Cog):
                                         color=discord.Color.green())
 
                     for command in self.client.get_cog(cog).get_commands():
+                        prefix = client_prefix
                         if not command.hidden:
-                            emb.add_field(name=f"`{prefix}{command.name}`", value=command.help, inline=False)
+                            emb.add_field(name='`{}{}`'.format(prefix, command.name), value=command.help, inline=False)
                     break
 
             else:
-                emb = discord.Embed(title="What's that?!",
-                                    description=f"I've never heard from a module called `{input[0]}` before :scream:",
+                emb = discord.Embed(title='What\'s that?!',
+                                    description='I\'ve never heard from a module called `{}` before :scream:'.format(input[0]),
                                     color=discord.Color.orange())
 
         elif len(input) > 1:
-            emb = discord.Embed(title="That's too much.",
-                                description="Please request only one module at once :sweat_smile:",
+            emb = discord.Embed(title='That\'s too much.',
+                                description='Please request only one module at once :sweat_smile:',
                                 color=discord.Color.orange())
 
         else:
-            emb = discord.Embed(title="It's a magical place.",
-                                description="I don't know how you got here. But I didn't see this coming at all.\n"
-                                            "Would you please be so kind to report that issue to me on github?\n"
-                                            "https://github.com/nonchris/discord-fury/issues\n"
-                                            "Thank you! ~Chris",
+            owner = owner_name
+            repo = github_repo
+                        
+            emb = discord.Embed(title='It\'s a magical place.',
+                                description='I don\'t know how you got here. But I didn\'t see this coming at all.\n'
+                                            'Would you please be so kind to report that issue to me on github?\n'
+                                            '{}\n'.format(repo)
+                                            'Thank you! ~{}'.format(owner),
                                 color=discord.Color.red())
 
         await send_embed(ctx, emb)
