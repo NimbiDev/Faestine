@@ -1,5 +1,7 @@
 discord
+py-cord
 python-dotenv
 asyncio
 typing
 aiohttp
+discord-pretty-help

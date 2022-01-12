@@ -20,6 +20,5 @@ class Avatar(commands.Cog):
         await ctx.message.delete()
         await ctx.reply(embed=e, mention_author=False)
 
-
 def setup(client):
     client.add_cog(Avatar(client))

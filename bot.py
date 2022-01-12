@@ -8,7 +8,9 @@ import logging
 from env import PREFIX, TOKEN, TWITCH, ERR_FILE, DBUG_FILE
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
+from pretty_help import DefaultMenu, PrettyHelp
 from typing import List
+
 
 activity = discord.Streaming(name='with cogs | {}help'.format(
     PREFIX), url='https://twitch.tv/{}'.format(TWITCH))
@@ -21,10 +23,11 @@ client = commands.Bot(
     status=discord.Status.online
 )
 
-client.remove_command('help')
-initial_extensions = [
-        'cogs.help',
-            ]  
+
+menu = DefaultMenu(page_left="\U0001F44D", page_right="👎", remove=":discord:743511195197374563", active_time=5)
+ending_note = 'The ending note from {}\nFor command {}{}'.format(ctx.client.user.name, help.clean_prefix, help.invoked_with)
+
+client.help_command = PrettyHelp(menu=menu, ending_note=ending_note, page_right='▶️', page_left='◀️', remove='🛑')
         
 # class Help(commands.Cog):
 #     def __init__(self, client):
@@ -49,55 +52,6 @@ for filename in os.listdir('./cogs'):
     else:
         print(f'Unable to load cogs.{filename[:-3]}')
         
-# for filename in os.listdir('./cogs/admin'):
-#     if filename.endswith('.py'):
-#         client.load_extension('cogs.{}'.format(filename[:-3]))
-#         print('Loaded cogs.{}'.format(filename[:-3]))
-#     else:
-#         print('Unable to load cogs.{}'.format(filename[:-3]))
-        
-# for filename in os.listdir('./cogs/mod'):
-#     if filename.endswith('.py'):
-#         client.load_extension('cogs.{}'.format(filename[:-3]))
-#         print('Loaded cogs.{}'.format(filename[:-3]))
-#     else:
-#         print('Unable to load cogs.{}'.format(filename[:-3]))
-
-# for filename in os.listdir('./cogs/events'):
-#     if filename.endswith('.py'):
-#         client.load_extension('cogs.{}'.format(filename[:-3]))
-#         print('Loaded cogs.{}'.format(filename[:-3]))
-#     else:
-#         print('Unable to load cogs.{}'.format(filename[:-3]))
-
-# for filename in os.listdir('./cogs/images'):
-#     if filename.endswith('.py'):
-#         client.load_extension('cogs.{}'.format(filename[:-3]))
-#         print('Loaded cogs.{}'.format(filename[:-3]))
-#     else:
-#         print('Unable to load cogs.{}'.format(filename[:-3]))
-
-# for filename in os.listdir('./cogs/owner'):
-#     if filename.endswith('.py'):
-#         client.load_extension('cogs.{}'.format(filename[:-3]))
-#         print('Loaded cogs.{}'.format(filename[:-3]))
-#     else:
-#         print('Unable to load cogs.{}'.format(filename[:-3]))
-
-# for filename in os.listdir('./cogs/social'):
-#     if filename.endswith('.py'):
-#         client.load_extension('cogs.{}'.format(filename[:-3]))
-#         print('Loaded cogs.{}'.format(filename[:-3]))
-#     else:
-#         print('Unable to load cogs.{}'.format(filename[:-3]))
-
-# for filename in os.listdir('./cogs/util'):
-#     if filename.endswith('.py'):
-#         client.load_extension('cogs.{}'.format(filename[:-3]))
-#         print('Loaded cogs.{}'.format(filename[:-3]))
-#     else:
-#         print('Unable to load cogs.{}'.format(filename[:-3]))
-
 error_logger = logging.getLogger('discord')
 debug_logger = logging.getLogger('discord')
 debug_logger.setLevel(logging.DEBUG)
