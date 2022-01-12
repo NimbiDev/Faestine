@@ -18,5 +18,6 @@ class Load(commands.Cog):
         client = self.client
         await client.load_extension(f'cogs.{extension}')
         await ctx.send('The {} cog has been successfully loaded.'.format(extension))
+        
 def setup(client):
     client.add_cog(Load(client))
