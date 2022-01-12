@@ -32,30 +32,26 @@ class Help(commands.Cog):
     @commands.command(name='help', aliases=['h', 'cmds', 'commands', 'cmdhelp'], description='Display a full list of all of my available commands.')
     @commands.bot_has_permissions(add_reactions=True,embed_links=True)
     async def _help(self, ctx, *input):
-        client_prefix = PREFIX
-        version_number = VERSION
+        
         owner_id = OID
-        team_name = DEV_TEAM
-        github_repo = GHUB_REPO
-        owner_name = ONAME
         	     
         if not input:
             try:
                 owner = ctx.guild.get_member(owner_id).mention
 
             except AttributeError as e:
-                owner = owner_name
-                team = team_name
-                repo = github_repo
-                prefix = client_prefix
-                version = version_number
+                owner = ONAME
+                team = DEV_TEAM
+                repo = GHUB_REPO
+                prefix = PREFIX
+                version = VERSION
 
             emb = discord.Embed(title='Commands and modules', color=discord.Color.blue(),
                                 description='Use `{}help <module>` to gain more information about that module :smiley:\n'.format(prefix))
 
             cogs_desc = ''
             for cog in self.client.cogs:
-                cogs_desc += f'`{cog}` {self.client.cogs[cog].__doc__}\n'
+                cogs_desc += '`{}` {}\n'.format(cog, self.client.cogs[cog].__doc__)
 
             emb.add_field(name='Modules', value=cogs_desc, inline=False)
 
@@ -63,7 +59,7 @@ class Help(commands.Cog):
             for command in self.client.walk_commands():
                 
                 if not command.cog_name and not command.hidden:
-                    commands_desc += f'{command.name} - {command.help}\n'
+                    commands_desc += '{} - {}\n'.format(command.name, command.help)
 
             if commands_desc:
                 emb.add_field(name='Not belonging to a module', value=commands_desc, inline=False)
@@ -71,7 +67,7 @@ class Help(commands.Cog):
             emb.add_field(name='About', value='This bot is developed by {}, based on discord.py.\n\
                                     This version of it is maintained by {}\n\
                                     Please visit {} to submit ideas or bugs.'.format(owner, team, repo))
-            emb.set_footer(text=f'Bot is running {version}')
+            emb.set_footer(text='{} - Version: {}'.format(self.client.user.name, version))
 
         elif len(input) == 1:
 
@@ -82,9 +78,8 @@ class Help(commands.Cog):
                                         color=discord.Color.green())
 
                     for command in self.client.get_cog(cog).get_commands():
-                        prefix = client_prefix
                         if not command.hidden:
-                            emb.add_field(name='`{}{}`'.format(prefix, command.name), value=command.help, inline=False)
+                            emb.add_field(name='`{}{}`'.format(PREFIX, command.name), value=command.help, inline=False)
                     break
 
             else:
@@ -98,14 +93,14 @@ class Help(commands.Cog):
                                 color=discord.Color.orange())
 
         else:
-            owner = owner_name
-            repo = github_repo
+            owner = ONAME
+            repo = GHUB_REPO
                         
             emb = discord.Embed(title='It\'s a magical place.',
                                 description='I don\'t know how you got here. But I didn\'t see this coming at all.\n'
                                             'Would you please be so kind to report that issue to me on github?\n'
-                                            '{}\n'.format(repo)
-                                            'Thank you! ~{}'.format(owner),
+                                            '{}\n'
+                                            'Thank you! ~{}'.format(repo, owner),
                                 color=discord.Color.red())
 
         await send_embed(ctx, emb)
