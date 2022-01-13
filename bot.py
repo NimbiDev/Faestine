@@ -32,8 +32,8 @@ class CustomHelp(commands.MinimalHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
         embed = discord.Embed(color=discord.Color.blue(), description=f'{commands.command}')
-        embed.set_thumbnail(url=THUMBNAIL)
-        embed.set_image(url=IMAGE)
+        embed.set_thumbnail(url='{}'.format(THUMBNAIL))
+        embed.set_image(url='{}'.format(IMAGE))
         for page in self.paginator.pages:
             embed.description += page
             await destination.send(embed=embed)
