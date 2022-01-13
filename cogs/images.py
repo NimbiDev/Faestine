@@ -1,16 +1,10 @@
 import discord
 import aiohttp
-import TenGiphPy
-
 import random
 import json
 
 from env import BLUE, GIPHY_API, TENOR_API
 from discord.ext import commands
-
-
-TOKENS = {'TENOR_API': TENOR_API}
-TENOR = TenGiphPy.Tenor(token=TOKENS['TENOR_API'])
 
 command_attrs = {'hidden': False}
 
@@ -23,7 +17,7 @@ class Images(commands.Cog, name='Image commands', description='Use Giphy or Teno
     def cog_unload(self):
         self.client.loop.create_task(self.session.close())
 
-    @commands.command(name='giphy', description='Return a random gif by tag from Giphy.')
+    @commands.command(name='giphy', description='Return a random gif by tag from Giphy.', command_attrs=command_attrs)
     @commands.has_guild_permissions(send_messages=True)
     async def _giphy(self, ctx, *, search):
         session = self.session
@@ -41,9 +35,14 @@ class Images(commands.Cog, name='Image commands', description='Use Giphy or Teno
             embed.set_image(url=data['data'][gif_choice]['images']['original']['url'])
             await ctx.send(embed=embed)
     
-    @commands.command(aliases=['t'], description='Return a random gif by tag from tenor.')
+    @commands.command(aliases=['t'], description='Return a random gif by tag from tenor.', command_attrs=command_attrs)
     @commands.has_guild_permissions(send_messages=True)
     async def tenor(self, ctx, *, _text):
+        
+        import TenGiphPy
+        
+        TOKENS = {'TENOR_API': TENOR_API}
+        TENOR = TenGiphPy.Tenor(token=TOKENS['TENOR_API'])
 
         tenorUrl = await TENOR.arandom(str(_text))
 
