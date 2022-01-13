@@ -14,7 +14,7 @@ TENOR = TenGiphPy.Tenor(token=TOKENS['TENOR_API'])
 command_attrs = {'hidden': False}
 
 
-class Images(commands.Cog, name='📷 Image Commands'):
+class Images(commands.Cog, name='Image Commands'):
     def __init__(self, client):
         self.client = client
         self.session = aiohttp.ClientSession()

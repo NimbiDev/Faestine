@@ -1,13 +1,12 @@
 import discord
 import asyncio
 
+from env import BLUE
 from discord.ext import commands
-from discord.ext.commands import CommandNotFound
-from env import BLUE, PREFIX
 
 command_attrs = {'hidden': False}
 
-class Utility(commands.Cog, name='🔧 Utility Commands'):
+class Utility(commands.Cog, name='Utility Commands'):
     def __init__(self, client):
         self.client = client
 

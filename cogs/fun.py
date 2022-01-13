@@ -5,11 +5,10 @@ import random
 
 from env import PREFIX
 from discord.ext import commands
-from discord.ext.commands import CommandNotFound
 
 command_attrs = {'hidden': False}
 
-class Fun(commands.Cog, name='🎮 Fun Commands'):
+class Fun(commands.Cog, name='Fun Commands'):
     def __init__(self, client):
         self.client = client
     
