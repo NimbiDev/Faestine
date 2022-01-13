@@ -5,7 +5,7 @@ import time
 import asyncio
 import logging
 
-from env import PREFIX, TOKEN, TWITCH, BLUE
+from env import ERR_FILE, PREFIX, TOKEN, TWITCH, BLUE
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
@@ -28,11 +28,11 @@ class Help(commands.Cog):
 
 class CustomHelp(commands.HelpCommand):
     async def send_bot_help(self, mapping):
-        embed = discord.Embed(title="Command help")
+        embed = discord.Embed(title='Faestine', description='Multi-purpose discord bot built in python', color=BLUE)
         for cog, cmds in mapping.items():
-            embed.set_thumbnail(url='https://raw.githubusercontent.com/DevCorner-Github/Faestine/main/assets/logo.png')
             embed.add_field(name = cog.qualified_name, value = f"{len(cmds)} commands")
-            
+            embed.set_thumbnail(url='https://raw.githubusercontent.com/DevCorner-Github/Faestine/main/assets/logo.png')
+
         channel = self.get_destination()
         await channel.send(embed=embed)
 
@@ -44,5 +44,12 @@ for filename in os.listdir('./cogs'):
         print(f'Loaded cogs.{filename[:-3]}')
     else:
         print(f'Unable to load cogs.{filename[:-3]}')
+
+logger = logging.getLogger('discord')
+logger.addHandler(handler)
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename=ERR_FILE, encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
         
 client.run(TOKEN)

@@ -28,33 +28,16 @@ class Events(commands.Cog, description='Events and triggeres that run in the bac
         invalid_argument_error = ':x: Invalid Argument.'
         missing_permissions_error = ':x: You do not have permission to use that command.'
         red = discord.Color.dark_red()
-        logger = logging.getLogger('discord')
-        logger.setLevel(logging.ERROR)
-        handler = logging.FileHandler(filename=ERR_FILE, encoding='utf-8', mode='w')
-        handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-        logger.addHandler(handler)
-
+        
         if isinstance(error, BadArgument):
-            logger.setLevel(logging.ERROR)
-            handler = logging.FileHandler(filename=ERR_FILE, encoding='utf-8', mode='w')
-            handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-            logger.addHandler(handler)
             embed = discord.Embed(
                 description=invalid_argument_error, color=red)
             await ctx.send(embed=embed, mention_author=False, delete_after=5)
         if isinstance(error, MissingPermissions):
-            logger.setLevel(logging.ERROR)
-            handler = logging.FileHandler(filename=ERR_FILE, encoding='utf-8', mode='w')
-            handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-            logger.addHandler(handler)
             embed = discord.embed(
                 description=missing_permissions_error, color=red)
             await ctx.send(embed=embed, mention_author=False, delete_after=5)
         if isinstance(error, CommandNotFound):
-            logger.setLevel(logging.ERROR)
-            handler = logging.FileHandler(filename=ERR_FILE, encoding='utf-8', mode='w')
-            handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-            logger.addHandler(handler)
             return
         else:
             raise error
