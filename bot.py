@@ -15,15 +15,14 @@ from typing import List
 activity = discord.Streaming(name='with cogs | {}help'.format(
     PREFIX), url='https://twitch.tv/{}'.format(TWITCH))
 
-
 client = commands.Bot(
     command_prefix=commands.when_mentioned_or('{}'.format(PREFIX)),
     description='Discord client',
     activity=activity,
-    status=discord.Status.online,
-    help_command=None
+    status=discord.Status.online
 )
 
+client.remove_commands('help')
     
 # class Help(commands.Cog):
 #     def __init__(self, client):
@@ -32,15 +31,14 @@ client = commands.Bot(
 # class CustomHelp(commands.MinimalHelpCommand):
 #     async def send_pages(self):
 #         destination = self.get_destination()
-#         embed = discord.Embed(color=discord.Color.blue(), description='')
+#         embed = discord.Embed(color=discord.Color.blue(), description='{}'.format(commands.command))
 #         for page in self.paginator.pages:
 #             embed.description += page
 #             await destination.send(embed=embed)
 
-# menu = DefaultMenu(page_left="\U0001F44D", page_right="👎", remove=":discord:743511195197374563", active_time=5)
+# menu = DefaultMenu(page_right='▶️', page_left='◀️', remove='🛑', active_time=5)
 # ending_note = 'The ending note from Faestine\nFor command {}{}'.format(help.clean_prefix, help.invoked_with)
-
-# client.help_command = PrettyHelp(menu=menu, ending_note=ending_note, page_right='▶️', page_left='◀️', remove='🛑')
+# client.help_command = PrettyHelp(menu=menu, ending_note=ending_note)
 
 # client.help_command = CustomHelp()
 
