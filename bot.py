@@ -5,7 +5,7 @@ import time
 import asyncio
 import logging
 
-from env import DBUG_FILE, PREFIX, TOKEN, TWITCH, BLUE
+from env import PREFIX, TOKEN, TWITCH, BLUE
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
