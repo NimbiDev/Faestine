@@ -8,7 +8,7 @@ import logging
 from env import PREFIX, TOKEN, TWITCH, ERR_FILE, DBUG_FILE
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
-from discord.error import Forbidden
+
 from typing import List
 # from pretty_help import DefaultMenu, PrettyHelp
 

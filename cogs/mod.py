@@ -2,7 +2,7 @@ import discord
 import asyncio
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
-from discord.error import Forbidden
+
 
 
 class Kick(commands.Cog, description='Commands for moderating your server.'):
