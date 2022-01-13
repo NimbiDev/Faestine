@@ -5,11 +5,11 @@ import TenGiphPy
 import random
 import json
         
-TOKENS = {'TENOR_API': TENOR_API}
-TENOR = TenGiphPy.Tenor(token=TOKENS['TENOR_API'])
-
 from env import BLUE, GIPHY_API, TENOR_API
 from discord.ext import commands
+
+TOKENS = {'TENOR_API': TENOR_API}
+TENOR = TenGiphPy.Tenor(token=TOKENS['TENOR_API'])
 
 command_attrs = {'hidden': False}
 
