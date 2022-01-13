@@ -1,7 +1,7 @@
 import discord
 import asyncio
 
-from config import BLUE, EMBED_THUMBNAIL, RED, YELLOW, GREEN
+from config import BLUE, EMBED_THUMBNAIL, GOLD, RED, GREEN
 from discord.ext import commands
 
 command_attrs = {'hidden': False}
@@ -25,7 +25,7 @@ class Utility(commands.Cog, name='Utility Commands'):
             embed = discord.Embed(
                 title="PING",
                 description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!",
-                color=YELLOW
+                color=GOLD
             )
             embed.set_thumbnail(url='{}'.format(EMBED_THUMBNAIL))
         elif round(client.latency * 1000) <= 200:
