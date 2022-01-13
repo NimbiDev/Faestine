@@ -3,7 +3,7 @@ import os
 import asyncio
 import random
 
-from env import PREFIX
+from config import PREFIX
 from discord.ext import commands
 
 command_attrs = {'hidden': False}

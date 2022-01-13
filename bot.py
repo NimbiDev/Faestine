@@ -5,7 +5,7 @@ import time
 import asyncio
 import logging
 
-from env import PREFIX, TOKEN, TWITCH, BLUE
+from config import EMBED_THUMBNAIL, PREFIX, TOKEN, TWITCH, BLUE
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
@@ -29,7 +29,7 @@ class CustomHelp(commands.MinimalHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
         embed = discord.Embed(color=BLUE, description=f'{commands.command}')
-        embed.set_thumbnail(url='https://raw.githubusercontent.com/DevCorner-Github/Faestine/main/assets/logo.png')
+        embed.set_thumbnail(url='{}'.format(EMBED_THUMBNAIL))
         for page in self.paginator.pages:
             embed.description += page
             await destination.send(embed=embed)

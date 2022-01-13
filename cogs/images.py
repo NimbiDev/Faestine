@@ -5,7 +5,7 @@ import TenGiphPy
 import random
 import json
         
-from env import BLUE, GIPHY_API, TENOR_API
+from config import BLUE, GIPHY_API, TENOR_API
 from discord.ext import commands
 
 TOKENS = {'TENOR_API': TENOR_API}

@@ -1,7 +1,7 @@
 import discord
 import asyncio
 
-from env import BLUE
+from config import BLUE, EMBED_THUMBNAIL, RED, YELLOW, GREEN
 from discord.ext import commands
 
 command_attrs = {'hidden': False}
@@ -18,26 +18,30 @@ class Utility(commands.Cog, name='Utility Commands'):
             embed = discord.Embed(
                 title="PING",
                 description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!",
-                color=0x44ff44
+                color=GREEN
             )
+            embed.set_thumbnail(url='{}'.format(EMBED_THUMBNAIL))
         elif round(client.latency * 1000) <= 100:
             embed = discord.Embed(
                 title="PING",
                 description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!",
-                color=0xffd000
+                color=YELLOW
             )
+            embed.set_thumbnail(url='{}'.format(EMBED_THUMBNAIL))
         elif round(client.latency * 1000) <= 200:
             embed = discord.Embed(
                 title="PING",
                 description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!",
-                color=0xff6600
+                color=RED
             )
+            embed.set_thumbnail(url='{}'.format(EMBED_THUMBNAIL))
         else:
             embed = discord.Embed(
                 title="PING",
                 description=f":ping_pong: The ping is **{round(client.latency *1000)}** milliseconds!",
-                color=0x990000
+                color=BLUE
             )
+            embed.set_thumbnail(url='{}'.format(EMBED_THUMBNAIL))
         await ctx.message.delete()
         await ctx.send(embed=embed, mention_author=False, delete_after=5)
 

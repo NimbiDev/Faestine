@@ -2,7 +2,7 @@ import discord
 import os
 import logging
 
-from env import PREFIX
+from config import PREFIX
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound, MissingPermissions, BadArgument
 
