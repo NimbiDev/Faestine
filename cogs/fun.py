@@ -9,7 +9,7 @@ from discord.ext.commands import CommandNotFound
 
 command_attrs = {'hidden': False}
 
-class Fun(commands.Cog, name='Fun Commands', description='Fun and entertaining commands to play around with.'):
+class Fun(commands.Cog, name='🎮 Fun Commands 🎮'):
     def __init__(self, client):
         self.client = client
     
