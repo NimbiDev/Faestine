@@ -5,7 +5,7 @@ import time
 import asyncio
 import logging
 
-from env import PREFIX, TOKEN, TWITCH, ERR_FILE, DBUG_FILE
+from env import IMAGE, PREFIX, THUMBNAIL, TOKEN, TWITCH, ERR_FILE, DBUG_FILE
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
@@ -31,7 +31,9 @@ class Help(commands.Cog):
 class CustomHelp(commands.MinimalHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
-        embed = discord.Embed(color=discord.Color.blue(), description='{}'.format(commands.command))
+        embed = discord.Embed(color=discord.Color.blue(), description=f'{commands.command}')
+        embed.set_thumbnail(url=THUMBNAIL)
+        embed.set_image(url=IMAGE)
         for page in self.paginator.pages:
             embed.description += page
             await destination.send(embed=embed)
