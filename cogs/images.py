@@ -24,7 +24,7 @@ class Images(commands.Cog, name='Image commands', description='Use Giphy or Teno
     def cog_unload(self):
         self.client.loop.create_task(self.session.close())
 
-    @commands.command(name='giphy', description='Returna  random gif by tag from Giphy.', usage='Usage: {}giphy [query]\nExample: {}giphy dog'.format(PREFIX, PREFIX))
+    @commands.command(name='giphy', description='Return a random gif by tag from Giphy.', usage='Usage: {}giphy [query]\nExample: {}giphy dog'.format(PREFIX, PREFIX))
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
     async def _giphy(self, ctx, *, search):
         session = self.session
