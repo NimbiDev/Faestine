@@ -26,7 +26,7 @@ class Help(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-class CommandHelp(commands.MinimalHelpCommand):
+class CustomHelp(commands.MinimalHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
         embed = discord.Embed(color=discord.Color.blue(), description=f'{commands.command}')
@@ -35,7 +35,7 @@ class CommandHelp(commands.MinimalHelpCommand):
             embed.description += page
             await destination.send(embed=embed)
 
-client.help_command = CommandHelp()
+client.help_command = CustomHelp()
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
