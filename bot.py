@@ -10,8 +10,6 @@ from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
 from typing import List
-# from pretty_help import DefaultMenu, PrettyHelp
-
 
 activity = discord.Streaming(name='with cogs | {}help'.format(
     PREFIX), url='https://twitch.tv/{}'.format(TWITCH))
@@ -33,7 +31,6 @@ class CustomHelp(commands.MinimalHelpCommand):
         destination = self.get_destination()
         embed = discord.Embed(color=discord.Color.blue(), description=f'{commands.command}')
         embed.set_thumbnail(url='https://raw.githubusercontent.com/DevCorner-Github/Faestine/main/assets/logo.png')
-        embed.set_image(url='https://raw.githubusercontent.com/DevCorner-Github/Faestine/main/assets/logo.png')
         for page in self.paginator.pages:
             embed.description += page
             await destination.send(embed=embed)
