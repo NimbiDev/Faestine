@@ -5,7 +5,7 @@ import time
 import asyncio
 import logging
 
-from env import BLUE, PREFIX, TOKEN, TWITCH
+from env import PREFIX, TOKEN, TWITCH, BLUE
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
@@ -44,4 +44,4 @@ for filename in os.listdir('./cogs'):
     else:
         print(f'Unable to load cogs.{filename[:-3]}')
         
-client.run('{}'.format(TOKEN))
+client.run(TOKEN)
