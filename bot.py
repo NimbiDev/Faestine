@@ -5,7 +5,7 @@ import time
 import asyncio
 import logging
 
-from env import IMAGE, PREFIX, THUMBNAIL, TOKEN, TWITCH, ERR_FILE, DBUG_FILE
+from env import PREFIX, TOKEN, TWITCH, ERR_FILE, DBUG_FILE
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
@@ -44,15 +44,4 @@ for filename in os.listdir('./cogs'):
     else:
         print(f'Unable to load cogs.{filename[:-3]}')
         
-error_logger = logging.getLogger('discord')
-debug_logger = logging.getLogger('discord')
-debug_logger.setLevel(logging.DEBUG)
-error_logger.setLevel(logging.ERROR)
-debug_handler = logging.FileHandler(filename=DBUG_FILE, encoding='utf-8', mode='w')
-error_handler = logging.FileHandler(filename=ERR_FILE, encoding='utf-8', mode='w')
-debug_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-error_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-debug_logger.addHandler(debug_handler)
-error_logger.addHandler(error_handler)
-
 client.run('{}'.format(TOKEN))
