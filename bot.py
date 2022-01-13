@@ -5,7 +5,7 @@ import time
 import asyncio
 import logging
 
-from env import PREFIX, TOKEN, TWITCH
+from env import BLUE, PREFIX, TOKEN, TWITCH
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
@@ -16,8 +16,6 @@ activity = discord.Streaming(name='with cogs | {}help'.format(
 
 client = commands.Bot(
     command_prefix=commands.when_mentioned_or(PREFIX),
-    name='Faestine',
-    title='Faestine',
     description='Multi-purpose discord bot built in discord.py',
     activity=activity,
     status=discord.Status.online
@@ -31,7 +29,7 @@ class Help(commands.Cog):
 class CustomHelp(commands.MinimalHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
-        embed = discord.Embed(color=discord.Color.blue(), description=f'{commands.command}')
+        embed = discord.Embed(color=BLUE, description=f'{commands.command}')
         embed.set_thumbnail(url='https://raw.githubusercontent.com/DevCorner-Github/Faestine/main/assets/logo.png')
         for page in self.paginator.pages:
             embed.description += page
