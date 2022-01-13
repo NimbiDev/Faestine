@@ -3,7 +3,7 @@ import os
 
 from env import PREFIX
 from discord.ext import commands
-from discord.ext.commands import CommandNotFound
+from discord.ext.commands import CommandNotFound, MissingPermissions, BadArgument
 
 
 
@@ -27,8 +27,6 @@ class Events(commands.Cog, description='Events and triggeres that run in the bac
         invalid_argument_error = ':x: Invalid Argument.'
         missing_permissions_error = ':x: You do not have permission to use that command.'
         red = discord.Color.dark_red()
-
-        from commands import CommandNotFound, MissingPermissions, BadArgument
 
         if isinstance(error, BadArgument):
             embed = discord.Embed(
