@@ -8,8 +8,9 @@ import logging
 from env import PREFIX, TOKEN, TWITCH, ERR_FILE, DBUG_FILE
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
-from pretty_help import DefaultMenu, PrettyHelp
+from discord.error import Forbidden
 from typing import List
+# from pretty_help import DefaultMenu, PrettyHelp
 
 
 activity = discord.Streaming(name='with cogs | {}help'.format(
@@ -45,9 +46,9 @@ client.remove_command('help')
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension('cogs.{}'.format(filename[:-3]))
-        print(f'Loaded cogs.{filename[:-3]}')
+        print('Loaded cogs.{}'filename[:-3])
     else:
-        print(f'Unable to load cogs.{filename[:-3]}')
+        print('Unable to load cogs.{}'.format(filename[:-3]))
         
 error_logger = logging.getLogger('discord')
 debug_logger = logging.getLogger('discord')

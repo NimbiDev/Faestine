@@ -4,6 +4,7 @@ import os
 from env import PREFIX
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
+from discord.error import Forbidden
 
 
 class Events(commands.Cog, description='Events and triggeres that run in the background.'):

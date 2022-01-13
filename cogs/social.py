@@ -2,6 +2,7 @@ import discord
 import asyncio
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
+from discord.error import Forbidden
 
 
 class Social(commands.Cog, description='Twitter, Reddit, and RSS commands.'):

@@ -8,6 +8,7 @@ import json
 from env import PREFIX, GIPHY_API, TENOR_API
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
+from discord.error import Forbidden
 
 TOKENS = {'TENOR_API': TENOR_API}
 TENOR = TenGiphPy.Tenor(token=TOKENS['TENOR_API'])

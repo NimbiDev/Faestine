@@ -4,6 +4,7 @@ import os
 from env import PREFIX, THUMBNAIL, IMAGE, BLUE
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
+from discord.error import Forbidden
 
 class Help(commands.Cog):
     def __init__(self, client):

@@ -2,6 +2,7 @@ import discord
 import asyncio
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
+from discord.error import Forbidden
 
 
 
@@ -47,6 +48,7 @@ class Utility(commands.Cog, description='Useful tools and utilities.'):
         e.set_image(url=member.avatar_url)
         await ctx.message.delete()
         await ctx.reply(embed=e, mention_author=False)
+        
 
 
 def setup(client):
