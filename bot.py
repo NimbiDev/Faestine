@@ -26,14 +26,19 @@ class Help(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-class CustomHelp(commands.MinimalHelpCommand):
-    async def send_pages(self):
-        destination = self.get_destination()
-        embed = discord.Embed(color=BLUE, description=f'{commands.command}')
-        embed.set_thumbnail(url='https://raw.githubusercontent.com/DevCorner-Github/Faestine/main/assets/logo.png')
-        for page in self.paginator.pages:
-            embed.description += page
-            await destination.send(embed=embed)
+class CustomHelp(commands.HelpCommand):
+    async def send_bot_help(self, mapping):
+        embed = discord.Embed(title="Command help")
+        # `mapping` is a dict of the bot's cogs, which map to their commands
+        for cog, commands in mapping.items():  # get the cog and its commands separately
+            embed.set_thumbnail(url='https://raw.githubusercontent.com/DevCorner-Github/Faestine/main/assets/logo.png')
+            embed.add_field(
+                name = cog.qualified_name,       # get the cog name
+                value = f"{len(commands)} commands"  # get a count of the commands in the cog.
+            )
+            
+        channel = self.get_destination()  # this method is inherited from `HelpCommand`, and gets the channel in context
+        await channel.send(embed=embed)
 
 client.help_command = CustomHelp()
 
