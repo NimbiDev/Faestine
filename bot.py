@@ -11,11 +11,10 @@ from discord.ext.commands import CommandNotFound
 
 from typing import List
 
-activity = discord.Streaming(name='with cogs | {}help'.format(
-    PREFIX), url='https://twitch.tv/{}'.format(TWITCH))
+activity = discord.Streaming(name=f'with cogs | {PREFIX}help', url=f'https://twitch.tv/{TWITCH}')
 
 client = commands.Bot(
-    command_prefix=commands.when_mentioned_or('{}'.format(PREFIX)),
+    command_prefix=commands.when_mentioned_or(f'{PREFIX}'),
     description='Multi-purpose discord bot built in discord.py',
     activity=activity,
     status=discord.Status.online
@@ -46,8 +45,8 @@ for filename in os.listdir('./cogs'):
         
 logger = logging.getLogger('discord')
 logger.setLevel(logging.DEBUG)
-handler = logging.FileHandler(filename='{}'.format(DBUG_FILE), encoding='utf-8', mode='w')
+handler = logging.FileHandler(filename='debug-logger.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
         
-client.run('{}'.format(TOKEN))
+client.run(f'{TOKEN}')
