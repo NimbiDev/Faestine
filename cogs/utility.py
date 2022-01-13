@@ -5,14 +5,13 @@ from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 from env import BLUE, PREFIX
 
-
-
+command_attrs = {'hidden': False}
 
 class Utility(commands.Cog, name='Utility Commands', description='Useful tools and utilities.'):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(name='ping', aliases=['echo', 'beep'], description='Returns the bot\'s latency.')
+    @commands.command(name='ping', aliases=['echo', 'beep'], description='Returns the bot\'s latency.', command_attrs=command_attrs)
     @commands.has_guild_permissions(send_messages=True)
     async def _ping(self, ctx):
         client = self.client
@@ -43,7 +42,7 @@ class Utility(commands.Cog, name='Utility Commands', description='Useful tools a
         await ctx.message.delete()
         await ctx.send(embed=embed, mention_author=False, delete_after=5)
 
-    @commands.command(name='avatar', aliases=['ava', 'pfp'], description='Return a user\'s avatar.')
+    @commands.command(name='avatar', aliases=['ava', 'pfp'], description='Return a user\'s avatar.', command_attrs=command_attrs)
     @commands.has_guild_permissions(send_messages=True)
     async def _avatar(self, ctx, *, member: discord.Member = None):
         if not member:

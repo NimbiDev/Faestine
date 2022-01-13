@@ -7,14 +7,14 @@ from env import PREFIX
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
-
+command_attrs = {'hidden': False}
 
 class Fun(commands.Cog, name='Fun Commands', description='Fun and entertaining commands to play around with.'):
     def __init__(self, client):
         self.client = client
     
     
-    @commands.command(name='guess', aliases=['g'], description='A simple guessing game.')
+    @commands.command(name='guess', aliases=['g'], description='A simple guessing game.', command_attrs=command_attrs)
     @commands.has_guild_permissions(send_messages=True)    
     async def _guess(self, ctx, message):
         if message.author.id == self.user.id:

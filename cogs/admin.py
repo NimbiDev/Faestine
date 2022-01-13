@@ -3,13 +3,13 @@ import asyncio
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
-
+command_attrs = {'hidden': False}
 
 class Admin(commands.Cog, name='Administrator Commands', description='Administration commands to help manage your server.'):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(name="purge", aliases=['fprune', 'fclean', 'fdelete'], description='Delete a specified number of messeges from the channel.')
+    @commands.command(name="purge", aliases=['fprune', 'fclean', 'fdelete'], description='Delete a specified number of messeges from the channel.', command_attrs=command_attrs)
     @commands.has_permissions(administrator=True, manage_messages=True)
     async def purge(self, ctx, amount: int):
         await ctx.message.delete()

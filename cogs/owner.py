@@ -5,12 +5,13 @@ from env import PREFIX
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
+command_attrs = {'hidden': True}
 
 class Owner(commands.Cog, name='Owner Commands', description='Debugging commands for use by the bot owner.'):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(name="load", aliases=['l'], description='Load a specified cog.')
+    @commands.command(name="load", aliases=['l'], description='Load a specified cog.', command_attrs=command_attrs)
     @commands.is_owner()
     async def _load(self, ctx, extension):    
 
@@ -18,7 +19,7 @@ class Owner(commands.Cog, name='Owner Commands', description='Debugging commands
         await client.load_extension(f'cogs.{extension}')
         await ctx.send('The {} cog has been successfully loaded.'.format(extension))
 
-    @commands.command(name="unload", aliases=['ul', 'uload'], description='Unload a specified cog.')
+    @commands.command(name="unload", aliases=['ul', 'uload'], description='Unload a specified cog.', command_attrs=command_attrs)
     @commands.is_owner()
     async def _unload(self, ctx, extension):
 
@@ -26,7 +27,7 @@ class Owner(commands.Cog, name='Owner Commands', description='Debugging commands
         await client.unload_extension(f'cogs.{extension}')
         await ctx.send('The {} cog has been successfully unloaded.'.format(extension))
 
-    @commands.command(name="reload", aliases=['rl', 'rload'], description='Unload and then immediately reload a specified cog.')
+    @commands.command(name="reload", aliases=['rl', 'rload'], description='Unload and then immediately reload a specified cog.', command_attrs=command_attrs)
     @commands.is_owner()
     async def _reload(self, ctx, extension):
 
