@@ -15,7 +15,7 @@ activity = discord.Streaming(name='with cogs | {}help'.format(
     PREFIX), url='https://twitch.tv/{}'.format(TWITCH))
 
 client = commands.Bot(
-    command_prefix=commands.when_mentioned_or(PREFIX),
+    command_prefix=commands.when_mentioned_or('{}'.format(PREFIX)),
     description='Multi-purpose discord bot built in discord.py',
     activity=activity,
     status=discord.Status.online
@@ -50,4 +50,4 @@ handler = logging.FileHandler(filename='{}'.format(DBUG_FILE), encoding='utf-8',
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
         
-client.run(TOKEN)
+client.run('{}'.format(TOKEN))
