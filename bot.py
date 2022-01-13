@@ -18,7 +18,7 @@ activity = discord.Streaming(name='with cogs | {}help'.format(
 
 client = commands.Bot(
     command_prefix=commands.when_mentioned_or('{}'.format(PREFIX)),
-    description='Discord client',
+    description='Discord bot built in discord.py',
     activity=activity,
     status=discord.Status.online
 )
@@ -42,10 +42,10 @@ client.help_command = CustomHelp()
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
-        client.load_extension('cogs.{}'.format(filename[:-3]))
-        print('Loaded cogs.{}'.format(filename[:-3]))
+        client.load_extension(f'cogs.{filename[:-3]}')
+        print(f'Loaded cogs.{filename[:-3]}')
     else:
-        print('Unable to load cogs.{}'.format(filename[:-3]))
+        print(f'Unable to load cogs.{filename[:-3]}')
         
 error_logger = logging.getLogger('discord')
 debug_logger = logging.getLogger('discord')
