@@ -7,7 +7,7 @@ import json
 # TOKENS = {'TENOR_API': TENOR_API}
 # TENOR = TenGiphPy.Tenor(token=TOKENS['TENOR_API'])
 
-from env import BLUE, GIPHY_API, # TENOR_API
+from env import BLUE, GIPHY_API, TENOR_API
 from discord.ext import commands
 
 command_attrs = {'hidden': False}
