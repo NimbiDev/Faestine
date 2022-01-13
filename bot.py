@@ -15,7 +15,7 @@ activity = discord.Streaming(name='with cogs | {}help'.format(
     PREFIX), url='https://twitch.tv/{}'.format(TWITCH))
 
 client = commands.Bot(
-    command_prefix=commands.when_mentioned_or('{}'.format(PREFIX)),
+    command_prefix=commands.when_mentioned_or(PREFIX),
     description='Discord bot built in discord.py',
     activity=activity,
     status=discord.Status.online
