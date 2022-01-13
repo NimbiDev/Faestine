@@ -5,7 +5,7 @@ from discord.ext.commands import CommandNotFound
 
 command_attrs = {'hidden': False}
 
-class Admin(commands.Cog, name='🛡️ Administrator Commands 🛡️'):
+class Admin(commands.Cog, name='🛡️ Administrator Commands'):
     def __init__(self, client):
         self.client = client
 

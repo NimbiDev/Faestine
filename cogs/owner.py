@@ -7,7 +7,7 @@ from discord.ext.commands import CommandNotFound
 
 command_attrs = {'hidden': True}
 
-class Owner(commands.Cog, name='🔒 Owner Commands 🔒'):
+class Owner(commands.Cog, name='🔒 Owner Commands'):
     def __init__(self, client):
         self.client = client
 
