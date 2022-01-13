@@ -5,7 +5,7 @@ import time
 import asyncio
 import logging
 
-from env import PREFIX, TOKEN, TWITCH, ERR_FILE, DBUG_FILE
+from env import PREFIX, TOKEN, TWITCH
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
@@ -26,7 +26,7 @@ class Help(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-class CustomHelp(commands.MinimalHelpCommand):
+class CommandHelp(commands.MinimalHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
         embed = discord.Embed(color=discord.Color.blue(), description=f'{commands.command}')
@@ -35,7 +35,7 @@ class CustomHelp(commands.MinimalHelpCommand):
             embed.description += page
             await destination.send(embed=embed)
 
-client.help_command = CustomHelp()
+client.help_command = CommandHelp()
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
