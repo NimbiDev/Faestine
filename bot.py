@@ -31,7 +31,7 @@ class CustomHelp(commands.HelpCommand):
         embed = discord.Embed(title="Command help")
         for cog, cmds in mapping.items():
             embed.set_thumbnail(url='https://raw.githubusercontent.com/DevCorner-Github/Faestine/main/assets/logo.png')
-            embed.add_field(name = cog.qualified_name, value = f"{len(cmds) commands}")
+            embed.add_field(name = cog.qualified_name, value = f"{len(cmds)} commands")
             
         channel = self.get_destination()
         await channel.send(embed=embed)
