@@ -5,7 +5,7 @@ import time
 import asyncio
 import logging
 
-from env import PREFIX, TOKEN, TWITCH, BLUE
+from env import DBUG_FILE, PREFIX, TOKEN, TWITCH, BLUE
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
@@ -26,7 +26,7 @@ class Help(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-class CustomHelp(commands.MinimHelpCommand):
+class CustomHelp(commands.MinimalHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
         embed = discord.Embed(color=BLUE, description=f'{commands.command}')
