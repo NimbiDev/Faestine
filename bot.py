@@ -22,7 +22,7 @@ client = commands.Bot(
     status=discord.Status.online
 )
 
-client.remove_commands('help')
+client.remove_command('help')
     
 # class Help(commands.Cog):
 #     def __init__(self, client):
