@@ -8,7 +8,7 @@ from discord.ext.commands import CommandNotFound, MissingPermissions, BadArgumen
 
 
 
-class Events(commands.Cog, description='Events and triggeres that run in the background.'):
+class Events(commands.Cog, name='Events', description='Events and triggeres that run in the background.'):
     def __init__(self, client):
         self.client = client
 

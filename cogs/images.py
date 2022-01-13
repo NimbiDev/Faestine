@@ -16,7 +16,7 @@ TENOR = TenGiphPy.Tenor(token=TOKENS['TENOR_API'])
 command_attrs = {'hidden': False}
 
 
-class Images(commands.Cog):
+class Images(commands.Cog, name='Image commands', description='Use Giphy or Tenor API to grab random gifs from the web.'):
     def __init__(self, client):
         self.client = client
         self.session = aiohttp.ClientSession()

@@ -30,7 +30,8 @@ class CustomHelp(commands.HelpCommand):
     async def send_bot_help(self, mapping):
         embed = discord.Embed(title='Faestine', description='Multi-purpose discord bot built in python', color=BLUE)
         for cog, cmds in mapping.items():
-            embed.add_field(name = cog.qualified_name, value = f"{len(cmds)} commands")
+            name = cog.qualified_name
+            embed.add_field(name = name, value = f"{len(cmds)} commands")
             embed.set_thumbnail(url='https://raw.githubusercontent.com/DevCorner-Github/Faestine/main/assets/logo.png')
 
         channel = self.get_destination()

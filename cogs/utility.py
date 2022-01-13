@@ -8,7 +8,7 @@ from env import BLUE, PREFIX
 
 
 
-class Utility(commands.Cog, description='Useful tools and utilities.'):
+class Utility(commands.Cog, name='Utility Commands', description='Useful tools and utilities.'):
     def __init__(self, client):
         self.client = client
 

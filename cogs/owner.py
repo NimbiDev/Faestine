@@ -6,7 +6,7 @@ from discord.ext import commands
 from discord.ext.commands import CommandNotFound
 
 
-class Owner(commands.Cog, description='Debugging commands for use by the bot owner.'):
+class Owner(commands.Cog, name='Owner Commands', description='Debugging commands for use by the bot owner.'):
     def __init__(self, client):
         self.client = client
 
