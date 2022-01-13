@@ -38,10 +38,6 @@ class CustomHelp(commands.MinimalHelpCommand):
             embed.description += page
             await destination.send(embed=embed)
 
-# menu = DefaultMenu(page_right='▶️', page_left='◀️', remove='🛑', active_time=5)
-# ending_note = 'The ending note from Faestine\nFor command {}{}'.format(help.clean_prefix, help.invoked_with)
-# client.help_command = PrettyHelp(menu=menu, ending_note=ending_note)
-
 client.help_command = CustomHelp()
 
 for filename in os.listdir('./cogs'):

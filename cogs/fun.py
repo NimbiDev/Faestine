@@ -14,7 +14,7 @@ class Fun(commands.Cog):
         self.client = client
     
     
-    @commands.command(name='guess')
+    @commands.command(name='guess', aliases=['g'], description='A simple guessing game.')
     @commands.has_guild_permissions(send_messages=True)    
     async def _guess(self, ctx, message):
         if message.author.id == self.user.id:

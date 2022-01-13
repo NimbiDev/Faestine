@@ -1,7 +1,9 @@
 import discord
 import asyncio
+
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound
+from env import BLUE, PREFIX
 
 
 
@@ -11,6 +13,7 @@ class Utility(commands.Cog, description='Useful tools and utilities.'):
         self.client = client
 
     @commands.command(name='ping', aliases=['echo', 'beep'], description='Returns the bot\'s latency.')
+    @commands.has_guild_permissions(send_messages=True)
     async def _ping(self, ctx):
         client = self.client
         if round(client.latency * 1000) <= 50:
@@ -41,13 +44,14 @@ class Utility(commands.Cog, description='Useful tools and utilities.'):
         await ctx.send(embed=embed, mention_author=False, delete_after=5)
 
     @commands.command(name='avatar', aliases=['ava', 'pfp'], description='Return a user\'s avatar.')
-    async def avatar(self, ctx, *, member: discord.Member = None):
+    @commands.has_guild_permissions(send_messages=True)
+    async def _avatar(self, ctx, *, member: discord.Member = None):
         if not member:
             member = ctx.message.author
-        e = discord.Embed(title=str(member), color=0xAE0808)
-        e.set_image(url=member.avatar_url)
+        embed = discord.Embed(title=str(member), color=BLUE)
+        embed.set_image(url=member.avatar_url)
         await ctx.message.delete()
-        await ctx.reply(embed=e, mention_author=False)
+        await ctx.reply(embed=embed, mention_author=False)
         
 
 
