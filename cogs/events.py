@@ -2,7 +2,7 @@ import discord
 import os
 import logging
 
-from env import ERR_FILE, PREFIX
+from env import PREFIX
 from discord.ext import commands
 from discord.ext.commands import CommandNotFound, MissingPermissions, BadArgument
 
@@ -24,7 +24,7 @@ class Events(commands.Cog, name='Events', description='Events and triggeres that
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-
+        
         invalid_argument_error = ':x: Invalid Argument.'
         missing_permissions_error = ':x: You do not have permission to use that command.'
         red = discord.Color.dark_red()
@@ -41,6 +41,7 @@ class Events(commands.Cog, name='Events', description='Events and triggeres that
             return
         else:
             raise error
+        
         
 def setup(client):
     client.add_cog(Events(client))

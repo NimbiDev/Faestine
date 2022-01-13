@@ -43,10 +43,32 @@ for filename in os.listdir('./cogs'):
     else:
         print(f'Unable to load cogs.{filename[:-3]}')
         
-logger = logging.getLogger('discord')
-logger.setLevel(logging.DEBUG)
-handler = logging.FileHandler(filename='debug-logger.log', encoding='utf-8', mode='w')
-handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-logger.addHandler(handler)
+info_logger, error_logger, debug_logger = logging.getLogger('discord')
+
+logger = [
+    info_logger,
+    debug_logger,
+    error_logger
+]
+
+debug_logger.setLevel(logging.DEBUG)
+debug_handler = logging.FileHandler(filename='debug-logger.log', encoding='utf-8', mode='w')
+debug_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+
+logger.setLevel(logging.ERROR)
+error_handler = logging.FileHandler(filename='error-logger.log', encoding='utf-8', mode='w')
+error_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+
+info_logger.setLevel(logging.INFO)
+info_handler = logging.FileHandler(filename='info-logger.log', encoding='utf-8', mode='w')
+info_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+
+handlers = [
+    info_handler,
+    debug_handler,
+    error_handler
+]
+
+logger.addHandler(handlers)
         
 client.run(f'{TOKEN}')
