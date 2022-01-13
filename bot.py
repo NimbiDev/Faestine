@@ -32,8 +32,8 @@ class CustomHelp(commands.MinimalHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
         embed = discord.Embed(color=discord.Color.blue(), description=f'{commands.command}')
-        embed.set_thumbnail(url='https://raw.githubusercontent.com/{}/{}/{}/{}/{}.png'.format(DevCorner-Github, Faestine, main, assets, logo))
-        embed.set_image(url='https://raw.githubusercontent.com/{}/{}/{}/{}/{}.png'.format(DevCorner-Github, Faestine, main, assets, logo))
+        embed.set_thumbnail(url='https://raw.githubusercontent.com/DevCorner-Github/Faestine/main/assets/logo.png')
+        embed.set_image(url='https://raw.githubusercontent.com/DevCorner-Github/Faestine/main/assets/logo.png')
         for page in self.paginator.pages:
             embed.description += page
             await destination.send(embed=embed)
