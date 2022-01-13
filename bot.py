@@ -17,6 +17,7 @@ activity = discord.Streaming(name='with cogs | {}help'.format(
 client = commands.Bot(
     command_prefix=commands.when_mentioned_or(PREFIX),
     name='Faestine',
+    title='Faestine',
     description='Multi-purpose discord bot built in discord.py',
     activity=activity,
     status=discord.Status.online
