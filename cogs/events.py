@@ -1,11 +1,10 @@
 import discord
 import os
 import logging
+import chalk
 
-from config import PREFIX
+from config import DARKRED, PREFIX
 from discord.ext import commands
-from discord.ext.commands import CommandNotFound, MissingPermissions, BadArgument
-
 
 
 class Events(commands.Cog, name='Events', description='Events and triggeres that run in the background.'):
@@ -14,9 +13,10 @@ class Events(commands.Cog, name='Events', description='Events and triggeres that
 
     @commands.Cog.listener()
     async def on_ready(self):
-        client = self.client
-        print(f'Logged in as {self.client.user} (ID: {self.client.user.id})')
-        print('------')
+        c = self.client
+        print(chalk.white('-------------------------------------------------------------'))
+        print(chalk.green('>>| Logged in as {} (ID: {})'.format(c.user, c.user.id)))
+        print(chalk.white('-------------------------------------------------------------'))
 
     @commands.Cog.listener()
     async def on_messege_delete(self, ctx, messege):
@@ -25,22 +25,19 @@ class Events(commands.Cog, name='Events', description='Events and triggeres that
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
         
-        invalid_argument_error = ':x: Invalid Argument.'
-        missing_permissions_error = ':x: You do not have permission to use that command.'
-        red = discord.Color.dark_red()
+        error_message = '\⛔ {}'.format(error)
         
-        if isinstance(error, BadArgument):
-            embed = discord.Embed(
-                description=invalid_argument_error, color=red)
-            await ctx.send(embed=embed, mention_author=False, delete_after=5)
-        if isinstance(error, MissingPermissions):
-            embed = discord.embed(
-                description=missing_permissions_error, color=red)
-            await ctx.send(embed=embed, mention_author=False, delete_after=5)
-        if isinstance(error, CommandNotFound):
+        if isinstance(error, commands.CommandNotFound):
             return
         else:
-            raise error
+            e = discord.Embed(
+                description=error_message,
+                color=DARKRED
+            )
+            await ctx.send(embed=e, mention_author=False)
+            print(chalk.yellow(f'>>| {error}'))
+            # Uncommit the below line when debugging
+            # raise error
         
         
 def setup(client):

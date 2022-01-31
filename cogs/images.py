@@ -1,3 +1,4 @@
+from distutils.log import error
 import discord
 import aiohttp
 import TenGiphPy
@@ -5,7 +6,7 @@ import TenGiphPy
 import random
 import json
         
-from config import BLUE, GIPHY_API, TENOR_API
+from config import PREFIX, RANDOM, TENOR_API
 from discord.ext import commands
 
 TOKENS = {'TENOR_API': TENOR_API}
@@ -21,35 +22,17 @@ class Images(commands.Cog, name='Image Commands'):
 
     def cog_unload(self):
         self.client.loop.create_task(self.session.close())
-
-    @commands.command(name='giphy', description='Return a random gif by tag from Giphy.', command_attrs=command_attrs)
-    @commands.has_guild_permissions(send_messages=True, embed_links=True)
-    async def _giphy(self, ctx, *, search):
-        session = self.session
-        embed = discord.Embed(colour=BLUE)
-
-        if search == '':
-            response = await session.get(f'https://api.giphy.com/v1/gifs/random?api_key={GIPHY_API}')
-            data = json.loads(await response.text())
-            embed.set_image(url=data['data']['images']['original']['url'])
-        else:
-            search.replace(' ', '+')
-            response = await session.get(f'http://api.giphy.com/v1/gifs/search?q={search}&api_key={GIPHY_API}&limit=10')
-            data = json.loads(await response.text())
-            gif_choice = random.randint(0, 9)
-            embed.set_image(url=data['data'][gif_choice]['images']['original']['url'])
-            await ctx.send(embed=embed)
     
-    @commands.command(aliases=['t'], description='Return a random gif by tag from tenor.', command_attrs=command_attrs)
+    @commands.command(aliases=['gif'], description='Return a random gif by tag from tenor.\nSeperate multiple tags with `+`.\n\n**Example**: `{}tenor anime+hug`'.format(PREFIX), command_attrs=command_attrs)
     @commands.has_guild_permissions(send_messages=True, embed_links=True)
-    async def tenor(self, ctx, *, _text):
-        
-        tenorUrl = await TENOR.arandom(str(_text))
+    @commands.cooldown(1, 10, commands.BucketType.user)
+    async def tenor(self, ctx, *, query):
+        tenorUrl = await TENOR.arandom(str(query))
+        e = discord.Embed(colour=RANDOM)
+        e.set_image(url=tenorUrl)
+        await ctx.send(embed=e, mention_author=False)
 
-        embed = discord.Embed(colour=BLUE)
-        embed.set_image(url=tenorUrl)
-        await ctx.message.delete()
-        await ctx.send(embed=embed, mention_author=False)
+
 
 def setup(client):
     client.add_cog(Images(client))

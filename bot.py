@@ -4,18 +4,18 @@ import sys
 import time
 import asyncio
 import logging
+import chalk
 
-from config import EMBED_THUMBNAIL, PREFIX, TOKEN, TWITCH, BLUE
+from config import EMBED_THUMBNAIL, PREFIX, TOKEN, TWITCH, BLUE, GITHUB_REPO, CLIENT_VERSION
 from discord.ext import commands
-from discord.ext.commands import CommandNotFound
 
 from typing import List
 
-activity = discord.Streaming(name=f'with cogs | {PREFIX}help', url=f'https://twitch.tv/{TWITCH}')
+activity = discord.Streaming(name='with cogs | {}help'.format(PREFIX), url='https://twitch.tv/{}'.format(TWITCH))
 
 client = commands.Bot(
-    command_prefix=commands.when_mentioned_or(f'{PREFIX}'),
-    description='Multi-purpose discord bot built in discord.py',
+    command_prefix=('{}'.format(PREFIX)),
+    description='Multi-purpose discord bot built in discord.py\n\n**Version**: {}\n**Repo**: [Socket-Development/Socket-Discord-Bot]({})'.format(CLIENT_VERSION, GITHUB_REPO),
     activity=activity,
     status=discord.Status.online
 )
@@ -28,7 +28,7 @@ class Help(commands.Cog):
 class CustomHelp(commands.MinimalHelpCommand):
     async def send_pages(self):
         destination = self.get_destination()
-        embed = discord.Embed(color=BLUE, description=f'{commands.command}')
+        embed = discord.Embed(color=BLUE, description='')
         embed.set_thumbnail(url='{}'.format(EMBED_THUMBNAIL))
         for page in self.paginator.pages:
             embed.description += page
@@ -38,15 +38,15 @@ client.help_command = CustomHelp()
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
-        client.load_extension(f'cogs.{filename[:-3]}')
-        print(f'Loaded cogs.{filename[:-3]}')
+        client.load_extension('cogs.{}'.format(filename[:-3]))
+        print(chalk.cyan('>>| Loaded cogs.{}'.format(filename[:-3])))
     else:
-        print(f'Unable to load cogs.{filename[:-3]}')
+        print(chalk.yellow('>>| Unable to load cogs.{}'.format(filename[:-3])))
                 
 debug_logger = logging.getLogger('discord')
 debug_logger.setLevel(logging.DEBUG)
-debug_handler = logging.FileHandler(filename='debug-logger.log', encoding='utf-8', mode='w')
+debug_handler = logging.FileHandler(filename='debug.log', encoding='utf-8', mode='w')
 debug_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 debug_logger.addHandler(debug_handler)
         
-client.run(f'{TOKEN}')
+client.run('{}'.format(TOKEN))
