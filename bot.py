@@ -15,7 +15,7 @@ activity = discord.Streaming(name='with cogs | {}help'.format(PREFIX), url='http
 
 client = commands.Bot(
     command_prefix=('{}'.format(PREFIX)),
-    description='Multi-purpose discord bot built in discord.py\n\n**Version**: {}\n**Repo**: [DevCorner-Github/Faestine]({})'.format(CLIENT_VERSION, GITHUB_REPO),
+    description='Multi-purpose Discord bot ready to skill up and boost your server.\n\n**Version**: {}\n**Repo**: [DevCorner-Github/Faestine]({})'.format(CLIENT_VERSION, GITHUB_REPO),
     activity=activity,
     status=discord.Status.online
 )
